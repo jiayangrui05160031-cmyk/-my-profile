@@ -1,2 +1,3 @@
 # -my-profile
-just my setting
+just my resume
+
