@@ -122,6 +122,8 @@ const dicePool = [
 
 
 
+
+
 const ARTICLES_DATA = {
   "ppi": {
     "id": "ppi",
@@ -423,8 +425,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initReadingBadges();
   initMusicToggle();
   initKonamiEaster();
-  initBackToTop();
-  initDateStamp();
+    initBackToTop();
+    initDateStamp();
+    initArenaRune();
   initVoting();
   initNPS();
   initDice();
@@ -1108,4 +1111,36 @@ function initImpactSounds() {
     if (!t) return;
     playTone(880, 0.04, 'triangle', 0.06);
   }, true);
+}
+
+/* ====== 海克斯大乱斗 · 摇符文 ====== */
+const arenaRunes = [
+  { name: '致命节奏', icon: '⚡', desc: '攻速 +18% / 持续 6 秒', color: '#ff6f4c' },
+  { name: '幽灵步伐', icon: '👻', desc: '移动无视单位碰撞 + 移速加成', color: '#4dd0e1' },
+  { name: '征服者', icon: '👑', desc: '对英雄伤害转化为自适应之力', color: '#ffd966' },
+  { name: '电刑', icon: '⚡', desc: '3 秒内 3 次独立攻击 → 爆发伤害', color: '#9d4edd' },
+  { name: '不灭之握', icon: '🛡️', desc: '每 4 秒 +5 永久生命', color: '#6ab04c' },
+  { name: '彗星', icon: '☄️', desc: '技能命中 → 法术伤害', color: '#3b82f6' },
+  { name: '余震', icon: '💥', desc: '定身后 → 爆发双抗', color: '#ff4444' },
+  { name: '奥术彗星', icon: '✨', desc: 'Poke 流必带 —— 远距离骚扰', color: '#a78bfa' },
+  { name: '黑暗收割', icon: '🌑', desc: '低血量目标 +伤害', color: '#171717' },
+  { name: '冰川增幅', icon: '🧊', desc: '主动道具减速 + 减速带', color: '#06b6d4' },
+  { name: '守护者', icon: '🌟', desc: '辅助/坦克: 给自己和队友护盾', color: '#fbbf24' },
+  { name: '启封的秘籍', icon: '📖', desc: '召唤师技能冷却 -20%', color: '#ec4899' },
+];
+
+function initArenaRune() {
+  const btn = document.getElementById('arenaRoll');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    btn.style.transform = 'scale(0.95) rotate(-3deg)';
+    setTimeout(() => { btn.style.transform = ''; }, 150);
+    const rune = arenaRunes[Math.floor(Math.random() * arenaRunes.length)];
+    // 三段递增音 (海克斯风的电子感)
+    playTone(523, 0.08);
+    setTimeout(() => playTone(659, 0.08), 80);
+    setTimeout(() => playTone(880, 0.16), 160);
+    spawnSparkles(window.innerWidth / 2, 200, rune.icon);
+    showToast(`${rune.icon} 海克斯符文：${rune.name} — ${rune.desc}`);
+  });
 }

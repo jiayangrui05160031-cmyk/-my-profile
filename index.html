@@ -60,6 +60,9 @@
           <a class="button button-primary" href="#writing">开始阅读 <span>↓</span></a>
           <a class="button button-ghost" href="resume.html">看看简历 <span>↗</span></a>
           <button class="button button-panda" id="hiPanda" type="button">戳一下熊猫 <span>👋</span></button>
+          <button class="button button-arena" id="arenaRoll" type="button" aria-label="摇一个海克斯符文">
+            <span class="arena-rune">◆</span> 摇一个海克斯符文 <span class="arena-rune">◆</span>
+          </button>
         </div>
 
         <!-- 实时数据统计（GitHub profile API + 假数据混合） -->
@@ -366,30 +369,116 @@
       </div>
 
       <!-- 自我吐槽卡 -->
-      <div class="self-card reveal">
-        <div class="self-avatar">🐼</div>
-        <div class="self-body">
-          <p class="self-name">关于我这个人</p>
-          <ul class="self-traits">
-            <li>✓ 较真到底 —— 数字不交叉验证不放过</li>
-            <li>✓ 较真的同时还想好好玩 —— 这是矛盾的</li>
-            <li>✓ 心情好就直接打招呼，心情差就躲起来</li>
-            <li>✗ 鸡汤文读不下去 —— 太干的不舒服</li>
-            <li>✗ 不喜欢"差不多先生" —— 做事要交代清楚</li>
-            <li>✓ 偶尔会画小熊猫 —— 这是隐藏技能</li>
-          </ul>
-        </div>
-      </div>
+            <!-- 自我吐槽卡 -->
+                  <div class="self-card reveal">
+                    <div class="self-avatar">🐼</div>
+                    <div class="self-body">
+                      <p class="self-name">关于我这个人</p>
+                      <ul class="self-traits">
+                        <li>✓ 较真到底 —— 数字不交叉验证不放过</li>
+                        <li>✓ 较真的同时还想好好玩 —— 这是矛盾的</li>
+                        <li>✓ 心情好就直接打招呼，心情差就躲起来</li>
+                        <li>✗ 鸡汤文读不下去 —— 太干的不舒服</li>
+                        <li>✗ 不喜欢"差不多先生" —— 做事要交代清楚</li>
+                        <li>✓ 偶尔会画小熊猫 —— 这是隐藏技能</li>
+                      </ul>
+                    </div>
+                  </div>
 
-      <!-- 熊猫团队插图 -->
-      <div class="team-illustration reveal">
-        <img src="assets/panda-team_001.jpg" alt="三只研究熊猫：一只写代码、一只研究数据、一只在书堆上睡觉" loading="lazy">
-        <div class="team-caption">
-          <span>研究 · 思考 · 偶尔摆烂</span>
-          <em>research · think · sometimes rest</em>
-        </div>
-      </div>
-    </section>
+                  <!-- 爱好区 -->
+                  <div class="hobbies-block reveal">
+                    <p class="eyebrow">HOBBIES · 下班以后的我</p>
+                    <h2>硬核技术派 + 童心未泯 + 较真思考者</h2>
+                    <p class="hobbies-lead">白天研究宏观经济，晚上拆解 AI 工作流。但我会把游戏、动漫、三国、当代文学揉在一起 —— 看似分裂，但都指向同一个内核：<em>对"好东西"的较真</em>。</p>
+
+                    <div class="hobby-grid">
+                      <div class="hobby-card hobby-lol">
+                        <img src="assets/hobby-lol_001.jpg" alt="玩英雄联盟的熊猫" loading="lazy">
+                        <div class="hobby-meta">
+                          <span class="hobby-tag">MOBA</span>
+                          <h3>英雄联盟 · LOL</h3>
+                          <p>看比赛 > 自己打。喜欢的选手：<strong>Uzi</strong>（永远的神）、<strong>Viper</strong>（最稳的 ADC 之一）。</p>
+                        </div>
+                      </div>
+
+                      <div class="hobby-card hobby-cs2">
+                        <img src="assets/hobby-cs2_001.jpg" alt="打 CS2 的熊猫" loading="lazy">
+                        <div class="hobby-meta">
+                          <span class="hobby-tag">FPS</span>
+                          <h3>CS2 · 城市天际线</h3>
+                          <p>CS2 偶尔天梯，更爱看比赛。支持 <strong>TYLOO</strong>（中国 CNCS 独苗）。城市天际线修路修到凌晨四点。</p>
+                        </div>
+                      </div>
+
+                      <div class="hobby-card hobby-civ6">
+                        <img src="assets/hobby-civ6_001.jpg" alt="玩文明6的熊猫" loading="lazy">
+                        <div class="hobby-meta">
+                          <span class="hobby-tag">4X</span>
+                          <h3>文明6 · Civilization</h3>
+                          <p>再玩一回合就睡 → 凌晨 3 点。开局必抢<strong>秦始皇 / 老子</strong>，最爱宗教胜利但总能不小心科技飞升。</p>
+                        </div>
+                      </div>
+
+                      <div class="hobby-card hobby-arena">
+                        <img src="assets/hobby-arena_001.jpg" alt="海克斯大乱斗主题" loading="lazy">
+                        <div class="hobby-meta hobby-arena-meta">
+                          <span class="hobby-tag">HEXTECH ARENA · 最近酷爱</span>
+                          <h3>海克斯大乱斗</h3>
+                          <p>2v2v2v2 全随机英雄全随机强化符文。最近一周最沉迷模式 —— <strong>打不过就摇色子</strong>。</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 阅读 + 视频 + 思想 -->
+                  <div class="mind-block reveal">
+                    <p class="eyebrow">MIND · 较真的另一面</p>
+                    <h2>我看的东西、读的东西、想的东西</h2>
+
+                    <div class="mind-cols">
+                      <div class="mind-col">
+                        <h4>📚 在读 / 在看</h4>
+                        <ul class="mind-list">
+                          <li><strong>《平凡的世界》</strong> — 路遥。最爱孙少平，平凡的人也可以不平凡</li>
+                          <li><strong>《三国演义》</strong> — 少年读曹操，青年读司马懿。谋略与隐忍</li>
+                          <li><strong>《1984》《娱乐至死》</strong> — 思考者必读</li>
+                          <li><strong>《三体》</strong> — 面壁者罗辑的孤独感我懂</li>
+                        </ul>
+                      </div>
+
+                      <div class="mind-col">
+                        <h4>🎬 视频 / 创作者</h4>
+                        <ul class="mind-list">
+                          <li><strong>HBK08</strong> — 视频质量的天花板，每次看完都学到东西</li>
+                          <li><strong>小约翰可汗</strong> — 硬核狠人 + 奇葩小国系列，下饭神器</li>
+                          <li><strong>乔尔儿</strong> — 文明6 顶级 UP，跟着学套路</li>
+                          <li>看 <strong>LPL</strong>（RNG/EDG/IG），CS2 偶尔看 tyloo</li>
+                        </ul>
+                      </div>
+
+                      <div class="mind-col">
+                        <h4>🤖 工作流</h4>
+                        <ul class="mind-list">
+                          <li><strong>Hermes</strong> + <strong>Codex</strong> + <strong>vibecoding</strong> — 我的日常</li>
+                          <li>专攻 AI 工作流 / Agent 编排 / 自动化研究</li>
+                          <li>最近在折腾：本地小模型 + ReAct + 多模态</li>
+                          <li><strong>多来 A 梦 / 海绵宝宝</strong> — 工作累了就刷一集</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 三国情怀 -->
+                  <div class="sanguo-card reveal">
+                    <img src="assets/hobby-sanguo_001.jpg" alt="三国战场" loading="lazy">
+                    <div class="sanguo-copy">
+                      <p class="eyebrow">三国 · 情怀</p>
+                      <h3>曹操与司马懿：<br>一个是燃烧自己的浪漫，<br>一个是忍耐到底的赢家。</h3>
+                      <p>少年时喜欢曹操 —— "宁教我负天下人"的霸气和诗才。年纪越大越懂司马懿 —— 把所有聪明藏起来，活到笑到最后。<strong>前者是青春，后者是人生。</strong></p>
+                      <p class="sanguo-quote">「夫英雄者，胸怀大志，腹有良谋，有包藏宇宙之机，吞吐天地之志者也。」</p>
+                    </div>
+                  </div>
+                </section>
 
     <!-- ===== CONTACT ===== -->
     <section class="contact section-shell">
