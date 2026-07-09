@@ -3,6 +3,7 @@ id: rfm
 number: "04"
 title: "电商 RFM 用户分群"
 category: "PYTHON · SCIKIT-LEARN · GRADIO"
+cat: "data"
 url: "https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation"
 cover: "assets/cover-rfm_001.jpg"
 coverAlt: "电商 RFM 用户分群"

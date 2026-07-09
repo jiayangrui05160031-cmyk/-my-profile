@@ -3,6 +3,7 @@ id: blog
 number: "05"
 title: "这个博客的源代码"
 category: "博客 · 评论 · 案例研究"
+cat: "data"
 url: "https://github.com/jiayangrui05160031-cmyk/-my-profile"
 cover: "assets/cover-rfm_001.jpg"
 coverAlt: "博客源代码"

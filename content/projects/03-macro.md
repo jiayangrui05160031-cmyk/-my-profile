@@ -3,6 +3,7 @@ id: macro
 number: "03"
 title: "宏观经济智能分析平台"
 category: "PYTHON · 24 模块 · REACT AGENT"
+cat: "macro"
 url: "https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily"
 cover: "assets/cover-macro_001.jpg"
 coverAlt: "宏观经济智能分析平台"

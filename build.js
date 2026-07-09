@@ -92,6 +92,7 @@ const projectsJS = projects.map(p => ({
   number: p.number,
   title: p.title,
   category: p.category,
+  cat: p.cat,
   url: p.url,
   cover: p.cover,
   coverAlt: p.coverAlt || p.title,

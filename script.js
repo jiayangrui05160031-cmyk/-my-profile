@@ -3,154 +3,7 @@
    内容由 content/writing/*.md + content/projects/*.md 通过 build.js 生成
    ========================================================================== */
 
-const ARTICLES_DATA = {
-  "ppi": {
-    "id": "ppi",
-    "number": "01",
-    "featured": true,
-    "kicker": "宏观周期 · 2026-06 · 8 分钟",
-    "title": "PPI 转正之后：这轮工业价格回升，到底有多扎实？",
-    "deck": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
-    "image": "assets/cover-ppi.webp",
-    "alt": "工业价格与库存周期的 3D 数据意象",
-    "body": "<h2>一场很长的负增长</h2>\n<p>本轮 PPI 同比负增长始于 2022 年 10 月，持续时间显著长于过去几轮工业品价格下行周期。它最特别的地方并不是跌得最深，而是拖得足够久：需求不足、房地产调整、产能周期与全球产业链重构同时作用，让价格修复很难靠单一变量解释。</p>\n<p>2026 年 3 月转正，是一个值得标记的时点，却不是周期已经反转的充分证据。判断&quot;成色&quot;，至少要同时看四条线：国际大宗商品、库存、产能利用率与地产需求。</p>\n<h2>价格先动，需求还在路上</h2>\n<p>本轮回升最直接的推力来自原油、铜等国际商品价格。上游采矿和原材料行业先行反弹，涨幅沿产业链向下游逐级衰减，消费品价格仍然偏弱。这与 2016 年供给侧改革带动的上中下游同步修复并不相同。</p>\n<blockquote>\n<p>同比转正回答的是&quot;价格有没有回升&quot;，产业链传导回答的才是&quot;回升能走多远&quot;。</p>\n</blockquote>\n<p>库存数据则给出了第二条线索。规上工业存货与产成品存货从低位回升，企业开始从被动去库切向主动补库。但原材料购进价与出厂价之间的剪刀差仍大，订单改善也不稳定，意味着补库的一部分动力来自涨价预期，而非终端需求的全面扩张。</p>\n<h2>两个约束：产能与地产</h2>\n<p>一季度规模以上工业产能利用率仍处于偏低位置。非金属矿物制品、煤炭等行业的闲置产能，会吸收需求回暖带来的价格弹性。与 2016 年大力度去产能相比，本轮产能出清节奏更平缓，价格上行的斜率自然也更温和。</p>\n<p>更关键的缺席者是房地产。地产链约束建材、黑色金属与耐用消费品价格，也是本轮修复与过去周期最大的不同之一。只有当外部涨价、库存回补逐渐交棒给真实订单与企业资本开支，PPI 回升才会从&quot;读数改善&quot;变成&quot;盈利改善&quot;。</p>\n<h2>我的判断</h2>\n<p>这轮转正是真实的，但暂时更像结构性修复，而不是全面再通胀。接下来最值得观察的不是 PPI 本身，而是新订单、产能利用率、下游利润率与地产链价格能否形成共振。</p>\n",
-    "excerpt": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
-    "cover": "assets/cover-ppi.webp",
-    "coverAlt": "工业价格与库存周期的 3D 数据意象",
-    "category": "宏观周期",
-    "date": "2026-06",
-    "dateISO": "2026-06",
-    "readingMinutes": 8
-  },
-  "supply": {
-    "id": "supply",
-    "number": "02",
-    "featured": false,
-    "kicker": "国际经贸 · 2026-05 · 9 分钟",
-    "title": "中国 + 1：不是离开中国，而是供应链角色的重新分配",
-    "deck": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
-    "image": "assets/cover-supply-chain.webp",
-    "alt": "全球供应链网络的 3D 意象",
-    "body": "<h2>从关税规避开始</h2>\n<p>&quot;中国 + 1&quot;最初并不是企业对中国制造能力的否定，而是高关税与原产地规则之下的现实调整。企业把最后组装转移到第三国，以维持目标市场的成本与准入条件；与此同时，中国对这些承接地的中间品、设备与零部件出口反而快速增长。</p>\n<p>因此，看到终端产能迁出，只看到了故事的一半。另一半是：中国从直接向消费市场出口成品，转向向海外工厂输出一整套生产能力。</p>\n<h2>三种承接地，三种分工</h2>\n<p>越南更像&quot;走廊型&quot;节点，承接电子组装与劳动密集环节，背后仍高度依赖中国零部件；墨西哥依靠 USMCA 与近岸优势，承接面向北美的资本密集制造；非洲依托劳动力、资源与关税条件，形成更长周期的产业梯度。</p>\n<blockquote>\n<p>产能分散不等于价值分散。谁掌握组装背后的设备、材料与标准，谁仍然掌握产业链的核心增值环节。</p>\n</blockquote>\n<h2>&quot;双三角&quot;正在形成</h2>\n<p>一条链路是&quot;中国制造—东盟组装—美欧消费&quot;，另一条是&quot;中国制造—墨西哥组装—北美消费&quot;。两条路径方向不同，却都以中国供应链为共同上游。越南与墨西哥作为连接型经济体，正在把原本的双边贸易关系改写为更复杂的三角网络。</p>\n<p>这也解释了一个看似矛盾的现象：终端出口份额可能被第三国替代，中国的中间品出口与对外投资却同步扩张。制造业竞争力的载体，正在从&quot;产品&quot;变成&quot;系统&quot;。</p>\n<h2>真正的风险在哪里</h2>\n<p>这种结构并非没有脆弱点。更严格的原产地追溯、投资审查和本地化要求，可能继续压缩简单转口空间。中国企业需要把优势从成本与供应速度，进一步推进到核心设备、关键材料、技术服务与全球运营能力。</p>\n",
-    "excerpt": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
-    "cover": "assets/cover-supply-chain.webp",
-    "coverAlt": "全球供应链网络的 3D 意象",
-    "category": "国际经贸",
-    "date": "2026-05",
-    "dateISO": "2026-05",
-    "readingMinutes": 9
-  },
-  "travel": {
-    "id": "travel",
-    "number": "03",
-    "featured": false,
-    "kicker": "服务贸易 · 2026-04 · 7 分钟",
-    "title": "入境旅行不只是旅游生意，也是一次制度体验",
-    "deck": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
-    "image": "assets/cover-service-trade.webp",
-    "alt": "跨境旅行与服务贸易的 3D 意象",
-    "body": "<h2>为什么要从&quot;出口&quot;看旅行</h2>\n<p>旅行服务出口是境外游客在中国购买住宿、交通、餐饮、文化体验等服务形成的收入。它不仅能对冲旅行服务逆差，也提供了一种与货物贸易不同的外汇收入来源。更重要的是，它把文化吸引力转化成了可以衡量的跨境消费。</p>\n<h2>每一段旅程，都是一次压力测试</h2>\n<p>国际游客面对的并不只是景点。签证是否便利、国际航线是否充足、境外银行卡和移动支付是否顺畅、交通与语言服务是否友好，共同构成了真实的旅行产品。</p>\n<blockquote>\n<p>自然景观决定一个人想不想来，制度与服务决定他来了之后愿不愿意消费、会不会再来。</p>\n</blockquote>\n<p>过境免签扩容降低了进入门槛，离境退税与支付便利化降低了消费摩擦，空铁联运扩大了入境流量的辐射范围。几项政策只有形成组合，才能把&quot;流量&quot;真正转化为&quot;留量&quot;。</p>\n<h2>软实力需要转化通道</h2>\n<p>文化、城市与生活方式构成一国的吸引力，但吸引力不会自动变成国际收入。旅行服务出口承担的正是转化功能：让国际游客从远距离观看，变成实地体验、消费和交流。</p>\n<p>未来的增量也不会只来自传统观光。文体体验、康养服务、数字导览与沉浸式文化产品，会推动旅行服务向更高附加值移动。对中国而言，这既是外贸结构升级，也是服务业供给质量的一次系统考试。</p>\n<h2>一个简单的判断</h2>\n<p>提升旅行服务出口，不应只计算新增游客数量，还应持续观察人均消费、停留时长、复游率与支付成功率。只有当这些微观体验指标改善，宏观的开放红利才算真正落地。</p>\n",
-    "excerpt": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
-    "cover": "assets/cover-service-trade.webp",
-    "coverAlt": "跨境旅行与服务贸易的 3D 意象",
-    "category": "服务贸易",
-    "date": "2026-04",
-    "dateISO": "2026-04",
-    "readingMinutes": 7
-  }
-};
-const PROJECTS_DATA = [
-  {
-    "id": "wto",
-    "number": "01",
-    "title": "WTO 跨境政策决策支持",
-    "category": "AI AGENT · USITC · GOV.CN",
-    "url": "https://github.com/jiayangrui05160031-cmyk/chinatrade-decision",
-    "cover": "assets/cover-wto_001.jpg",
-    "coverAlt": "WTO 跨境政策决策支持",
-    "color": "project-coral",
-    "tags": [
-      "Python 3.11",
-      "MiniMax",
-      "FastAPI",
-      "USITC"
-    ],
-    "stars": 1,
-    "excerpt": "查 HS 编码 → 算关税 → 拉最新政策 → 出决策卡。114 测试通过，准确度 93.3%。给中国制造业老板的&quot;该不该接这单&quot;小助手。"
-  },
-  {
-    "id": "video",
-    "number": "02",
-    "title": "多平台视频内容分析 Agent",
-    "category": "LLM AGENT · 多平台聚合",
-    "url": "https://github.com/jiayangrui05160031-cmyk/video-analysis-agent",
-    "cover": "assets/cover-video-agent_001.jpg",
-    "coverAlt": "多平台视频内容分析 Agent",
-    "color": "project-blue",
-    "tags": [
-      "Python",
-      "yt-dlp",
-      "OpenAI",
-      "FastAPI"
-    ],
-    "stars": 0,
-    "excerpt": "给一个 URL，自动告诉你这条视频到底讲了啥 —— 支持 YouTube / B站 / 抖音 / 本地文件。跨视频聚合、弹幕分析、字幕翻译一条龙。"
-  },
-  {
-    "id": "macro",
-    "number": "03",
-    "title": "宏观经济智能分析平台",
-    "category": "PYTHON · 24 模块 · REACT AGENT",
-    "url": "https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily",
-    "cover": "assets/cover-macro_001.jpg",
-    "coverAlt": "宏观经济智能分析平台",
-    "color": "project-ink",
-    "tags": [
-      "Python 3.11",
-      "Hamilton",
-      "GraphRAG",
-      "Docker"
-    ],
-    "stars": 1,
-    "excerpt": "每日抓取人民网 / 中国经济网 → 跑通 24 个分析模块 → 输出 31 节结构化报告 + 现代化驾驶舱 + FastAPI + ReAct Agent。"
-  },
-  {
-    "id": "rfm",
-    "number": "04",
-    "title": "电商 RFM 用户分群",
-    "category": "PYTHON · SCIKIT-LEARN · GRADIO",
-    "url": "https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation",
-    "cover": "assets/cover-rfm_001.jpg",
-    "coverAlt": "电商 RFM 用户分群",
-    "color": "project-yellow",
-    "tags": [
-      "K-Means",
-      "HDBSCAN",
-      "LightGBM",
-      "FP-Growth"
-    ],
-    "stars": 1,
-    "excerpt": "RFM + 三种聚类 + CLV + 流失预测 + 3 个 AI Agent。端到端流水线，HTML 业务报告 + Gradio Chat-with-Data，零售/捐赠/SaaS 都能跑。"
-  },
-  {
-    "id": "blog",
-    "number": "05",
-    "title": "这个博客的源代码",
-    "category": "博客 · 评论 · 案例研究",
-    "url": "https://github.com/jiayangrui05160031-cmyk/-my-profile",
-    "cover": "assets/cover-rfm_001.jpg",
-    "coverAlt": "博客源代码",
-    "color": "project-violet",
-    "tags": [
-      "HTML",
-      "CSS",
-      "Vanilla JS",
-      "Markdown"
-    ],
-    "stars": 1,
-    "excerpt": "本站无框架、不打包，所有花里胡哨的动画都是原生 CSS + JS。三主题切换、Konami Code 彩蛋、樱花飘落、GitHub 实时数据 —— 全部开源。 \n  v4 起 : 内容全部由 Markdown 驱动，写新文章只需要新建一个  .md  文件即可。"
-  }
-];
+
 let articles = {};
 let projectsData = [];
 
@@ -266,6 +119,162 @@ const dicePool = [
    内容加载 (从 ARTICLES_DATA / PROJECTS_DATA / dist/content.json)
    ========================================================================== */
 
+
+
+
+const ARTICLES_DATA = {
+  "ppi": {
+    "id": "ppi",
+    "number": "01",
+    "featured": true,
+    "kicker": "宏观周期 · 2026-06 · 8 分钟",
+    "title": "PPI 转正之后：这轮工业价格回升，到底有多扎实？",
+    "deck": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
+    "image": "assets/cover-ppi.webp",
+    "alt": "工业价格与库存周期的 3D 数据意象",
+    "body": "<h2>一场很长的负增长</h2>\n<p>本轮 PPI 同比负增长始于 2022 年 10 月，持续时间显著长于过去几轮工业品价格下行周期。它最特别的地方并不是跌得最深，而是拖得足够久：需求不足、房地产调整、产能周期与全球产业链重构同时作用，让价格修复很难靠单一变量解释。</p>\n<p>2026 年 3 月转正，是一个值得标记的时点，却不是周期已经反转的充分证据。判断&quot;成色&quot;，至少要同时看四条线：国际大宗商品、库存、产能利用率与地产需求。</p>\n<h2>价格先动，需求还在路上</h2>\n<p>本轮回升最直接的推力来自原油、铜等国际商品价格。上游采矿和原材料行业先行反弹，涨幅沿产业链向下游逐级衰减，消费品价格仍然偏弱。这与 2016 年供给侧改革带动的上中下游同步修复并不相同。</p>\n<blockquote>\n<p>同比转正回答的是&quot;价格有没有回升&quot;，产业链传导回答的才是&quot;回升能走多远&quot;。</p>\n</blockquote>\n<p>库存数据则给出了第二条线索。规上工业存货与产成品存货从低位回升，企业开始从被动去库切向主动补库。但原材料购进价与出厂价之间的剪刀差仍大，订单改善也不稳定，意味着补库的一部分动力来自涨价预期，而非终端需求的全面扩张。</p>\n<h2>两个约束：产能与地产</h2>\n<p>一季度规模以上工业产能利用率仍处于偏低位置。非金属矿物制品、煤炭等行业的闲置产能，会吸收需求回暖带来的价格弹性。与 2016 年大力度去产能相比，本轮产能出清节奏更平缓，价格上行的斜率自然也更温和。</p>\n<p>更关键的缺席者是房地产。地产链约束建材、黑色金属与耐用消费品价格，也是本轮修复与过去周期最大的不同之一。只有当外部涨价、库存回补逐渐交棒给真实订单与企业资本开支，PPI 回升才会从&quot;读数改善&quot;变成&quot;盈利改善&quot;。</p>\n<h2>我的判断</h2>\n<p>这轮转正是真实的，但暂时更像结构性修复，而不是全面再通胀。接下来最值得观察的不是 PPI 本身，而是新订单、产能利用率、下游利润率与地产链价格能否形成共振。</p>\n",
+    "excerpt": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
+    "cover": "assets/cover-ppi.webp",
+    "coverAlt": "工业价格与库存周期的 3D 数据意象",
+    "category": "宏观周期",
+    "date": "2026-06",
+    "dateISO": "2026-06",
+    "readingMinutes": 8
+  },
+  "supply": {
+    "id": "supply",
+    "number": "02",
+    "featured": false,
+    "kicker": "国际经贸 · 2026-05 · 9 分钟",
+    "title": "中国 + 1：不是离开中国，而是供应链角色的重新分配",
+    "deck": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
+    "image": "assets/cover-supply-chain.webp",
+    "alt": "全球供应链网络的 3D 意象",
+    "body": "<h2>从关税规避开始</h2>\n<p>&quot;中国 + 1&quot;最初并不是企业对中国制造能力的否定，而是高关税与原产地规则之下的现实调整。企业把最后组装转移到第三国，以维持目标市场的成本与准入条件；与此同时，中国对这些承接地的中间品、设备与零部件出口反而快速增长。</p>\n<p>因此，看到终端产能迁出，只看到了故事的一半。另一半是：中国从直接向消费市场出口成品，转向向海外工厂输出一整套生产能力。</p>\n<h2>三种承接地，三种分工</h2>\n<p>越南更像&quot;走廊型&quot;节点，承接电子组装与劳动密集环节，背后仍高度依赖中国零部件；墨西哥依靠 USMCA 与近岸优势，承接面向北美的资本密集制造；非洲依托劳动力、资源与关税条件，形成更长周期的产业梯度。</p>\n<blockquote>\n<p>产能分散不等于价值分散。谁掌握组装背后的设备、材料与标准，谁仍然掌握产业链的核心增值环节。</p>\n</blockquote>\n<h2>&quot;双三角&quot;正在形成</h2>\n<p>一条链路是&quot;中国制造—东盟组装—美欧消费&quot;，另一条是&quot;中国制造—墨西哥组装—北美消费&quot;。两条路径方向不同，却都以中国供应链为共同上游。越南与墨西哥作为连接型经济体，正在把原本的双边贸易关系改写为更复杂的三角网络。</p>\n<p>这也解释了一个看似矛盾的现象：终端出口份额可能被第三国替代，中国的中间品出口与对外投资却同步扩张。制造业竞争力的载体，正在从&quot;产品&quot;变成&quot;系统&quot;。</p>\n<h2>真正的风险在哪里</h2>\n<p>这种结构并非没有脆弱点。更严格的原产地追溯、投资审查和本地化要求，可能继续压缩简单转口空间。中国企业需要把优势从成本与供应速度，进一步推进到核心设备、关键材料、技术服务与全球运营能力。</p>\n",
+    "excerpt": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
+    "cover": "assets/cover-supply-chain.webp",
+    "coverAlt": "全球供应链网络的 3D 意象",
+    "category": "国际经贸",
+    "date": "2026-05",
+    "dateISO": "2026-05",
+    "readingMinutes": 9
+  },
+  "travel": {
+    "id": "travel",
+    "number": "03",
+    "featured": false,
+    "kicker": "服务贸易 · 2026-04 · 7 分钟",
+    "title": "入境旅行不只是旅游生意，也是一次制度体验",
+    "deck": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
+    "image": "assets/cover-service-trade.webp",
+    "alt": "跨境旅行与服务贸易的 3D 意象",
+    "body": "<h2>为什么要从&quot;出口&quot;看旅行</h2>\n<p>旅行服务出口是境外游客在中国购买住宿、交通、餐饮、文化体验等服务形成的收入。它不仅能对冲旅行服务逆差，也提供了一种与货物贸易不同的外汇收入来源。更重要的是，它把文化吸引力转化成了可以衡量的跨境消费。</p>\n<h2>每一段旅程，都是一次压力测试</h2>\n<p>国际游客面对的并不只是景点。签证是否便利、国际航线是否充足、境外银行卡和移动支付是否顺畅、交通与语言服务是否友好，共同构成了真实的旅行产品。</p>\n<blockquote>\n<p>自然景观决定一个人想不想来，制度与服务决定他来了之后愿不愿意消费、会不会再来。</p>\n</blockquote>\n<p>过境免签扩容降低了进入门槛，离境退税与支付便利化降低了消费摩擦，空铁联运扩大了入境流量的辐射范围。几项政策只有形成组合，才能把&quot;流量&quot;真正转化为&quot;留量&quot;。</p>\n<h2>软实力需要转化通道</h2>\n<p>文化、城市与生活方式构成一国的吸引力，但吸引力不会自动变成国际收入。旅行服务出口承担的正是转化功能：让国际游客从远距离观看，变成实地体验、消费和交流。</p>\n<p>未来的增量也不会只来自传统观光。文体体验、康养服务、数字导览与沉浸式文化产品，会推动旅行服务向更高附加值移动。对中国而言，这既是外贸结构升级，也是服务业供给质量的一次系统考试。</p>\n<h2>一个简单的判断</h2>\n<p>提升旅行服务出口，不应只计算新增游客数量，还应持续观察人均消费、停留时长、复游率与支付成功率。只有当这些微观体验指标改善，宏观的开放红利才算真正落地。</p>\n",
+    "excerpt": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
+    "cover": "assets/cover-service-trade.webp",
+    "coverAlt": "跨境旅行与服务贸易的 3D 意象",
+    "category": "服务贸易",
+    "date": "2026-04",
+    "dateISO": "2026-04",
+    "readingMinutes": 7
+  }
+};
+const PROJECTS_DATA = [
+  {
+    "id": "wto",
+    "number": "01",
+    "title": "WTO 跨境政策决策支持",
+    "category": "AI AGENT · USITC · GOV.CN",
+    "cat": "ai",
+    "url": "https://github.com/jiayangrui05160031-cmyk/chinatrade-decision",
+    "cover": "assets/cover-wto_001.jpg",
+    "coverAlt": "WTO 跨境政策决策支持",
+    "color": "project-coral",
+    "tags": [
+      "Python 3.11",
+      "MiniMax",
+      "FastAPI",
+      "USITC"
+    ],
+    "stars": 1,
+    "excerpt": "查 HS 编码 → 算关税 → 拉最新政策 → 出决策卡。114 测试通过，准确度 93.3%。给中国制造业老板的&quot;该不该接这单&quot;小助手。"
+  },
+  {
+    "id": "video",
+    "number": "02",
+    "title": "多平台视频内容分析 Agent",
+    "category": "LLM AGENT · 多平台聚合",
+    "cat": "ai",
+    "url": "https://github.com/jiayangrui05160031-cmyk/video-analysis-agent",
+    "cover": "assets/cover-video-agent_001.jpg",
+    "coverAlt": "多平台视频内容分析 Agent",
+    "color": "project-blue",
+    "tags": [
+      "Python",
+      "yt-dlp",
+      "OpenAI",
+      "FastAPI"
+    ],
+    "stars": 0,
+    "excerpt": "给一个 URL，自动告诉你这条视频到底讲了啥 —— 支持 YouTube / B站 / 抖音 / 本地文件。跨视频聚合、弹幕分析、字幕翻译一条龙。"
+  },
+  {
+    "id": "macro",
+    "number": "03",
+    "title": "宏观经济智能分析平台",
+    "category": "PYTHON · 24 模块 · REACT AGENT",
+    "cat": "macro",
+    "url": "https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily",
+    "cover": "assets/cover-macro_001.jpg",
+    "coverAlt": "宏观经济智能分析平台",
+    "color": "project-ink",
+    "tags": [
+      "Python 3.11",
+      "Hamilton",
+      "GraphRAG",
+      "Docker"
+    ],
+    "stars": 1,
+    "excerpt": "每日抓取人民网 / 中国经济网 → 跑通 24 个分析模块 → 输出 31 节结构化报告 + 现代化驾驶舱 + FastAPI + ReAct Agent。"
+  },
+  {
+    "id": "rfm",
+    "number": "04",
+    "title": "电商 RFM 用户分群",
+    "category": "PYTHON · SCIKIT-LEARN · GRADIO",
+    "cat": "data",
+    "url": "https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation",
+    "cover": "assets/cover-rfm_001.jpg",
+    "coverAlt": "电商 RFM 用户分群",
+    "color": "project-yellow",
+    "tags": [
+      "K-Means",
+      "HDBSCAN",
+      "LightGBM",
+      "FP-Growth"
+    ],
+    "stars": 1,
+    "excerpt": "RFM + 三种聚类 + CLV + 流失预测 + 3 个 AI Agent。端到端流水线，HTML 业务报告 + Gradio Chat-with-Data，零售/捐赠/SaaS 都能跑。"
+  },
+  {
+    "id": "blog",
+    "number": "05",
+    "title": "这个博客的源代码",
+    "category": "博客 · 评论 · 案例研究",
+    "cat": "data",
+    "url": "https://github.com/jiayangrui05160031-cmyk/-my-profile",
+    "cover": "assets/cover-rfm_001.jpg",
+    "coverAlt": "博客源代码",
+    "color": "project-violet",
+    "tags": [
+      "HTML",
+      "CSS",
+      "Vanilla JS",
+      "Markdown"
+    ],
+    "stars": 1,
+    "excerpt": "本站无框架、不打包，所有花里胡哨的动画都是原生 CSS + JS。三主题切换、Konami Code 彩蛋、樱花飘落、GitHub 实时数据 —— 全部开源。 \n  v4 起 : 内容全部由 Markdown 驱动，写新文章只需要新建一个  .md  文件即可。"
+  }
+];
 async function loadMarkdownContent() {
   let content = null;
   if (typeof ARTICLES_DATA !== 'undefined' && Object.keys(ARTICLES_DATA).length > 0) {
@@ -335,9 +344,12 @@ function renderProjects(projects) {
   const container = document.getElementById('projectsContainer');
   if (!container || !projects.length) return;
   function guessCat(p) {
+    // 优先用 frontmatter 显式 cat 字段
+    if (p.cat && ['ai', 'data', 'macro'].includes(p.cat)) return p.cat;
+    // fallback: 基于关键词
     const text = ((p.title || '') + ' ' + (p.category || '') + ' ' + (p.excerpt || '') + ' ' + (p.url || '')).toLowerCase();
-    if (/agent|llm|ai|wt|policy|video/.test(text)) return 'ai';
-    if (/macro|经济|宏观|report|daily/.test(text)) return 'macro';
+    if (/macro|经济|宏观|report|daily|日报|政治局/.test(text)) return 'macro';
+    if (/agent|llm|\bai\b|wt|policy|video|chinatrade/.test(text)) return 'ai';
     return 'data';
   }
   let html = '';

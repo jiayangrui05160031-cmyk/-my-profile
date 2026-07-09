@@ -3,6 +3,7 @@ id: wto
 number: "01"
 title: "WTO 跨境政策决策支持"
 category: "AI AGENT · USITC · GOV.CN"
+cat: "ai"
 url: "https://github.com/jiayangrui05160031-cmyk/chinatrade-decision"
 cover: "assets/cover-wto_001.jpg"
 coverAlt: "WTO 跨境政策决策支持"
