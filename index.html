@@ -86,6 +86,18 @@
             <span id="pandaStatus">Jia Yangrui</span>
             <span class="panda-mood">curious by default</span>
           </div>
+
+          <!-- 手写签名 SVG -->
+          <div class="hero-signature" aria-label="贾洋瑞 · Jia Yangrui">
+            <svg viewBox="0 0 300 60" width="240" height="48" aria-hidden="true">
+              <text x="0" y="42" font-family="Noto Serif SC, 'Songti SC', serif"
+                    font-size="36" font-weight="900" fill="currentColor"
+                    letter-spacing="6">贾洋瑞</text>
+              <text x="190" y="42" font-family="'Brush Script MT', cursive, serif"
+                    font-style="italic" font-size="22" fill="var(--coral)">Yangrui</text>
+            </svg>
+            <span class="sig-seal">JYR</span>
+          </div>
         </div>
 
         <!-- 表情切换器 -->
@@ -170,22 +182,44 @@
           <p class="eyebrow">NOW / 此刻</p>
           <h2>正在观察的三个问题</h2>
           <p class="now-meta">更新时间 · <span id="nowDate"></span></p>
+          <p class="now-meta">您也来投一下？点 ▓ 验证</p>
         </div>
         <ol class="question-list">
           <li>
             <span>01</span>
             <p>PPI 修复能否从上游价格，真正传导到企业盈利与有效需求？</p>
-            <div class="vote-bar"><span class="vote-yes" style="width:62%"></span><em>62% 看好</em></div>
+            <div class="vote-bar">
+              <span class="vote-yes" id="vote-1" style="width:62%"></span>
+              <em><span id="vote1-count">62</span>% 看好 · 已投 <span id="vote1-total">1283</span> 票</em>
+            </div>
+            <div class="vote-actions">
+              <button data-vote="1" data-choice="yes" type="button">👍 看好</button>
+              <button data-vote="1" data-choice="no" type="button">👎 看空</button>
+            </div>
           </li>
           <li>
             <span>02</span>
             <p>当产能走出去，中国制造如何继续掌握设备、材料与标准？</p>
-            <div class="vote-bar"><span class="vote-yes" style="width:78%"></span><em>78% 看好</em></div>
+            <div class="vote-bar">
+              <span class="vote-yes" id="vote-2" style="width:78%"></span>
+              <em><span id="vote2-count">78</span>% 看好 · 已投 <span id="vote2-total">892</span> 票</em>
+            </div>
+            <div class="vote-actions">
+              <button data-vote="2" data-choice="yes" type="button">👍 看好</button>
+              <button data-vote="2" data-choice="no" type="button">👎 看空</button>
+            </div>
           </li>
           <li>
             <span>03</span>
             <p>AI Agent 能否把研究者从"搜集信息"中解放出来？</p>
-            <div class="vote-bar"><span class="vote-yes" style="width:91%"></span><em>91% 看好（亲测有效）</em></div>
+            <div class="vote-bar">
+              <span class="vote-yes" id="vote-3" style="width:91%"></span>
+              <em><span id="vote3-count">91</span>% 看好 · 已投 <span id="vote3-total">2104</span> 票</em>
+            </div>
+            <div class="vote-actions">
+              <button data-vote="3" data-choice="yes" type="button">👍 看好</button>
+              <button data-vote="3" data-choice="no" type="button">👎 看空</button>
+            </div>
           </li>
         </ol>
       </div>
@@ -296,13 +330,20 @@
 
       <div class="play-grid">
 
-        <!-- 1. 自我吐槽 -->
+        <!-- 1. NPS 评分：博客体验 -->
         <div class="play-card play-card-quote reveal">
-          <p class="eyebrow">SELF-DESCRIPTION</p>
+          <p class="eyebrow">NPS · 博客体验</p>
           <blockquote id="selfQuote">"比起聪明，我更想做一个较真的人。资料查到底，模型跑到底，话说到位。"</blockquote>
           <div class="quote-controls">
             <button class="button button-ghost" id="nextQuote" type="button">再来一句 ↻</button>
             <span class="quote-count" id="quoteCount">共 0 句</span>
+          </div>
+          <div class="nps-block">
+            <p class="nps-prompt">悄悄打个分（0-10）：</p>
+            <div class="nps-buttons" id="npsButtons">
+              <!-- 0-10 自动生成 -->
+            </div>
+            <p class="nps-result" id="npsResult">目前 0 人评分，谢谢你的耐心</p>
           </div>
         </div>
 
@@ -314,6 +355,7 @@
           <div class="game-meta">
             <span>已配对 · <strong id="gameMatched">0</strong>/6</span>
             <span>用时 · <strong id="gameTime">0</strong>s</span>
+            <span>最佳 · <strong id="gameBest">—</strong></span>
             <button class="button button-panda" id="resetGame" type="button">重置 ↺</button>
           </div>
         </div>
@@ -370,6 +412,34 @@
           <button class="button button-ghost" id="nextHitokoto" type="button">换一句 ↻</button>
         </div>
 
+        <!-- 7. 今日彩蛋骰子 -->
+        <div class="play-card play-card-dice reveal">
+          <p class="eyebrow">TODAY · 今日幸运</p>
+          <p class="dice-display" id="diceDisplay">🐼</p>
+          <p class="dice-text" id="diceText">点一下骰子，看看今天建议你干什么</p>
+          <button class="button button-panda" id="rollDice" type="button">摇一下 🎲</button>
+        </div>
+
+        <!-- 8. 数据卡片（自打自） -->
+        <div class="play-card play-card-stats reveal">
+          <p class="eyebrow">REAL-TIME · 实时数据</p>
+          <div class="live-stats">
+            <div class="live-stat">
+              <strong id="liveHour">--</strong>
+              <span>现在的北京时间</span>
+            </div>
+            <div class="live-stat">
+              <strong id="liveWeekday">—</strong>
+              <span>星期几</span>
+            </div>
+            <div class="live-stat">
+              <strong id="liveVisits">1</strong>
+              <span>今天你已经访问这个页面 <span id="visitTimes">1</span> 次了</span>
+            </div>
+          </div>
+          <p class="live-tip">数据全是客户端实时计算，没有任何后端。<br>你的访问历史只存在你的浏览器本地。</p>
+        </div>
+
       </div>
     </section>
 
@@ -411,6 +481,15 @@
           </ul>
         </div>
       </div>
+
+      <!-- 熊猫团队插图 -->
+      <div class="team-illustration reveal">
+        <img src="assets/panda-team_001.jpg" alt="三只研究熊猫：一只写代码、一只研究数据、一只在书堆上睡觉" loading="lazy">
+        <div class="team-caption">
+          <span>研究 · 思考 · 偶尔摆烂</span>
+          <em>research · think · sometimes rest</em>
+        </div>
+      </div>
     </section>
 
     <!-- ===== CONTACT ===== -->
@@ -433,6 +512,15 @@
             <a class="button button-outline-light" href="resume.html">简历 <span>↗</span></a>
           </div>
         </div>
+      </div>
+
+      <!-- 工作台插图 -->
+      <div class="workspace-illustration reveal">
+        <img src="assets/workspace_001.jpg" alt="研究助理的工作台：咖啡 + 笔记本 + 数据图表 + 灯泡" loading="lazy">
+        <p class="workspace-caption">
+          ☕ 一个研究助理工作台的诗意化表达 —— 大概长这样。<br>
+          <em>actual desk pictures coming soon (maybe)</em>
+        </p>
       </div>
     </section>
   </main>

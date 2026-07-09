@@ -196,6 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initKonamiEaster();
   initBackToTop();
   initDateStamp();
+  initVoting();
+  initNPS();
+  initDice();
+  initLiveTime();
+  initSparkTrail();
+  initImpactSounds();
 });
 
 /* ====== 主题切换 (3 主题循环) ====== */
@@ -777,4 +783,219 @@ function initDateStamp() {
   if (!el) return;
   const d = new Date();
   el.textContent = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/* ==========================================================================
+   v3 新增互动模块
+   ========================================================================== */
+
+/* ====== 投票系统（NOW 区, localStorage） ====== */
+function initVoting() {
+  const KEY = 'jy-votes-';
+  document.querySelectorAll('.vote-actions button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.dataset.vote;
+      const choice = btn.dataset.choice;
+      const bar = document.getElementById('vote-' + q);
+      const countEl = document.getElementById('vote' + q + '-count');
+      const totalEl = document.getElementById('vote' + q + '-total');
+      // 已经投过就别再投
+      if (localStorage.getItem(KEY + q)) {
+        playTone(220, 0.1);  // 提示音
+        showToast('你今天已经投过这个题了，明天再来');
+        return;
+      }
+      localStorage.setItem(KEY + q, choice);
+      // 标记按钮
+      btn.closest('.vote-actions').querySelectorAll('button').forEach(b => b.classList.remove('voted'));
+      btn.classList.add('voted');
+
+      // 更新 UI
+      const curPct = parseInt(countEl.textContent, 10);
+      const curTot = parseInt(totalEl.textContent, 10);
+      const newTot = curTot + 1;
+      const newPct = choice === 'yes' ? curPct + (100 - curPct) / newTot : curPct - curPct / newTot;
+      const final = Math.max(0, Math.min(100, Math.round(newPct)));
+      countEl.textContent = final;
+      totalEl.textContent = newTot;
+      bar.style.width = final + '%';
+
+      playTone(880, 0.08);
+      spawnSparkles(window.innerWidth / 2, window.innerHeight / 2, '✨');
+      showToast(choice === 'yes' ? '👍 看好！记下来了' : '👎 看空！尊重你的判断');
+    });
+  });
+}
+
+/* ====== NPS 评分 ====== */
+function initNPS() {
+  const wrap = document.getElementById('npsButtons');
+  if (!wrap) return;
+  for (let i = 0; i <= 10; i++) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = i;
+    b.dataset.score = i;
+    b.setAttribute('aria-label', `评 ${i} 分`);
+    wrap.appendChild(b);
+  }
+  const KEY = 'jy-nps';
+  const stored = localStorage.getItem(KEY);
+  if (stored !== null) {
+    const btn = wrap.querySelector(`button[data-score="${stored}"]`);
+    if (btn) btn.classList.add('selected');
+    updateNpsResult(parseInt(stored, 10));
+  }
+  wrap.addEventListener('click', e => {
+    const b = e.target.closest('button[data-score]');
+    if (!b) return;
+    wrap.querySelectorAll('button').forEach(x => x.classList.remove('selected'));
+    b.classList.add('selected');
+    const score = parseInt(b.dataset.score, 10);
+    localStorage.setItem(KEY, score);
+    updateNpsResult(score);
+    const messages = {
+      0: '0 分……这是投诉级别 😭 我改',
+      1: '1 分比 0 分好一点但也好不了多少',
+      3: '3 分意思意思收到，我会做更好',
+      5: '5 分不功不过，加油加油',
+      7: '7 分！谢谢！有被鼓励到',
+      9: '9 分！给得这么高，是真的吗',
+      10: '10 分？！那我也给你 10 分熊猫抱抱 🐼'
+    };
+    const msg = messages[score] || `${score} 分，记下了，谢谢！`;
+    playTone(440 + score * 50, 0.1);
+    showToast(msg);
+  });
+}
+
+function updateNpsResult(myScore) {
+  const el = document.getElementById('npsResult');
+  if (!el) return;
+  if (myScore >= 0) {
+    el.innerHTML = `你给了 <strong>${myScore}</strong> 分 · 您的反馈只保存在您浏览器本地 ❤️`;
+  }
+}
+
+/* ====== 今日幸运骰子 ====== */
+const dicePool = [
+  { e: '📚', t: '今天适合读一份学术报告 —— 比如 World Bank 的 Macro Poverty Outlook' },
+  { e: '🤖', t: '今天适合和 LLM 较劲 —— 让 Agent 帮你拉一份 2 万字的政策综述' },
+  { e: '🛌', t: '今天适合补觉 —— 研究助理也需要休息，研究会等你' },
+  { e: '💪', t: '今天适合跑数 —— 把那份拖了 3 天的 PPT 跑出来' },
+  { e: '🌧', t: '今天适合摸鱼 —— 所有人都会原谅你，包括你自己' },
+  { e: '🐼', t: '今天适合吃竹子 —— 哦不对，吃火锅' },
+  { e: '✨', t: '今天适合见朋友 —— 自然科学规律：聊 30 分钟胜过刷 2 小时小红书' },
+  { e: '🧘', t: '今天适合发呆 —— 把脑子清空，也许答案自己会来' },
+];
+
+function initDice() {
+  const btn = document.getElementById('rollDice');
+  const display = document.getElementById('diceDisplay');
+  const text = document.getElementById('diceText');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    display.classList.remove('rolling');
+    void display.offsetWidth;  // reflow trick
+    display.classList.add('rolling');
+    const pick = dicePool[Math.floor(Math.random() * dicePool.length)];
+    setTimeout(() => {
+      display.textContent = pick.e;
+      text.textContent = pick.t;
+      playTone(523, 0.06); setTimeout(() => playTone(659, 0.06), 80); setTimeout(() => playTone(784, 0.12), 160);
+      spawnSparkles(window.innerWidth - 200, window.innerHeight - 300, pick.e);
+    }, 480);
+  });
+}
+
+/* ====== 实时时钟 + 访问计数 ====== */
+function initLiveTime() {
+  const h = document.getElementById('liveHour');
+  const w = document.getElementById('liveWeekday');
+  const v = document.getElementById('liveVisits');
+  const t = document.getElementById('visitTimes');
+  if (!h) return;
+  const KEY = 'jy-visits';
+  const visits = parseInt(localStorage.getItem(KEY) || '0', 10) + 1;
+  localStorage.setItem(KEY, visits);
+  if (v) v.textContent = visits;
+  if (t) t.textContent = visits;
+  const wd = ['日', '一', '二', '三', '四', '五', '六'];
+  function tick() {
+    const d = new Date();
+    h.textContent = d.toLocaleTimeString('zh-CN', { hour12: false });
+    w.textContent = '星期' + wd[d.getDay()];
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+/* ====== 鼠标轨迹粒子 (慢速, 稀疏, 不打扰) ====== */
+function initSparkTrail() {
+  let last = 0;
+  const emojis = ['✨', '🐼', '⭐', '✦'];
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - last < 280) return;
+    last = now;
+    if (Math.random() > 0.4) return;  // 概率触发
+    const el = document.createElement('span');
+    el.className = 'spark-trail';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = e.clientX + 'px';
+    el.style.top = e.clientY + 'px';
+    const dx = (Math.random() - .5) * 80;
+    const dy = (Math.random() - .5) * 80 - 20;
+    el.style.setProperty('--dx', dx + 'px');
+    el.style.setProperty('--dy', dy + 'px');
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1000);
+  });
+}
+
+function spawnSparkles(x, y, emoji = '✨') {
+  for (let i = 0; i < 8; i++) {
+    const el = document.createElement('span');
+    el.className = 'spark-trail';
+    el.textContent = emoji;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    const dx = (Math.random() - .5) * 200;
+    const dy = (Math.random() - .5) * 200;
+    el.style.setProperty('--dx', dx + 'px');
+    el.style.setProperty('--dy', dy + 'px');
+    el.style.fontSize = '24px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1000);
+  }
+}
+
+/* ====== WebAudio 通用音效 ====== */
+let audioCtx = null;
+function getCtx() {
+  if (audioCtx) return audioCtx;
+  try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); return audioCtx; }
+  catch { return null; }
+}
+
+function playTone(freq = 440, dur = 0.08, type = 'sine', volume = 0.12) {
+  const ctx = getCtx();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  osc.connect(gain).connect(ctx.destination);
+  gain.gain.setValueAtTime(volume, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+  osc.start(); osc.stop(ctx.currentTime + dur);
+}
+
+/* ====== 全局自动音效 (鼠标 + 触控轻提示) ====== */
+function initImpactSounds() {
+  // 几乎所有可点击的元素都给个 "tap"
+  document.body.addEventListener('click', (e) => {
+    const t = e.target.closest('button, a.project-card, .mem-card, .mood-btn, .mood-buttons button, .filter-chip, .nps-buttons button, .vote-actions button, .mode-switcher, .play-card');
+    if (!t) return;
+    playTone(880, 0.04, 'triangle', 0.06);
+  }, true);
 }

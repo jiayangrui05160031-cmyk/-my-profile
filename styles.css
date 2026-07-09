@@ -939,6 +939,134 @@ body.reveal-on .reveal { opacity: 0; transform: translateY(26px); transition: op
 body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+/* ====== 投票按钮 ====== */
+.vote-actions { grid-column: 2; display: flex; gap: 8px; margin-top: 8px; }
+.vote-actions button {
+  padding: 6px 14px; border: 1px solid rgba(255,255,255,.34);
+  background: rgba(255,255,255,.08); color: #fff;
+  border-radius: 999px; font-size: 12px; font-weight: 700;
+  transition: all .2s;
+}
+.vote-actions button:hover { background: var(--coral); border-color: var(--coral); transform: translateY(-2px); }
+.vote-actions button.voted { background: var(--bamboo); border-color: var(--bamboo); color: var(--paper); }
+
+/* ====== NPS ====== */
+.nps-block { margin-top: 8px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.nps-prompt { margin: 0 0 8px; color: var(--muted); font-size: 13px; }
+.nps-buttons { display: flex; gap: 4px; flex-wrap: wrap; }
+.nps-buttons button {
+  width: 38px; height: 38px;
+  border: 1px solid var(--line); background: var(--paper);
+  border-radius: 8px; font-weight: 800; font-size: 14px;
+  color: var(--ink);
+  transition: all .15s;
+}
+.nps-buttons button:hover { background: var(--coral); color: #fff; transform: translateY(-3px); border-color: var(--coral); }
+.nps-buttons button.selected { background: var(--coral); color: #fff; border-color: var(--coral); transform: scale(1.15); }
+.nps-result { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+
+/* ====== 骰子 ====== */
+.play-card-dice { text-align: center; }
+.dice-display {
+  margin: 16px 0 8px;
+  font-size: 80px; line-height: 1;
+  animation: diceIdle 4s ease-in-out infinite;
+}
+@keyframes diceIdle {
+  0%, 100% { transform: rotate(-10deg) translateY(0); }
+  50% { transform: rotate(10deg) translateY(-10px); }
+}
+.dice-display.rolling { animation: diceRoll .5s ease-out; }
+@keyframes diceRoll {
+  0% { transform: rotate(0) scale(1); }
+  50% { transform: rotate(720deg) scale(1.4); }
+  100% { transform: rotate(1440deg) scale(1); }
+}
+.dice-text { color: var(--muted); margin: 8px 0 16px; font-size: 14px; min-height: 40px; }
+
+/* ====== 实时数据 ====== */
+.live-stats { display: flex; flex-direction: column; gap: 10px; }
+.live-stat {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 10px 14px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+}
+.live-stat strong {
+  font: 800 22px/1 "JetBrains Mono", monospace;
+  color: var(--coral);
+  font-variant-numeric: tabular-nums;
+}
+.live-stat span { color: var(--muted); font-size: 12px; }
+.live-tip { color: var(--muted); font-size: 11px; margin: 12px 0 0; font-style: italic; }
+
+/* ====== 签名 SVG ====== */
+.hero-signature {
+  margin: 6px auto 0;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: var(--ink);
+  opacity: .85;
+}
+.sig-seal {
+  display: inline-grid; place-items: center;
+  width: 38px; height: 38px;
+  border: 2px solid var(--coral); border-radius: 4px;
+  color: var(--coral); font-weight: 900; font-size: 11px;
+  letter-spacing: -.05em; transform: rotate(-6deg);
+  background: rgba(255, 111, 76, .08);
+  font-family: "JetBrains Mono", monospace;
+}
+.hero-signature svg text {
+  animation: sigSweep 6s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes sigSweep {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+/* ====== 团队插图 + 工作台 ====== */
+.team-illustration, .workspace-illustration {
+  margin-top: 36px; padding: 0;
+  position: relative; border-radius: var(--radius);
+  overflow: hidden; background: var(--paper-2);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.team-illustration img, .workspace-illustration img {
+  width: 100%; height: auto; display: block;
+  transition: transform .8s ease;
+}
+.team-illustration:hover img, .workspace-illustration:hover img { transform: scale(1.03); }
+.team-caption, .workspace-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 20px 28px;
+  background: linear-gradient(0deg, rgba(0,0,0,.7), transparent);
+  color: #fff;
+}
+.team-caption span, .workspace-caption { font-family: "Songti SC", SimSun, serif; font-size: 22px; font-weight: 700; letter-spacing: 4px; }
+.team-caption em { display: block; font-style: italic; font-size: 13px; opacity: .8; margin-top: 4px; letter-spacing: 2px; font-family: monospace; }
+.workspace-illustration { display: grid; grid-template-columns: 1.2fr .8fr; gap: 0; }
+.workspace-illustration img { grid-column: 1; height: 100%; }
+.workspace-caption {
+  position: relative;
+  background: var(--paper); color: var(--ink);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 32px;
+  grid-column: 2;
+}
+.workspace-caption { font-size: 16px; line-height: 1.7; }
+.workspace-caption em { color: var(--coral); font-weight: 700; }
+
+/* ====== 鼠标拖拽粒子 ====== */
+.spark-trail {
+  position: absolute; pointer-events: none; z-index: 9990;
+  font-size: 18px; line-height: 1;
+  animation: sparkFade 1s ease-out forwards;
+}
+@keyframes sparkFade {
+  to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
+}
+
 /* ====== Responsive ====== */
 @media (max-width: 1080px) {
   .hero { grid-template-columns: 1fr; padding-top: 60px; text-align: center; }
