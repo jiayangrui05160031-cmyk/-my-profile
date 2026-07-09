@@ -128,6 +128,7 @@ const dicePool = [
 
 
 
+
 const ARTICLES_DATA = {
   "ppi": {
     "id": "ppi",
@@ -912,31 +913,59 @@ function spawnConfetti() {
 function initMusicToggle() {
   const btn = document.getElementById('musicToggle');
   if (!btn) return;
-  let ctx = null, osc = null, gain = null, playing = false;
-  btn.addEventListener('click', () => {
+  const label = btn.querySelector('.music-label');
+  const audio = new Audio('assets/summer-piano.mp3');
+  audio.preload = 'none';
+  audio.loop = true;
+  audio.volume = 0.45;
+  let playing = false;
+  let loaded = false;
+  const baseLabel = label ? label.textContent : '来点研究时的背景乐';
+  function setLabel(text, kind) {
+    if (!label) return;
+    label.textContent = text;
+    if (kind) label.dataset.kind = kind;
+  }
+  audio.addEventListener('ended', () => {
+    playing = false;
+    btn.classList.remove('playing');
+    setLabel(baseLabel, 'idle');
+  });
+  audio.addEventListener('error', () => {
+    btn.classList.remove('playing', 'loading');
+    setLabel('音乐没加载出来，点我再试', 'error');
+  });
+  btn.addEventListener('click', async () => {
     if (playing) {
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
-      setTimeout(() => { osc?.stop(); playing = false; btn.classList.remove('playing'); }, 700);
+      audio.pause();
+      playing = false;
+      btn.classList.remove('playing');
+      setLabel(baseLabel, 'idle');
       return;
     }
+    if (!loaded) {
+      btn.classList.add('loading');
+      setLabel('Summer · 加载中…', 'loading');
+    }
     try {
-      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-      osc = ctx.createOscillator();
-      const lfo = ctx.createOscillator(); const lfoGain = ctx.createGain();
-      gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = 261.63;
-      lfo.frequency.value = 0.18;
-      lfoGain.gain.value = 200;
-      lfo.connect(lfoGain).connect(osc.frequency);
-      osc.connect(gain).connect(ctx.destination);
-      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 1.5);
-      osc.start(); lfo.start();
+      await audio.play();
+      loaded = true;
       playing = true;
+      btn.classList.remove('loading');
       btn.classList.add('playing');
+      setLabel('♪ Summer · 暂停', 'playing');
     } catch (e) {
-      showToast('🔇 浏览器屏蔽了音频 ～');
+      btn.classList.remove('loading', 'playing');
+      setLabel('🔇 浏览器屏蔽了音频，点这里再试', 'blocked');
+    }
+  });
+  // 离开页面 / 切换 tab 时自动暂停，避免后台继续耗电
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && playing) {
+      audio.pause();
+      playing = false;
+      btn.classList.remove('playing');
+      setLabel(baseLabel, 'idle');
     }
   });
 }

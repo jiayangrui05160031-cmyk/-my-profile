@@ -803,8 +803,16 @@ a.project-card:hover, .project-card:has(.project-arrow):hover { transform: trans
 }
 .music-toggle:hover { background: var(--coral); border-color: var(--coral); transform: translateY(-2px); }
 .music-toggle.playing { background: var(--bamboo); border-color: var(--bamboo); }
+.music-toggle.loading { opacity: .8; cursor: progress; }
 .music-icon { font-size: 18px; animation: rotate 4s linear infinite; }
 .music-toggle:not(.playing) .music-icon { animation: none; }
+.music-credit {
+  margin: 0;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  letter-spacing: .04em;
+  font-style: italic;
+}
 
 .contact-orb {
   position: absolute; width: 500px; height: 500px;
