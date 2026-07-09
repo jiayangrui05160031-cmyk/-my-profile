@@ -451,34 +451,51 @@ img { display: block; max-width: 100%; }
 /* ====== Now ====== */
 .now { padding: 130px 0 20px; }
 .now-card {
-  padding: clamp(40px, 6vw, 80px);
-  display: grid; grid-template-columns: .78fr 1.22fr; gap: 80px;
+  padding: clamp(40px, 5vw, 64px);
+  display: block;
   color: #fff; background: var(--blue);
   border-radius: var(--radius); box-shadow: 0 30px 70px rgba(36,81,219,.2);
 }
+[data-theme="dark"] .now-card { background: linear-gradient(135deg, #1a2540, #0d142a); border: 1px solid rgba(255,255,255,.1); }
 [data-theme="cyber"] .now-card { background: linear-gradient(135deg, var(--paper-2), #2a1a5e); border: 1px solid var(--coral); }
-.now-card .eyebrow { color: #bfcaff; }
-.now-card h2 { font-size: 50px; }
-.now-meta { color: rgba(255,255,255,.7); font-size: 13px; margin: 8px 0 0; }
-.question-list { margin: 0; padding: 0; list-style: none; }
-.question-list li {
-  padding: 22px 0;
-  display: grid; grid-template-columns: 48px 1fr; gap: 12px 20px;
-  border-top: 1px solid rgba(255,255,255,.24);
+.now-card .eyebrow { color: #bfcaff; margin: 0; }
+.now-card h2 { margin: 6px 0 0; font-size: clamp(28px, 3vw, 40px); line-height: 1.25; }
+
+.now-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 24px; flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed rgba(255,255,255,.18);
 }
-.question-list li:last-child { border-bottom: 1px solid rgba(255,255,255,.24); }
-.question-list span { color: #aebdff; font: 700 11px/1.6 Arial, sans-serif; }
-.question-list p { margin: 0; font-family: "Songti SC", SimSun, serif; font-size: 21px; line-height: 1.55; }
+.now-side { text-align: right; }
+.now-date, .now-hint { font-size: 13px; color: rgba(255,255,255,.65); margin-top: 4px; }
+.now-hint { font-size: 12px; opacity: .85; }
+
+.question-list { margin: 0; padding: 0; list-style: none; }
+.q-item {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto;
+  gap: 24px; align-items: center;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255,255,255,.14);
+}
+.q-item:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+.q-num { font-size: 12px; font-weight: 800; letter-spacing: .12em; color: rgba(255,255,255,.4); }
+.q-main { min-width: 0; }
+.q-text { margin: 0 0 10px; font-family: "Songti SC", SimSun, serif; font-size: 19px; line-height: 1.5; }
+.q-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .vote-bar {
-  grid-column: 2; display: flex; align-items: center; gap: 12px;
-  margin-top: 8px; padding: 8px 0;
+  flex: 0 1 200px;
+  height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,.18); overflow: hidden;
 }
 .vote-bar .vote-yes {
-  display: block; height: 6px; border-radius: 3px;
+  display: block; height: 100%; border-radius: 2px;
   background: linear-gradient(90deg, var(--cream), var(--coral));
-  position: relative; transition: width 1.2s cubic-bezier(.34, 1.56, .64, 1);
+  transition: width 1.2s cubic-bezier(.34, 1.56, .64, 1);
 }
-.vote-bar em { font-style: normal; color: rgba(255,255,255,.65); font-size: 12px; font-weight: 700; }
+.vote-counts { font-size: 12px; color: rgba(255,255,255,.7); font-weight: 700; white-space: nowrap; }
+.vote-counts b { color: #fff; font-weight: 800; }
 
 /* ====== Projects ====== */
 .project-filter {
@@ -955,15 +972,18 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 }
 
 /* ====== 投票按钮 ====== */
-.vote-actions { grid-column: 2; display: flex; gap: 8px; margin-top: 8px; }
+.vote-actions { display: flex; gap: 8px; }
 .vote-actions button {
-  padding: 6px 14px; border: 1px solid rgba(255,255,255,.34);
-  background: rgba(255,255,255,.08); color: #fff;
-  border-radius: 999px; font-size: 12px; font-weight: 700;
-  transition: all .2s;
+  width: 38px; height: 38px;
+  padding: 0; border: 1px solid rgba(255,255,255,.28);
+  background: rgba(255,255,255,.06); color: #fff;
+  border-radius: 10px; font-size: 16px;
+  transition: all .18s ease;
+  cursor: pointer;
 }
-.vote-actions button:hover { background: var(--coral); border-color: var(--coral); transform: translateY(-2px); }
-.vote-actions button.voted { background: var(--bamboo); border-color: var(--bamboo); color: var(--paper); }
+.vote-actions button:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.45); transform: translateY(-2px); }
+.vote-actions button.voted { background: var(--bamboo); border-color: var(--bamboo); transform: scale(1.06); }
+.vote-actions button.voted[data-choice="no"] { background: var(--coral); border-color: var(--coral); }
 
 /* ====== NPS ====== */
 .nps-block { margin-top: 8px; padding-top: 12px; border-top: 1px dashed var(--line); }
@@ -1242,7 +1262,9 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
   .play-grid { grid-template-columns: 1fr; }
   .play-grid > * { grid-column: span 1 !important; }
   .about-panel { grid-template-columns: 1fr; gap: 40px; }
-  .now-card { grid-template-columns: 1fr; gap: 30px; padding: 40px; }
+  .now-card { padding: 40px; }
+  .q-item { grid-template-columns: auto minmax(0,1fr) auto; gap: 16px; }
+  .q-text { font-size: 17px; }
   .featured-post { grid-template-columns: 1fr; }
   .post-image { min-height: 280px; }
   .hobby-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1275,57 +1297,8 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 
 
 /* ====== v5 image-system polish: 图片大小 / 题材 / 焦点统一 ====== */
-.visual-brief { padding: 88px 0 10px; }
-.visual-brief-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
-  gap: 28px;
-  align-items: stretch;
-  padding: clamp(28px, 4vw, 50px);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background:
-    radial-gradient(circle at 8% 12%, rgba(255,111,76,.18), transparent 34%),
-    linear-gradient(135deg, rgba(255,255,255,.36), rgba(255,255,255,.08)),
-    var(--paper-2);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.visual-brief-card .eyebrow { grid-column: 1 / -1; margin-bottom: 4px; }
-.visual-brief-copy { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding-right: 6px; }
-.visual-brief-copy h2 {
-  margin: 0 0 14px;
-  font-family: "Songti SC", SimSun, serif;
-  font-size: clamp(30px, 3.3vw, 46px);
-  line-height: 1.18;
-  letter-spacing: -.04em;
-}
-.visual-brief-copy p {
-  margin: 0;
-  max-width: 760px;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.9;
-}
-.visual-brief-copy strong { color: var(--ink); }
-.visual-brief-tags {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-.visual-brief-tags span {
-  min-height: 54px;
-  display: flex; align-items: center; justify-content: center;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 800;
-  text-align: center;
-}
-[data-theme="cyber"] .visual-brief-card { border-color: var(--coral); box-shadow: 0 24px 80px rgba(255,94,156,.20); }
+/* (visual-brief 段落已删除，对应样式一并清理) */
+
 
 .hero { grid-template-columns: minmax(0, 1.04fr) minmax(390px, .96fr); gap: 72px; }
 .hero-visual { min-height: 560px; align-self: center; }
@@ -1413,8 +1386,6 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 .workspace-illustration img { object-fit: cover; object-position: center 48%; min-height: 360px; }
 
 @media (max-width: 1080px) {
-  .visual-brief-card { grid-template-columns: 1fr; }
-  .visual-brief-tags { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .hero { grid-template-columns: 1fr; gap: 42px; }
   .featured-post { grid-template-columns: 1fr; }
   .featured-post .post-image { min-height: 340px; }
@@ -1425,9 +1396,6 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
   .workspace-caption { grid-column: 1; }
 }
 @media (max-width: 720px) {
-  .visual-brief { padding-top: 52px; }
-  .visual-brief-card { padding: 26px; }
-  .visual-brief-tags { grid-template-columns: 1fr 1fr; }
   .portrait-card { width: min(100%, 360px); }
   .portrait-img { height: 330px; }
   .image-subject, .project-visual-label { font-size: 10px; padding: 7px 10px; }

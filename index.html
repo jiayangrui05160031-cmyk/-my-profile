@@ -131,23 +131,6 @@
       </div>
     </section>
 
-    <!-- ===== VISUAL BRIEF ===== -->
-    <section class="visual-brief section-shell" aria-label="博客图片设计说明">
-      <div class="visual-brief-card reveal">
-        <p class="eyebrow">VISUAL SYSTEM · 图片重新排版</p>
-        <div class="visual-brief-copy">
-          <h2>图片不再只是装饰，<br>而是给内容分层。</h2>
-          <p>文章封面偏 <strong>宏观 / 产业 / 服务贸易</strong>，用更克制的 16:10 画幅；项目封面偏 <strong>产品 / Agent / 数据仪表盘</strong>，用更大的 4:3 展示；生活爱好区保留真实题材，但重新控制裁切、大小和焦点。</p>
-        </div>
-        <div class="visual-brief-tags" aria-label="图片题材标签">
-          <span>宏观研究图</span>
-          <span>AI 项目图</span>
-          <span>真实游戏截图</span>
-          <span>三国 / 阅读 / 童年</span>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== WRITING ===== -->
         <section class="writing section-shell" id="writing">
           <div class="section-heading reveal">
@@ -167,47 +150,58 @@
         <!-- ===== NOW ===== -->
     <section class="now section-shell">
       <div class="now-card reveal">
-        <div>
-          <p class="eyebrow">NOW / 此刻</p>
-          <h2>正在观察的三个问题</h2>
-          <p class="now-meta">更新时间 · <span id="nowDate"></span></p>
-          <p class="now-meta">您也来投一下？点 ▓ 验证</p>
-        </div>
+        <header class="now-head">
+          <div>
+            <p class="eyebrow">NOW · 此刻</p>
+            <h2>三个最近在 follow 的问题</h2>
+          </div>
+          <div class="now-side">
+            <div class="now-date">更新 · <time id="nowDate">—</time></div>
+            <div class="now-hint">点 👍 / 👎 站个队 · 结果只存你浏览器</div>
+          </div>
+        </header>
+
         <ol class="question-list">
-          <li>
-            <span>01</span>
-            <p>PPI 修复能否从上游价格，真正传导到企业盈利与有效需求？</p>
-            <div class="vote-bar">
-              <span class="vote-yes" id="vote-1" style="width:62%"></span>
-              <em><span id="vote1-count">62</span>% 看好 · 已投 <span id="vote1-total">1283</span> 票</em>
+          <li class="q-item">
+            <span class="q-num">01</span>
+            <div class="q-main">
+              <p class="q-text">PPI 修复能否从上游价格，真正传导到企业盈利与有效需求？</p>
+              <div class="q-meta">
+                <div class="vote-bar"><span class="vote-yes" id="vote-1" style="width:62%"></span></div>
+                <span class="vote-counts"><b id="vote1-count">62</b>% 看好 · <span id="vote1-total">21</span> 票</span>
+              </div>
             </div>
             <div class="vote-actions">
-              <button data-vote="1" data-choice="yes" type="button">👍 看好</button>
-              <button data-vote="1" data-choice="no" type="button">👎 看空</button>
+              <button data-vote="1" data-choice="yes" type="button" aria-label="看好">👍</button>
+              <button data-vote="1" data-choice="no" type="button" aria-label="看空">👎</button>
             </div>
           </li>
-          <li>
-            <span>02</span>
-            <p>当产能走出去，中国制造如何继续掌握设备、材料与标准？</p>
-            <div class="vote-bar">
-              <span class="vote-yes" id="vote-2" style="width:78%"></span>
-              <em><span id="vote2-count">78</span>% 看好 · 已投 <span id="vote2-total">892</span> 票</em>
+          <li class="q-item">
+            <span class="q-num">02</span>
+            <div class="q-main">
+              <p class="q-text">当产能走出去，中国制造如何继续掌握设备、材料与标准？</p>
+              <div class="q-meta">
+                <div class="vote-bar"><span class="vote-yes" id="vote-2" style="width:78%"></span></div>
+                <span class="vote-counts"><b id="vote2-count">78</b>% 看好 · <span id="vote2-total">31</span> 票</span>
+              </div>
             </div>
             <div class="vote-actions">
-              <button data-vote="2" data-choice="yes" type="button">👍 看好</button>
-              <button data-vote="2" data-choice="no" type="button">👎 看空</button>
+              <button data-vote="2" data-choice="yes" type="button" aria-label="看好">👍</button>
+              <button data-vote="2" data-choice="no" type="button" aria-label="看空">👎</button>
             </div>
           </li>
-          <li>
-            <span>03</span>
-            <p>AI Agent 能否把研究者从"搜集信息"中解放出来？</p>
-            <div class="vote-bar">
-              <span class="vote-yes" id="vote-3" style="width:91%"></span>
-              <em><span id="vote3-count">91</span>% 看好 · 已投 <span id="vote3-total">2104</span> 票</em>
+          <li class="q-item">
+            <span class="q-num">03</span>
+            <div class="q-main">
+              <p class="q-text">AI Agent 能否把研究者从"搜集信息"中解放出来？</p>
+              <div class="q-meta">
+                <div class="vote-bar"><span class="vote-yes" id="vote-3" style="width:91%"></span></div>
+                <span class="vote-counts"><b id="vote3-count">91</b>% 看好 · <span id="vote3-total">47</span> 票</span>
+              </div>
             </div>
             <div class="vote-actions">
-              <button data-vote="3" data-choice="yes" type="button">👍 看好</button>
-              <button data-vote="3" data-choice="no" type="button">👎 看空</button>
+              <button data-vote="3" data-choice="yes" type="button" aria-label="看好">👍</button>
+              <button data-vote="3" data-choice="no" type="button" aria-label="看空">👎</button>
             </div>
           </li>
         </ol>
@@ -367,11 +361,11 @@
       <div class="about-panel reveal">
         <div class="about-title">
           <p class="eyebrow">04 / ABOUT</p>
-          <h2>市场营销教我理解人，<br>经济学教我理解系统。</h2>
+          <h2>研究助理 + 业余开发者，<br>做自贸区、跨境、宏观三件事。</h2>
         </div>
         <div class="about-body">
-          <p class="about-lead">我本科读市场营销，硕士转向国民经济学。这条看起来"不够直"的路线，反而让我习惯同时追问：人为什么这样选择，系统又如何塑造选择。</p>
-          <p>在商务部国际贸易经济合作研究院与国研网，我参与自贸区、产业链和宏观热点研究；在自己的项目里，我用 Python、NLP 与 LLM 缩短从信息到洞察的距离。</p>
+          <p class="about-lead">本科市场营销，硕士国民经济学。在商务部国际贸易经济合作研究院和国研网，做自贸区、产业链、宏观热点的研究助理；业余时间写 Python + LLM 工具，把研究里能自动化的部分尽量自动化。</p>
+          <p>不搞"改变世界"那种大词。只想把每一份报告做扎实，把每一个跑数/写材料的流程做到能跑第二遍。</p>
           <div class="skill-row">
             <span>Python</span><span>Pandas</span><span>scikit-learn</span><span>Stata</span>
             <span>SQL</span><span>Wind</span><span>CEIC</span><span>RAG</span><span>LLM Agent</span>
@@ -404,9 +398,9 @@
 
                   <!-- 爱好区 -->
                   <div class="hobbies-block reveal">
-                    <p class="eyebrow">HOBBIES · 下班以后的我</p>
-                    <h2>硬核技术派 + 童心未泯 + 较真思考者</h2>
-                    <p class="hobbies-lead">白天研究宏观经济，晚上拆解 AI 工作流。但我会把游戏、动漫、三国、当代文学揉在一起 —— 看似分裂，但都指向同一个内核：<em>对"好东西"的较真</em>。</p>
+                    <p class="eyebrow">HOBBIES · 下班以后</p>
+                    <h2>工作之外，全靠这些续命。</h2>
+                    <p class="hobbies-lead">MOBA、FPS、4X、城市建造、策略、动画、漫画、三国、当代文学 —— 工作之外"较真"的活法：能让我专注的就是好的，分不分主流我不在乎。</p>
 
                     <div class="hobby-grid">
                               <div class="hobby-card hobby-lol hobby-multi">
@@ -540,7 +534,7 @@
                         <div class="sanguo-card reveal">
                           <div class="sanguo-shots">
                             <img src="assets/曹操.png" alt="三国曹操剧照" loading="lazy">
-                            <img src="assets/hobby-sanguo_001.jpg" alt="三国意境图：权谋与战场的对照" loading="lazy">
+                            <img src="assets/司马懿.png" alt="三国司马懿剧照" loading="lazy">
                           </div>
                           <div class="sanguo-copy">
                             <p class="eyebrow">三国 · 情怀</p>
