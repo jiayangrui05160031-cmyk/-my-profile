@@ -4,7 +4,10 @@
   "description": "> 一个关于宏观经济、产业观察、数据分析与 AI 工作流的有趣博客。\r > 较真 · 开脑洞 · 不端着。",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js",
+    "verify": "node verify.mjs",
+    "test": "node verify.mjs",
+    "verify:runtime": "node verify.mjs"
   },
   "repository": {
     "type": "git",
