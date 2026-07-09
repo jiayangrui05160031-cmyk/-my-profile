@@ -137,6 +137,13 @@ const dicePool = [
 
 
 
+
+
+
+
+
+
+
 const ARTICLES_DATA = {
   "ppi": {
     "id": "ppi",
@@ -306,10 +313,48 @@ const PROJECTS_DATA = [
     "excerpt": "本站无框架、不打包，所有花里胡哨的动画都是原生 CSS + JS。三主题切换、Konami Code 彩蛋、樱花飘落、GitHub 实时数据 —— 全部开源。 \n  v4 起 : 内容全部由 Markdown 驱动，写新文章只需要新建一个  .md  文件即可。"
   }
 ];
+const THINKINGS_DATA = [
+  {
+    "id": "ai-research-laziness",
+    "title": "AI 让研究助理变懒了吗？",
+    "date": "2026-07-08",
+    "dateISO": "2026-07-08",
+    "mood": "working",
+    "tags": [
+      "AI",
+      "研究方法"
+    ],
+    "html": "<h2>AI 让研究助理变懒了吗？</h2>\n<p>这是个老问题，答案取决于你怎么用它。</p>\n<p>让 AI 直接生成报告 → 它替你较真了，你看不到错误。</p>\n<p>让 AI 写「20 个要点」 → 你要的那些废话会出来，但真正能回答「那又怎样」的论证没出来。</p>\n<p>所以较真的研究助理用 AI 的方式，应该是这样：</p>\n<ul>\n<li>让它做它做得快的事 —— 爬数、整理、检索、改格式。</li>\n<li>自己留下用它无法替代的事 —— 判断、较真、向谁提问、选择用哪条证据。</li>\n</ul>\n<p>AI 越聪明，你越要逼自己先动手跑一遍第一稿 —— 知道手工路径长什么样，才能判断 AI 替你跳过的那一步是不是关键。</p>\n"
+  },
+  {
+    "id": "research-pace",
+    "title": "研究的节奏感",
+    "date": "2026-07-04",
+    "dateISO": "2026-07-04",
+    "mood": "reading",
+    "tags": [
+      "写作",
+      "自我管理"
+    ],
+    "html": "<h2>研究的节奏感</h2>\n<p>写报告的节奏，比写作技巧更难学。</p>\n<p>一天一篇 vs 一周一篇，反映的不是勤奋，是打磨一份报告的能力。</p>\n<p>我写初稿时常觉得「这件事讲清楚要 8000 字」，但编辑时刻意压在 4000 字内。限制字数不是为了凑数，而是逼自己砍掉所有不能回答「那又怎样」的部分。</p>\n<p>节奏的几个信号：</p>\n<ul>\n<li>卡住了就停笔 20 分钟，别硬磨一行。</li>\n<li>写完一节立刻能讲出来 3 句话 —— 这节就立住了。</li>\n<li>写不出来的时候，去查一份原始资料。<strong>好奇心是最好的初稿。</strong></li>\n</ul>\n"
+  },
+  {
+    "id": "panda-dashboard",
+    "title": "把博客写成「可读的仪表盘」",
+    "date": "2026-06-29",
+    "dateISO": "2026-06-29",
+    "mood": "thinking",
+    "tags": [
+      "本博客",
+      "工具"
+    ],
+    "html": "<h2>把博客写成「可读的仪表盘」</h2>\n<p>这个站既不是标准模板，也不是 Notion 风格。</p>\n<p>想做的其实是一块「可读的仪表盘」 —— 文章 + 数据 + 较真的语气，全部混在一处。所有 panel 都是可以点的入口。</p>\n<p>写到现在，最不喜欢的是博客里那种&quot;作者好厉害&quot;的语气。<strong>一个研究助理说人话就够了</strong>，不必每次都「深度」「洞察」「变革」。</p>\n<p>为了让气氛不那么端着，我加了一些没意义但有趣的点：翻牌游戏、终端、一言、撒樱花、彩蛋骰子。这些功能不影响阅读，但每次点开都能让我笑一下。</p>\n<p>技术上有几个值得记下来的选择：</p>\n<ul>\n<li>不用任何前端框架（React / Vue 都不引）</li>\n<li>内容完全 Markdown 驱动，<code>content/*</code> 加文件就能上线</li>\n<li>多套主题切换（牛皮纸默认 + 暗色 + 赛博粉紫）</li>\n<li>所有互动数据存浏览器本地，不上服务端</li>\n</ul>\n<p>下一阶段想做的：把每篇研究的「数据底稿」公开 —— 让读者能下载 csv 看原始来源。</p>\n"
+  }
+];
 async function loadMarkdownContent() {
   let content = null;
   if (typeof ARTICLES_DATA !== 'undefined' && Object.keys(ARTICLES_DATA).length > 0) {
-    content = { writings: Object.values(ARTICLES_DATA), projects: (typeof PROJECTS_DATA !== 'undefined' ? PROJECTS_DATA : []) };
+    content = { writings: Object.values(ARTICLES_DATA), projects: (typeof PROJECTS_DATA !== 'undefined' ? PROJECTS_DATA : []), thinkings: (typeof THINKINGS_DATA !== 'undefined' ? THINKINGS_DATA : []) };
   } else {
     try {
       const r = await fetch('dist/content.json');
@@ -323,6 +368,7 @@ async function loadMarkdownContent() {
   }
   renderWritings(content.writings);
   renderProjects(content.projects || []);
+  renderThinkings(content.thinkings || []);
   articles = {};
   content.writings.forEach(w => { if (w.id) articles[w.id] = w; });
 }
@@ -440,6 +486,34 @@ function renderProjects(projects) {
     const catNames = { all: '全部', ai: '🤖 LLM Agent', data: '📊 数据分析', macro: '🌐 宏观/经贸' };
     chip.textContent = `${catNames[f]} · ${counts[f]}`;
   });
+}
+
+/* ====== THINKINGS 渲染：3 卡片时间倒序 ====== */
+const MOOD_EMOJI = { working: '💻', reading: '📚', thinking: '💭', hello: '👋', angry: '😤', sleepy: '😴' };
+
+function renderThinkings(thinkings) {
+  const container = document.getElementById('thinkingContainer');
+  if (!container) return;
+  if (!thinkings || !thinkings.length) {
+    container.innerHTML = '<div class="loading-hint">还没有想法 · 在 <code>content/thinking/</code> 加一个 .md 试试</div>';
+    return;
+  }
+  let html = '<div class="thinking-list">';
+  thinkings.forEach(t => {
+    const mood = MOOD_EMOJI[t.mood] || '💭';
+    const tagsHtml = (t.tags || []).map(tag => `<span class="thought-tag">#${escapeAttr(tag)}</span>`).join('');
+    html += `
+      <article class="thought reveal">
+        <header class="thought-head">
+          <span class="thought-mood" title="心情">${mood}</span>
+          <time class="thought-date" datetime="${escapeAttr(t.dateISO || '')}">${escapeAttr(t.date || '')}</time>
+          ${tagsHtml}
+        </header>
+        <div class="thought-body">${t.html || ''}</div>
+      </article>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 /* ==========================================================================
@@ -656,15 +730,61 @@ function showToast(msg) {
   showToast._t = setTimeout(() => t.classList.remove('show'), 4000);
 }
 
+/* ====== 熊猫换 look：点击头像循环 5 种 accessory ====== */
+const PANDA_LOOKS = [
+  { key: 'default',   caption: 'Jia Yangrui · curious by default',  speech: '嗨！我是你的博客新门面 🐼',                  toast: '🐼 默认款 · 点一下换装',          tone: 523 },
+  { key: 'glasses',   caption: 'Jia Yangrui · 戴上眼镜',           speech: '先确认样本，再看均值。😅',                      toast: '🤓 进入「较真读数据」模式',       tone: 587 },
+  { key: 'cap',       caption: 'Jia Yangrui · 在写论文',           speech: '论文初稿都长这样：先写一坨废话，再用红笔改。', toast: '🎓 把自己扔进「研究助理」的格子', tone: 659 },
+  { key: 'headphones',caption: 'Jia Yangrui · 进 flow state',      speech: '♪ Summer 响起 · 键盘跟着节奏走',              toast: '🎧 降噪耳机戴好，开工',           tone: 698 },
+  { key: 'mask',      caption: 'Jia Yangrui · 较真中断',           speech: '写到一半发现 formData 漏了一栏 ……',           toast: '😴 较真待机 · 改日再战',           tone: 466 },
+];
+let _pandaLookIdx = 0;
+
+function _applyPandaLook(idx) {
+  const look = PANDA_LOOKS[idx];
+  if (!look) return;
+  const stage = document.getElementById('pandaStage');
+  const bubble = document.getElementById('speechBubble');
+  const status = document.getElementById('pandaStatus');
+  const moodLabel = document.querySelector('.panda-mood');
+  const counter = document.getElementById('lookCounter');
+  if (stage)  stage.dataset.look = look.key;
+  if (bubble) { bubble.style.opacity = '0'; setTimeout(() => { bubble.textContent = look.speech; bubble.style.opacity = ''; }, 160); }
+  if (status) status.textContent = look.caption;
+  if (moodLabel) { moodLabel.style.opacity = '0'; setTimeout(() => { moodLabel.textContent = look.caption; moodLabel.style.opacity = ''; }, 160); }
+  if (counter) counter.textContent = String(idx + 1).padStart(2, '0');
+  try { playTone(look.tone, 0.06); } catch (e) {}
+}
+
 function initPortraits() {
   const card = document.getElementById('pandaCard');
   if (!card) return;
   let clicks = 0;
   card.addEventListener('click', (e) => {
     if (e.target.closest('.mood-switcher')) return;
+    if (e.target.closest('.speech-bubble')) return;
     clicks++;
-    if (clicks === 5) { spawnConfetti(); showToast('🐼 熊猫被戳烦了，开个彩蛋！'); }
+    // 每 5 次循环触发一次彩蛋
+    if (clicks % 5 === 0) {
+      _pandaLookIdx = -1;  // 下一次点击会回到 default (循环)
+      _applyPandaLook(0);
+      spawnConfetti();
+      showToast('🐼 老虎不发威，你当我是 Hello Kitty？');
+      return;
+    }
+    _pandaLookIdx = (_pandaLookIdx + 1) % PANDA_LOOKS.length;
+    _applyPandaLook(_pandaLookIdx);
+    const look = PANDA_LOOKS[_pandaLookIdx];
+    showToast(look.toast);
   });
+  // 暴露给 initMood 用：当用户点特定 mood emoji 时，也同步更新 look
+  window._cyclePandaLook = function(targetKey) {
+    const idx = PANDA_LOOKS.findIndex(l => l.key === targetKey);
+    if (idx >= 0) {
+      _pandaLookIdx = idx;
+      _applyPandaLook(idx);
+    }
+  };
 }
 
 function initHiButton() {

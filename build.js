@@ -24,6 +24,7 @@ const ROOT = __dirname;
 const CONTENT_DIR = path.join(ROOT, 'content');
 const WRITING_DIR = path.join(CONTENT_DIR, 'writing');
 const PROJECTS_DIR = path.join(CONTENT_DIR, 'projects');
+const THINKING_DIR = path.join(CONTENT_DIR, 'thinking');
 const DIST_DIR = path.join(ROOT, 'dist');
 const SCRIPT_JS = path.join(ROOT, 'script.js');
 const MARKER = '/* __BUILD_INJECT_HERE__ */';
@@ -56,12 +57,13 @@ function writeJson(name, data) {
 }
 
 // ===== 1. 加载内容 =====
-const writings = loadDir(WRITING_DIR);
-const projects = loadDir(PROJECTS_DIR);
-console.log(`✓ Loaded ${writings.length} writings, ${projects.length} projects`);
+const writings  = loadDir(WRITING_DIR);
+const projects  = loadDir(PROJECTS_DIR);
+const thinkings = loadDir(THINKING_DIR);
+console.log(`✓ Loaded ${writings.length} writings, ${projects.length} projects, ${thinkings.length} thinking notes`);
 
 // ===== 2. 写出 dist/content.json =====
-writeJson('content.json', { writings, projects });
+writeJson('content.json', { writings, projects, thinkings });
 console.log('✓ Wrote dist/content.json');
 
 // ===== 3. 转换为 articles 结构 (dialog 用) =====
@@ -106,19 +108,47 @@ const projectsJS = projects.map(p => ({
   excerpt: (p.html || '').replace(/<[^>]+>/g, ' ').trim().slice(0, 240),
 }));
 
+const thinkingsJS = thinkings
+  .map(t => {
+    // gray-matter 把 YAML 日期解析成 Date 对象，统一转成字符串
+    const dISO = t.dateISO instanceof Date ? t.dateISO.toISOString().slice(0, 10)
+                : (typeof t.dateISO === 'string' ? t.dateISO : '');
+    const dDisp = t.date instanceof Date ? t.date.toISOString().slice(0, 10)
+                : (typeof t.date === 'string' ? t.date : '');
+    // 优先用 frontmatter 的 title；否则从正文第一个 <h2> 抽
+    let title = t.title;
+    if (!title) {
+      const m = (t.html || '').match(/<h2[^>]*>([^<]+)<\/h2>/);
+      if (m) title = m[1].trim();
+    }
+    if (!title) title = t.id;
+    return {
+      id: t.id,
+      title,
+      date: dDisp,
+      dateISO: dISO,
+      mood: t.mood || 'thinking',
+      tags: t.tags || [],
+      html: t.html || '',
+    };
+  })
+  .sort((a, b) => (b.dateISO || '').localeCompare(a.dateISO || ''));
+
 // ===== 4. 内联到 script.js (替换 MARKER) =====
 // 关键: 替换前先把 script.js 中可能残留的旧 ARTICLES_DATA / PROJECTS_DATA 块清掉,
 // 否则 build 多次会重复注入
 let js = fs.readFileSync(SCRIPT_JS, 'utf8');
 
-// 先剥除任何已存在的 ARTICLES_DATA / PROJECTS_DATA 块 (上次 build 残留)
-js = js.replace(/const ARTICLES_DATA = \{[\s\S]*?^\};\s*\nconst PROJECTS_DATA = \[[\s\S]*?^\];/m, '');
+// 先剥除任何已存在的 ARTICLES_DATA / PROJECTS_DATA / THINKINGS_DATA 块 (上次 build 残留)
+js = js.replace(/const ARTICLES_DATA = \{[\s\S]*?^\};\s*\nconst PROJECTS_DATA = \[[\s\S]*?^\];\s*\nconst THINKINGS_DATA = \[[\s\S]*?^\];/m, '');
 
-// 再剥除可能游离的 PROJECTS_DATA
+// 单条兜底剥除，避免部分字段缺失时漏掉
 js = js.replace(/const PROJECTS_DATA = \[[\s\S]*?^\];/m, '');
+js = js.replace(/const THINKINGS_DATA = \[[\s\S]*?^\];/m, '');
 
 const inlineBlock = `const ARTICLES_DATA = ${JSON.stringify(articles, null, 2)};
 const PROJECTS_DATA = ${JSON.stringify(projectsJS, null, 2)};
+const THINKINGS_DATA = ${JSON.stringify(thinkingsJS, null, 2)};
 `;
 
 if (js.includes(MARKER)) {
