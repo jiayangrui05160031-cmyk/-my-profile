@@ -1,68 +1,160 @@
 /* ==========================================================================
-   贾洋瑞的博客 - 互动逻辑
-   大部分原生 JS, 无依赖
+   贾洋瑞的博客 v4 - Markdown 驱动
+   内容由 content/writing/*.md + content/projects/*.md 通过 build.js 生成
    ========================================================================== */
 
-const articles = {
-  ppi: {
-    kicker: "宏观周期 · 2026.06 · 8 分钟",
-    title: "PPI 转正之后：这轮工业价格回升，到底有多扎实？",
-    deck: "41 个月负增长终于结束。但如果把镜头从一个同比数字拉远，这次修复更像一场由外部价格与库存回补共同推动的阶段性反弹。",
-    image: "assets/cover-ppi.webp",
-    alt: "工业价格与库存周期的 3D 数据意象",
-    body: `
-      <h2>一场很长的负增长</h2>
-      <p>本轮 PPI 同比负增长始于 2022 年 10 月，持续时间显著长于过去几轮工业品价格下行周期。它最特别的地方并不是跌得最深，而是拖得足够久：需求不足、房地产调整、产能周期与全球产业链重构同时作用，让价格修复很难靠单一变量解释。</p>
-      <p>2026 年 3 月转正，是一个值得标记的时点，却不是周期已经反转的充分证据。判断"成色"，至少要同时看四条线：国际大宗商品、库存、产能利用率与地产需求。</p>
-      <h2>价格先动，需求还在路上</h2>
-      <p>本轮回升最直接的推力来自原油、铜等国际商品价格。上游采矿和原材料行业先行反弹，涨幅沿产业链向下游逐级衰减，消费品价格仍然偏弱。这与 2016 年供给侧改革带动的上中下游同步修复并不相同。</p>
-      <blockquote>同比转正回答的是"价格有没有回升"，产业链传导回答的才是"回升能走多远"。</blockquote>
-      <p>库存数据则给出了第二条线索。规上工业存货与产成品存货从低位回升，企业开始从被动去库切向主动补库。但原材料购进价与出厂价之间的剪刀差仍大，订单改善也不稳定，意味着补库的一部分动力来自涨价预期，而非终端需求的全面扩张。</p>
-      <h2>两个约束：产能与地产</h2>
-      <p>一季度规模以上工业产能利用率仍处于偏低位置。非金属矿物制品、煤炭等行业的闲置产能，会吸收需求回暖带来的价格弹性。与 2016 年大力度去产能相比，本轮产能出清节奏更平缓，价格上行的斜率自然也更温和。</p>
-      <p>更关键的缺席者是房地产。地产链约束建材、黑色金属与耐用消费品价格，也是本轮修复与过去周期最大的不同之一。只有当外部涨价、库存回补逐渐交棒给真实订单与企业资本开支，PPI 回升才会从"读数改善"变成"盈利改善"。</p>
-      <h2>我的判断</h2>
-      <p>这轮转正是真实的，但暂时更像结构性修复，而不是全面再通胀。接下来最值得观察的不是 PPI 本身，而是新订单、产能利用率、下游利润率与地产链价格能否形成共振。</p>`
+const ARTICLES_DATA = {
+  "ppi": {
+    "id": "ppi",
+    "number": "01",
+    "featured": true,
+    "kicker": "宏观周期 · 2026-06 · 8 分钟",
+    "title": "PPI 转正之后：这轮工业价格回升，到底有多扎实？",
+    "deck": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
+    "image": "assets/cover-ppi.webp",
+    "alt": "工业价格与库存周期的 3D 数据意象",
+    "body": "<h2>一场很长的负增长</h2>\n<p>本轮 PPI 同比负增长始于 2022 年 10 月，持续时间显著长于过去几轮工业品价格下行周期。它最特别的地方并不是跌得最深，而是拖得足够久：需求不足、房地产调整、产能周期与全球产业链重构同时作用，让价格修复很难靠单一变量解释。</p>\n<p>2026 年 3 月转正，是一个值得标记的时点，却不是周期已经反转的充分证据。判断&quot;成色&quot;，至少要同时看四条线：国际大宗商品、库存、产能利用率与地产需求。</p>\n<h2>价格先动，需求还在路上</h2>\n<p>本轮回升最直接的推力来自原油、铜等国际商品价格。上游采矿和原材料行业先行反弹，涨幅沿产业链向下游逐级衰减，消费品价格仍然偏弱。这与 2016 年供给侧改革带动的上中下游同步修复并不相同。</p>\n<blockquote>\n<p>同比转正回答的是&quot;价格有没有回升&quot;，产业链传导回答的才是&quot;回升能走多远&quot;。</p>\n</blockquote>\n<p>库存数据则给出了第二条线索。规上工业存货与产成品存货从低位回升，企业开始从被动去库切向主动补库。但原材料购进价与出厂价之间的剪刀差仍大，订单改善也不稳定，意味着补库的一部分动力来自涨价预期，而非终端需求的全面扩张。</p>\n<h2>两个约束：产能与地产</h2>\n<p>一季度规模以上工业产能利用率仍处于偏低位置。非金属矿物制品、煤炭等行业的闲置产能，会吸收需求回暖带来的价格弹性。与 2016 年大力度去产能相比，本轮产能出清节奏更平缓，价格上行的斜率自然也更温和。</p>\n<p>更关键的缺席者是房地产。地产链约束建材、黑色金属与耐用消费品价格，也是本轮修复与过去周期最大的不同之一。只有当外部涨价、库存回补逐渐交棒给真实订单与企业资本开支，PPI 回升才会从&quot;读数改善&quot;变成&quot;盈利改善&quot;。</p>\n<h2>我的判断</h2>\n<p>这轮转正是真实的，但暂时更像结构性修复，而不是全面再通胀。接下来最值得观察的不是 PPI 本身，而是新订单、产能利用率、下游利润率与地产链价格能否形成共振。</p>\n",
+    "excerpt": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
+    "cover": "assets/cover-ppi.webp",
+    "coverAlt": "工业价格与库存周期的 3D 数据意象",
+    "category": "宏观周期",
+    "date": "2026-06",
+    "dateISO": "2026-06",
+    "readingMinutes": 8
   },
-  supply: {
-    kicker: "国际经贸 · 2026.05 · 9 分钟",
-    title: "\"中国 + 1\"不是离开中国，而是供应链角色的重新分配",
-    deck: "当组装环节走向越南、墨西哥和非洲，中国制造并没有简单退出。设备、材料、零部件与标准，正在构成一张新的供应链网络。",
-    image: "assets/cover-supply-chain.webp",
-    alt: "全球供应链网络的 3D 意象",
-    body: `
-      <h2>从关税规避开始</h2>
-      <p>"中国 + 1"最初并不是企业对中国制造能力的否定，而是高关税与原产地规则之下的现实调整。企业把最后组装转移到第三国，以维持目标市场的成本与准入条件；与此同时，中国对这些承接地的中间品、设备与零部件出口反而快速增长。</p>
-      <p>因此，看到终端产能迁出，只看到了故事的一半。另一半是：中国从直接向消费市场出口成品，转向向海外工厂输出一整套生产能力。</p>
-      <h2>三种承接地，三种分工</h2>
-      <p>越南更像"走廊型"节点，承接电子组装与劳动密集环节，背后仍高度依赖中国零部件；墨西哥依靠 USMCA 与近岸优势，承接面向北美的资本密集制造；非洲依托劳动力、资源与关税条件，形成更长周期的产业梯度。</p>
-      <blockquote>产能分散不等于价值分散。谁掌握组装背后的设备、材料与标准，谁仍然掌握产业链的核心增值环节。</blockquote>
-      <h2>"双三角"正在形成</h2>
-      <p>一条链路是"中国制造—东盟组装—美欧消费"，另一条是"中国制造—墨西哥组装—北美消费"。两条路径方向不同，却都以中国供应链为共同上游。越南与墨西哥作为连接型经济体，正在把原本的双边贸易关系改写为更复杂的三角网络。</p>
-      <p>这也解释了一个看似矛盾的现象：终端出口份额可能被第三国替代，中国的中间品出口与对外投资却同步扩张。制造业竞争力的载体，正在从"产品"变成"系统"。</p>
-      <h2>真正的风险在哪里</h2>
-      <p>这种结构并非没有脆弱点。更严格的原产地追溯、投资审查和本地化要求，可能继续压缩简单转口空间。中国企业需要把优势从成本与供应速度，进一步推进到核心设备、关键材料、技术服务与全球运营能力。</p>`
+  "supply": {
+    "id": "supply",
+    "number": "02",
+    "featured": false,
+    "kicker": "国际经贸 · 2026-05 · 9 分钟",
+    "title": "中国 + 1：不是离开中国，而是供应链角色的重新分配",
+    "deck": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
+    "image": "assets/cover-supply-chain.webp",
+    "alt": "全球供应链网络的 3D 意象",
+    "body": "<h2>从关税规避开始</h2>\n<p>&quot;中国 + 1&quot;最初并不是企业对中国制造能力的否定，而是高关税与原产地规则之下的现实调整。企业把最后组装转移到第三国，以维持目标市场的成本与准入条件；与此同时，中国对这些承接地的中间品、设备与零部件出口反而快速增长。</p>\n<p>因此，看到终端产能迁出，只看到了故事的一半。另一半是：中国从直接向消费市场出口成品，转向向海外工厂输出一整套生产能力。</p>\n<h2>三种承接地，三种分工</h2>\n<p>越南更像&quot;走廊型&quot;节点，承接电子组装与劳动密集环节，背后仍高度依赖中国零部件；墨西哥依靠 USMCA 与近岸优势，承接面向北美的资本密集制造；非洲依托劳动力、资源与关税条件，形成更长周期的产业梯度。</p>\n<blockquote>\n<p>产能分散不等于价值分散。谁掌握组装背后的设备、材料与标准，谁仍然掌握产业链的核心增值环节。</p>\n</blockquote>\n<h2>&quot;双三角&quot;正在形成</h2>\n<p>一条链路是&quot;中国制造—东盟组装—美欧消费&quot;，另一条是&quot;中国制造—墨西哥组装—北美消费&quot;。两条路径方向不同，却都以中国供应链为共同上游。越南与墨西哥作为连接型经济体，正在把原本的双边贸易关系改写为更复杂的三角网络。</p>\n<p>这也解释了一个看似矛盾的现象：终端出口份额可能被第三国替代，中国的中间品出口与对外投资却同步扩张。制造业竞争力的载体，正在从&quot;产品&quot;变成&quot;系统&quot;。</p>\n<h2>真正的风险在哪里</h2>\n<p>这种结构并非没有脆弱点。更严格的原产地追溯、投资审查和本地化要求，可能继续压缩简单转口空间。中国企业需要把优势从成本与供应速度，进一步推进到核心设备、关键材料、技术服务与全球运营能力。</p>\n",
+    "excerpt": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
+    "cover": "assets/cover-supply-chain.webp",
+    "coverAlt": "全球供应链网络的 3D 意象",
+    "category": "国际经贸",
+    "date": "2026-05",
+    "dateISO": "2026-05",
+    "readingMinutes": 9
   },
-  travel: {
-    kicker: "服务贸易 · 2026.04 · 7 分钟",
-    title: "入境旅行不只是旅游生意，也是一次制度体验",
-    deck: "一个游客从决定出发到完成消费，会依次遇到签证、航线、支付、语言和退税。旅行服务出口，把抽象的制度开放变成了一次可被感知的真实旅程。",
-    image: "assets/cover-service-trade.webp",
-    alt: "跨境旅行与服务贸易的 3D 意象",
-    body: `
-      <h2>为什么要从"出口"看旅行</h2>
-      <p>旅行服务出口是境外游客在中国购买住宿、交通、餐饮、文化体验等服务形成的收入。它不仅能对冲旅行服务逆差，也提供了一种与货物贸易不同的外汇收入来源。更重要的是，它把文化吸引力转化成了可以衡量的跨境消费。</p>
-      <h2>每一段旅程，都是一次压力测试</h2>
-      <p>国际游客面对的并不只是景点。签证是否便利、国际航线是否充足、境外银行卡和移动支付是否顺畅、交通与语言服务是否友好，共同构成了真实的旅行产品。</p>
-      <blockquote>自然景观决定一个人想不想来，制度与服务决定他来了之后愿不愿意消费、会不会再来。</blockquote>
-      <p>过境免签扩容降低了进入门槛，离境退税与支付便利化降低了消费摩擦，空铁联运扩大了入境流量的辐射范围。几项政策只有形成组合，才能把"流量"真正转化为"留量"。</p>
-      <h2>软实力需要转化通道</h2>
-      <p>文化、城市与生活方式构成一国的吸引力，但吸引力不会自动变成国际收入。旅行服务出口承担的正是转化功能：让国际游客从远距离观看，变成实地体验、消费和交流。</p>
-      <p>未来的增量也不会只来自传统观光。文体体验、康养服务、数字导览与沉浸式文化产品，会推动旅行服务向更高附加值移动。对中国而言，这既是外贸结构升级，也是服务业供给质量的一次系统考试。</p>
-      <h2>一个简单的判断</h2>
-      <p>提升旅行服务出口，不应只计算新增游客数量，还应持续观察人均消费、停留时长、复游率与支付成功率。只有当这些微观体验指标改善，宏观的开放红利才算真正落地。</p>`
+  "travel": {
+    "id": "travel",
+    "number": "03",
+    "featured": false,
+    "kicker": "服务贸易 · 2026-04 · 7 分钟",
+    "title": "入境旅行不只是旅游生意，也是一次制度体验",
+    "deck": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
+    "image": "assets/cover-service-trade.webp",
+    "alt": "跨境旅行与服务贸易的 3D 意象",
+    "body": "<h2>为什么要从&quot;出口&quot;看旅行</h2>\n<p>旅行服务出口是境外游客在中国购买住宿、交通、餐饮、文化体验等服务形成的收入。它不仅能对冲旅行服务逆差，也提供了一种与货物贸易不同的外汇收入来源。更重要的是，它把文化吸引力转化成了可以衡量的跨境消费。</p>\n<h2>每一段旅程，都是一次压力测试</h2>\n<p>国际游客面对的并不只是景点。签证是否便利、国际航线是否充足、境外银行卡和移动支付是否顺畅、交通与语言服务是否友好，共同构成了真实的旅行产品。</p>\n<blockquote>\n<p>自然景观决定一个人想不想来，制度与服务决定他来了之后愿不愿意消费、会不会再来。</p>\n</blockquote>\n<p>过境免签扩容降低了进入门槛，离境退税与支付便利化降低了消费摩擦，空铁联运扩大了入境流量的辐射范围。几项政策只有形成组合，才能把&quot;流量&quot;真正转化为&quot;留量&quot;。</p>\n<h2>软实力需要转化通道</h2>\n<p>文化、城市与生活方式构成一国的吸引力，但吸引力不会自动变成国际收入。旅行服务出口承担的正是转化功能：让国际游客从远距离观看，变成实地体验、消费和交流。</p>\n<p>未来的增量也不会只来自传统观光。文体体验、康养服务、数字导览与沉浸式文化产品，会推动旅行服务向更高附加值移动。对中国而言，这既是外贸结构升级，也是服务业供给质量的一次系统考试。</p>\n<h2>一个简单的判断</h2>\n<p>提升旅行服务出口，不应只计算新增游客数量，还应持续观察人均消费、停留时长、复游率与支付成功率。只有当这些微观体验指标改善，宏观的开放红利才算真正落地。</p>\n",
+    "excerpt": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
+    "cover": "assets/cover-service-trade.webp",
+    "coverAlt": "跨境旅行与服务贸易的 3D 意象",
+    "category": "服务贸易",
+    "date": "2026-04",
+    "dateISO": "2026-04",
+    "readingMinutes": 7
   }
 };
+const PROJECTS_DATA = [
+  {
+    "id": "wto",
+    "number": "01",
+    "title": "WTO 跨境政策决策支持",
+    "category": "AI AGENT · USITC · GOV.CN",
+    "url": "https://github.com/jiayangrui05160031-cmyk/chinatrade-decision",
+    "cover": "assets/cover-wto_001.jpg",
+    "coverAlt": "WTO 跨境政策决策支持",
+    "color": "project-coral",
+    "tags": [
+      "Python 3.11",
+      "MiniMax",
+      "FastAPI",
+      "USITC"
+    ],
+    "stars": 1,
+    "excerpt": "查 HS 编码 → 算关税 → 拉最新政策 → 出决策卡。114 测试通过，准确度 93.3%。给中国制造业老板的&quot;该不该接这单&quot;小助手。"
+  },
+  {
+    "id": "video",
+    "number": "02",
+    "title": "多平台视频内容分析 Agent",
+    "category": "LLM AGENT · 多平台聚合",
+    "url": "https://github.com/jiayangrui05160031-cmyk/video-analysis-agent",
+    "cover": "assets/cover-video-agent_001.jpg",
+    "coverAlt": "多平台视频内容分析 Agent",
+    "color": "project-blue",
+    "tags": [
+      "Python",
+      "yt-dlp",
+      "OpenAI",
+      "FastAPI"
+    ],
+    "stars": 0,
+    "excerpt": "给一个 URL，自动告诉你这条视频到底讲了啥 —— 支持 YouTube / B站 / 抖音 / 本地文件。跨视频聚合、弹幕分析、字幕翻译一条龙。"
+  },
+  {
+    "id": "macro",
+    "number": "03",
+    "title": "宏观经济智能分析平台",
+    "category": "PYTHON · 24 模块 · REACT AGENT",
+    "url": "https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily",
+    "cover": "assets/cover-macro_001.jpg",
+    "coverAlt": "宏观经济智能分析平台",
+    "color": "project-ink",
+    "tags": [
+      "Python 3.11",
+      "Hamilton",
+      "GraphRAG",
+      "Docker"
+    ],
+    "stars": 1,
+    "excerpt": "每日抓取人民网 / 中国经济网 → 跑通 24 个分析模块 → 输出 31 节结构化报告 + 现代化驾驶舱 + FastAPI + ReAct Agent。"
+  },
+  {
+    "id": "rfm",
+    "number": "04",
+    "title": "电商 RFM 用户分群",
+    "category": "PYTHON · SCIKIT-LEARN · GRADIO",
+    "url": "https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation",
+    "cover": "assets/cover-rfm_001.jpg",
+    "coverAlt": "电商 RFM 用户分群",
+    "color": "project-yellow",
+    "tags": [
+      "K-Means",
+      "HDBSCAN",
+      "LightGBM",
+      "FP-Growth"
+    ],
+    "stars": 1,
+    "excerpt": "RFM + 三种聚类 + CLV + 流失预测 + 3 个 AI Agent。端到端流水线，HTML 业务报告 + Gradio Chat-with-Data，零售/捐赠/SaaS 都能跑。"
+  },
+  {
+    "id": "blog",
+    "number": "05",
+    "title": "这个博客的源代码",
+    "category": "博客 · 评论 · 案例研究",
+    "url": "https://github.com/jiayangrui05160031-cmyk/-my-profile",
+    "cover": "assets/cover-rfm_001.jpg",
+    "coverAlt": "博客源代码",
+    "color": "project-violet",
+    "tags": [
+      "HTML",
+      "CSS",
+      "Vanilla JS",
+      "Markdown"
+    ],
+    "stars": 1,
+    "excerpt": "本站无框架、不打包，所有花里胡哨的动画都是原生 CSS + JS。三主题切换、Konami Code 彩蛋、樱花飘落、GitHub 实时数据 —— 全部开源。 \n  v4 起 : 内容全部由 Markdown 驱动，写新文章只需要新建一个  .md  文件即可。"
+  }
+];
+let articles = {};
+let projectsData = [];
+
+/* ====== 自定义数据（不依赖 Markdown） ====== */
 
 const selfQuotes = [
   '"比起聪明，我更想做一个较真的人。资料查到底，模型跑到底，话说到位。"',
@@ -159,15 +251,139 @@ const terminalCmds = {
   default: () => `<span class="term-error">命令未识别。键入 help 查看可用命令。</span>`,
 };
 
+const dicePool = [
+  { e: '📚', t: '今天适合读一份学术报告 —— 比如 World Bank 的 Macro Poverty Outlook' },
+  { e: '🤖', t: '今天适合和 LLM 较劲 —— 让 Agent 帮你拉一份 2 万字的政策综述' },
+  { e: '🛌', t: '今天适合补觉 —— 研究助理也需要休息，研究会等你' },
+  { e: '💪', t: '今天适合跑数 —— 把那份拖了 3 天的 PPT 跑出来' },
+  { e: '🌧', t: '今天适合摸鱼 —— 所有人都会原谅你，包括你自己' },
+  { e: '🐼', t: '今天适合吃竹子 —— 哦不对，吃火锅' },
+  { e: '✨', t: '今天适合见朋友 —— 自然科学规律：聊 30 分钟胜过刷 2 小时小红书' },
+  { e: '🧘', t: '今天适合发呆 —— 把脑子清空，也许答案自己会来' },
+];
+
+/* ==========================================================================
+   内容加载 (从 ARTICLES_DATA / PROJECTS_DATA / dist/content.json)
+   ========================================================================== */
+
+async function loadMarkdownContent() {
+  let content = null;
+  if (typeof ARTICLES_DATA !== 'undefined' && Object.keys(ARTICLES_DATA).length > 0) {
+    content = { writings: Object.values(ARTICLES_DATA), projects: (typeof PROJECTS_DATA !== 'undefined' ? PROJECTS_DATA : []) };
+  } else {
+    try {
+      const r = await fetch('dist/content.json');
+      if (r.ok) content = await r.json();
+    } catch (e) {}
+  }
+  if (!content || !content.writings || !content.writings.length) {
+    const c = document.getElementById('writingContainer');
+    if (c) c.innerHTML = '<div class="loading-hint">⚠️ 内容加载失败。请在终端跑：<code>node build.js</code></div>';
+    return;
+  }
+  renderWritings(content.writings);
+  renderProjects(content.projects || []);
+  articles = {};
+  content.writings.forEach(w => { if (w.id) articles[w.id] = w; });
+}
+
+function renderWritings(writings) {
+  const container = document.getElementById('writingContainer');
+  if (!container || !writings.length) return;
+  const featured = writings.find(w => w.featured) || writings[0];
+  const others = writings.filter(w => w.id !== featured.id);
+  let html = `
+    <article class="featured-post reveal" data-article="${featured.id}" tabindex="0">
+      <div class="post-image">
+        <img src="${featured.cover}" alt="${featured.coverAlt || featured.title}" loading="lazy">
+        <span class="post-number">${String(featured.number || '').padStart(2, '0')}</span>
+        <span class="reading-badge" data-reading="${featured.readingMinutes}">${featured.readingMinutes} 分钟</span>
+      </div>
+      <div class="post-copy">
+        <div class="post-meta">
+          <span>${featured.category}</span>
+          <time datetime="${featured.dateISO}">${featured.date}</time>
+        </div>
+        <h3>${featured.title}</h3>
+        <p>${featured.excerpt}</p>
+        <button class="text-link" type="button">阅读全文 <span>↗</span></button>
+      </div>
+    </article>
+    <div class="post-grid">
+  `;
+  others.forEach(w => {
+    html += `
+      <article class="post-card reveal" data-article="${w.id}" tabindex="0">
+        <div class="post-card-image">
+          <img src="${w.cover}" alt="${w.coverAlt || w.title}" loading="lazy">
+        </div>
+        <div class="post-meta">
+          <span>${w.category}</span>
+          <time datetime="${w.dateISO}">${w.date}</time>
+        </div>
+        <h3>${w.title}</h3>
+        <p>${w.excerpt}</p>
+        <button class="text-link" type="button">阅读全文 <span>↗</span></button>
+      </article>
+    `;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function renderProjects(projects) {
+  const container = document.getElementById('projectsContainer');
+  if (!container || !projects.length) return;
+  function guessCat(p) {
+    const text = ((p.title || '') + ' ' + (p.category || '') + ' ' + (p.excerpt || '') + ' ' + (p.url || '')).toLowerCase();
+    if (/agent|llm|ai|wt|policy|video/.test(text)) return 'ai';
+    if (/macro|经济|宏观|report|daily/.test(text)) return 'macro';
+    return 'data';
+  }
+  let html = '';
+  projects.forEach(p => {
+    const cat = guessCat(p);
+    const isExternal = p.url && p.url.startsWith('http');
+    const tagsHtml = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+    const inner = `
+      <div class="project-top">
+        <span>${String(p.number || '').padStart(2, '0')}</span>
+        <span class="project-gh">⭐ ${p.stars || 0}</span>
+      </div>
+      <div class="project-cover">
+        <img src="${p.cover}" alt="${p.coverAlt || p.title}" loading="lazy">
+      </div>
+      <div>
+        <p class="project-type">${p.category}</p>
+        <h3>${p.title}</h3>
+        <p>${p.excerpt}</p>
+        <div class="project-tags">${tagsHtml}</div>
+      </div>
+      ${isExternal ? `<span class="project-arrow">→</span>` : ''}
+    `;
+    const wrap = isExternal ? 'a' : 'article';
+    const linkAttr = isExternal ? `href="${p.url}" target="_blank" rel="noreferrer"` : '';
+    html += `<${wrap} class="project-card ${p.color} reveal" data-cat="${cat}" ${linkAttr}>${inner}</${wrap}>`;
+  });
+  container.innerHTML = html;
+
+  const counts = { all: projects.length, ai: 0, data: 0, macro: 0 };
+  projects.forEach(p => { counts[guessCat(p)]++; });
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    const f = chip.dataset.filter;
+    if (counts[f] === undefined) return;
+    const catNames = { all: '全部', ai: '🤖 LLM Agent', data: '📊 数据分析', macro: '🌐 宏观/经贸' };
+    chip.textContent = `${catNames[f]} · ${counts[f]}`;
+  });
+}
+
 /* ==========================================================================
    初始化
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  // 默认所有 .reveal 处于"待显示"状态
   document.querySelectorAll('.reveal').forEach((el, i) => {
     el.style.transitionDelay = `${Math.min(i % 3, 2) * 80}ms`;
   });
-  // 立刻给所有已经在视口里的加 visible (避免首屏空白)
   document.body.classList.add('reveal-on');
   requestAnimationFrame(() => {
     document.querySelectorAll('.reveal').forEach(el => {
@@ -179,7 +395,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriter();
   initScrollProgress();
   initReveal();
-  initArticleDialog();
+  initImpactSounds();
+  loadMarkdownContent().then(() => bindArticleDialog()).catch(e => console.error('[load]', e));
   initPortraits();
   initMood();
   initMemoryGame();
@@ -201,28 +418,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initDice();
   initLiveTime();
   initSparkTrail();
-  initImpactSounds();
 });
 
-/* ====== 主题切换 (3 主题循环) ====== */
+/* ====== 主题 ====== */
 function initTheme() {
   const themes = ['paper', 'dark', 'cyber'];
   const themes_emoji = { paper: '🎨', dark: '🌙', cyber: '⚡' };
   const root = document.documentElement;
   const btn = document.querySelector('[data-theme-toggle]');
+  if (!btn) return;
   const icon = btn.querySelector('.theme-icon');
-
   const saved = localStorage.getItem('jy-theme') || 'paper';
   root.dataset.theme = saved;
   icon.textContent = themes_emoji[saved] || '🎨';
-
   btn.addEventListener('click', () => {
     const cur = root.dataset.theme || 'paper';
     const next = themes[(themes.indexOf(cur) + 1) % themes.length];
     root.dataset.theme = next;
     icon.textContent = themes_emoji[next];
     localStorage.setItem('jy-theme', next);
-    spawnSakura(8);  // 切主题撒花瓣
+    spawnSakura(8);
   });
 }
 
@@ -235,35 +450,27 @@ function initTypewriter() {
     '欢迎你来我的博客。这里有 1 只熊猫 + 5 个项目 + N 段较真。',
   ];
   const target = document.getElementById('typewriter');
+  if (!target) return;
   let idx = 0, char = 0, deleting = false;
-
   function tick() {
     const line = lines[idx];
     if (!deleting) {
       target.textContent = line.slice(0, ++char);
-      if (char === line.length) {
-        deleting = true;
-        return setTimeout(tick, 1800);
-      }
+      if (char === line.length) { deleting = true; return setTimeout(tick, 1800); }
     } else {
       target.textContent = line.slice(0, --char);
-      if (char === 0) {
-        deleting = false;
-        idx = (idx + 1) % lines.length;
-      }
+      if (char === 0) { deleting = false; idx = (idx + 1) % lines.length; }
     }
     setTimeout(tick, deleting ? 25 : 50);
   }
   tick();
 }
 
-/* ====== 滚动进度条 + 跟随熊猫光标 + 回到顶部 ====== */
 function initScrollProgress() {
   const bar = document.getElementById('scrollBar');
   const panda = document.getElementById('pandaCursor');
+  if (!bar || !panda) return;
   let lastY = 0;
-
-  // 熊猫光标：仅在桌面显示且只在 hero 区域
   document.addEventListener('mousemove', (e) => {
     panda.style.left = e.clientX + 'px';
     panda.style.top = e.clientY + 'px';
@@ -271,23 +478,19 @@ function initScrollProgress() {
   window.addEventListener('scroll', () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
-    const ratio = max > 0 ? (h.scrollTop / max) * 100 : 0;
-    bar.style.width = ratio + '%';
-
-    // 只在 hero 区域显示熊猫光标
-    const heroBottom = document.querySelector('.hero').getBoundingClientRect().bottom;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    const heroBottom = document.querySelector('.hero')?.getBoundingClientRect().bottom ?? 0;
     panda.classList.toggle('active', heroBottom > 0 && lastY < heroBottom);
     lastY = window.scrollY;
   }, { passive: true });
 }
 
 function initBackToTop() {
-  document.getElementById('backToTop').addEventListener('click', () => {
+  document.getElementById('backToTop')?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
 
-/* ====== Reveal (set + auto-show everything as fallback) ====== */
 function initReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -297,59 +500,56 @@ function initReveal() {
       }
     });
   }, { threshold: 0.01, rootMargin: '0px 0px 12% 0px' });
-
   document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-  // 兜底: 1 秒后还在视口外的也强制显示 (不追求完美动画, 但保证有内容)
   setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
-      el.classList.add('visible');
-    });
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
   }, 1500);
 }
 
-/* ====== 文章 dialog ====== */
-function initArticleDialog() {
+function bindArticleDialog() {
   const dialog = document.getElementById('article-dialog');
   const articleContent = document.getElementById('article-content');
+  if (!dialog || !articleContent) return;
 
   function openArticle(key) {
     const article = articles[key];
-    if (!article) return;
+    if (!article) { console.warn('[dialog] no article:', key); return; }
+    const kicker = article.kicker || `${article.category || ''} · ${article.date || ''} · ${article.readingMinutes || '?'} 分钟`;
+    const title = article.title;
+    const deck = article.deck || article.excerpt;
+    const image = article.image || article.cover;
+    const alt = article.alt || article.coverAlt || title;
+    const body = article.body || article.html;
     articleContent.innerHTML = `
-      <p class="article-kicker">${article.kicker}</p>
-      <h1>${article.title}</h1>
-      <p class="article-deck">${article.deck}</p>
-      <img src="${article.image}" alt="${article.alt}">
-      ${article.body}
+      <p class="article-kicker">${kicker}</p>
+      <h1>${title}</h1>
+      <p class="article-deck">${deck}</p>
+      <img src="${image}" alt="${alt}">
+      ${body}
       <p class="article-note">本文整理自个人研究项目，内容仅代表作者的阶段性观察。</p>`;
-    dialog.showModal();
+    if (typeof dialog.showModal === 'function') dialog.showModal();
     document.body.classList.add('dialog-open');
     dialog.scrollTop = 0;
-    startReadingToast(key);
   }
-
   function closeDialog() {
-    dialog.close();
+    if (typeof dialog.close === 'function') dialog.close();
     document.body.classList.remove('dialog-open');
   }
-
-  document.querySelectorAll('[data-article]').forEach((card) => {
-    card.addEventListener('click', () => openArticle(card.dataset.article));
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openArticle(card.dataset.article);
-      }
-    });
+  document.body.addEventListener('click', (e) => {
+    if (e.target.closest('a[href]')) return;
+    const card = e.target.closest('[data-article]');
+    if (card) { e.preventDefault(); openArticle(card.dataset.article); }
   });
-
-  document.querySelector('.dialog-close').addEventListener('click', closeDialog);
+  document.body.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest && event.target.closest('[data-article]');
+    if (card) { event.preventDefault(); openArticle(card.dataset.article); }
+  });
+  document.querySelector('.dialog-close')?.addEventListener('click', closeDialog);
   dialog.addEventListener('click', (event) => { if (event.target === dialog) closeDialog(); });
   dialog.addEventListener('close', () => document.body.classList.remove('dialog-open'));
 }
 
-/* ====== 阅读 badge -> 倒计时 -> 阅读完成 toast ====== */
 function initReadingBadges() {
   document.querySelectorAll('.reading-badge').forEach((badge) => {
     const article = badge.closest('[data-article]');
@@ -368,7 +568,8 @@ function initReadingBadges() {
           badge.classList.remove('reading');
           badge.classList.add('read-done');
           badge.textContent = '✓ 已读';
-          showToast(`🎉 完成阅读「${articles[article.dataset.article]?.title.slice(0, 12)}…」+10 分较真度`);
+          const t = articles[article.dataset.article]?.title || '文章';
+          showToast(`🎉 完成阅读「${t.slice(0, 12)}…」+10 分较真度`);
         } else if (left % 60 === 0) {
           badge.textContent = `剩 ${left / 60} 分钟`;
         }
@@ -382,16 +583,13 @@ function initReadingBadges() {
 
 function showToast(msg) {
   const t = document.getElementById('readToast');
+  if (!t) return;
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(showToast._t);
   showToast._t = setTimeout(() => t.classList.remove('show'), 4000);
 }
 
-let _readTimer = null;
-function startReadingToast(key) { /* 占位, 文章看一遍后给提示 */ }
-
-/* ====== 熊猫互动 ====== */
 function initPortraits() {
   const card = document.getElementById('pandaCard');
   if (!card) return;
@@ -399,15 +597,12 @@ function initPortraits() {
   card.addEventListener('click', (e) => {
     if (e.target.closest('.mood-switcher')) return;
     clicks++;
-    if (clicks === 5) {
-      spawnConfetti();
-      showToast('🐼 熊猫被戳烦了，开个彩蛋！');
-    }
+    if (clicks === 5) { spawnConfetti(); showToast('🐼 熊猫被戳烦了，开个彩蛋！'); }
   });
 }
 
 function initHiButton() {
-  document.getElementById('hiPanda').addEventListener('click', () => {
+  document.getElementById('hiPanda')?.addEventListener('click', () => {
     spawnConfetti();
     const phrases = ['👋 你好！欢迎来逛', '🐼 熊猫给你比个心', '✨ 抱歉今天有点忙，先自我介绍'];
     showToast(phrases[Math.floor(Math.random() * phrases.length)]);
@@ -419,18 +614,13 @@ function initMood() {
   const status = document.getElementById('pandaStatus');
   const moodLabel = document.querySelector('.panda-mood');
   const btns = document.querySelectorAll('.mood-btn');
-  let seq = ['hello', 'working', 'reading', 'thinking', 'angry', 'sleepy'];
-  let i = seq.indexOf('hello');
-
+  if (!btns.length) return;
   function setMood(k) {
-    i = seq.indexOf(k);
-    if (i < 0) i = 0;
     const data = pandaMoods[k];
     if (!data) return;
-    speech.textContent = data.text;
-    status.textContent = 'Jia Yangrui · ' + data.next;
-    moodLabel.textContent = data.text;
-    moodLabel.classList.add('mood-active');
+    if (speech) speech.textContent = data.text;
+    if (status) status.textContent = 'Jia Yangrui · ' + data.next;
+    if (moodLabel) { moodLabel.textContent = data.text; moodLabel.classList.add('mood-active'); }
     btns.forEach(b => b.classList.toggle('active', b.dataset.mood === k));
     spawnSakura(3);
   }
@@ -438,14 +628,12 @@ function initMood() {
   setMood('hello');
 }
 
-/* ====== 记忆翻牌游戏 ====== */
 function initMemoryGame() {
   const board = document.getElementById('memoryBoard');
   if (!board) return;
   const icons = ['🐼', '📊', '🤖', '🌐', '📚', '🛠'];
   let cards = [...icons, ...icons].sort(() => Math.random() - 0.5);
   let first = null, lock = false, matched = 0, startTime = 0, timer = null;
-
   function build() {
     board.innerHTML = '';
     cards.forEach((icon, idx) => {
@@ -461,7 +649,6 @@ function initMemoryGame() {
     if (timer) clearInterval(timer);
     timer = null;
   }
-
   function flip(c, idx) {
     if (lock || c.classList.contains('flipped') || c.classList.contains('matched')) return;
     c.classList.add('flipped');
@@ -495,18 +682,15 @@ function initMemoryGame() {
       }, 700);
     }
   }
-
-  document.getElementById('resetGame').addEventListener('click', build);
+  document.getElementById('resetGame')?.addEventListener('click', build);
   build();
 }
 
-/* ====== 终端 ====== */
 function initTerminal() {
   const term = document.getElementById('terminalCard');
   const body = document.getElementById('termBody');
   const input = document.getElementById('termInput');
   if (!term || !input) return;
-
   function writeLine(html) {
     if (html === null) return;
     const p = document.createElement('p');
@@ -515,7 +699,6 @@ function initTerminal() {
     body.appendChild(p);
     body.scrollTop = body.scrollHeight;
   }
-
   function run(cmd) {
     writeLine(`<span style="color:#aeb6c3">visitor@jyr-lab</span> $ ${cmd}`);
     const handler = terminalCmds[cmd.toLowerCase()] || terminalCmds.default;
@@ -523,7 +706,6 @@ function initTerminal() {
     if (Array.isArray(out)) out.forEach(writeLine);
     else if (typeof out === 'string') writeLine(out);
   }
-
   function exec(e) {
     if (e.key !== 'Enter') return;
     const v = input.value.trim();
@@ -531,29 +713,20 @@ function initTerminal() {
     run(v);
     input.value = '';
   }
-
   input.addEventListener('keydown', exec);
-
-  // 终端里可点击的链接
   body.addEventListener('click', (e) => {
     const t = e.target;
     if (t.classList.contains('term-link')) {
       const link = t.dataset.link || t.dataset.term;
-      if (link) {
-        if (link.startsWith('http')) window.open(link, '_blank', 'noreferrer');
-        else run(link);
-      }
+      if (link) link.startsWith('http') ? window.open(link, '_blank', 'noreferrer') : run(link);
     }
   });
-
-  // 自动跳出 (focus on click)
   term.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') return;
     input.focus();
   });
 }
 
-/* ====== 自我吐槽 / 一言 ====== */
 function initQuotes() {
   const quote = document.getElementById('selfQuote');
   const count = document.getElementById('quoteCount');
@@ -561,41 +734,33 @@ function initQuotes() {
   if (!quote || !btn) return;
   let idx = 0;
   count.textContent = `共 ${selfQuotes.length} 句`;
+  quote.style.transition = 'opacity .2s';
   btn.addEventListener('click', () => {
     idx = (idx + 1) % selfQuotes.length;
     quote.style.opacity = 0;
-    setTimeout(() => {
-      quote.textContent = selfQuotes[idx];
-      quote.style.opacity = 1;
-    }, 200);
+    setTimeout(() => { quote.textContent = selfQuotes[idx]; quote.style.opacity = 1; }, 200);
   });
-  quote.style.transition = 'opacity .2s';
 }
 
 function initHitokoto() {
   const q = document.getElementById('hitokoto');
   const btn = document.getElementById('nextHitokoto');
   if (!q || !btn) return;
+  q.style.transition = 'opacity .2s';
   btn.addEventListener('click', () => {
     const next = hitokotoList[Math.floor(Math.random() * hitokotoList.length)];
     q.style.opacity = 0;
     setTimeout(() => { q.textContent = next; q.style.opacity = 1; }, 200);
   });
-  q.style.transition = 'opacity .2s';
 }
 
-/* ====== 心情按钮（本地存储累计） ====== */
 function initMoodButtons() {
   const wrap = document.getElementById('moodButtons');
   const out = document.getElementById('moodResult');
   const cEl = document.getElementById('moodCount');
   if (!wrap) return;
-  const KEY = 'jy-mood-today';
   function todayKey() { return 'jy-mood-' + new Date().toISOString().slice(0, 10); }
-  function load() {
-    try { return JSON.parse(localStorage.getItem(todayKey()) || '[]'); }
-    catch { return []; }
-  }
+  function load() { try { return JSON.parse(localStorage.getItem(todayKey()) || '[]'); } catch { return []; } }
   function save(arr) { localStorage.setItem(todayKey(), JSON.stringify(arr)); }
   function renderCount() { cEl.textContent = load().length; }
   renderCount();
@@ -606,13 +771,12 @@ function initMoodButtons() {
     arr.push({ tag: b.dataset.moodTag, t: Date.now() });
     save(arr);
     renderCount();
-    out.innerHTML = `已记录。累计今天已经有 <strong>${arr.length}</strong> 个人点过了。同类：${b.dataset.moodTag}`;
+    if (out) out.innerHTML = `已记录。累计今天已经有 <strong>${arr.length}</strong> 个人点过了。同类：${b.dataset.moodTag}`;
     b.style.transform = 'scale(1.2)';
     setTimeout(() => b.style.transform = '', 200);
   });
 }
 
-/* ====== 项目筛选 ====== */
 function initProjectFilter() {
   const chips = document.querySelectorAll('.filter-chip');
   const cards = document.querySelectorAll('.project-card[data-cat]');
@@ -620,20 +784,15 @@ function initProjectFilter() {
     chips.forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     const f = chip.dataset.filter;
-    cards.forEach(c => {
-      const match = f === 'all' || c.dataset.cat === f;
-      c.classList.toggle('hidden', !match);
-    });
+    cards.forEach(c => { c.classList.toggle('hidden', !(f === 'all' || c.dataset.cat === f)); });
   }));
 }
 
-/* ====== GitHub 实时数据（公共 API） ====== */
 async function initGHStats() {
   const sR = document.getElementById('statRepos');
   const sS = document.getElementById('statStars');
   if (!sR) return;
   sR.classList.add('loading-pulse'); sS.classList.add('loading-pulse');
-
   try {
     const r = await fetch('https://api.github.com/users/jiayangrui05160031-cmyk/repos?per_page=100');
     if (!r.ok) throw 0;
@@ -642,12 +801,10 @@ async function initGHStats() {
     const stars = mine.reduce((s, x) => s + (x.stargazers_count || 0), 0);
     animateNum(sR, mine.length, 600);
     animateNum(sS, stars, 800);
-    sR.classList.remove('loading-pulse'); sS.classList.remove('loading-pulse');
   } catch {
-    // 离线或被 rate limit 时使用静态默认值
     sR.textContent = 5; sS.textContent = 4;
-    sR.classList.remove('loading-pulse'); sS.classList.remove('loading-pulse');
   }
+  sR.classList.remove('loading-pulse'); sS.classList.remove('loading-pulse');
 }
 
 function animateNum(el, target, duration) {
@@ -661,13 +818,7 @@ function animateNum(el, target, duration) {
   requestAnimationFrame(step);
 }
 
-/* ====== 樱花飘落 ====== */
-function initSakura() {
-  spawnSakura(20);
-  // 每隔 6 秒补一波
-  setInterval(() => spawnSakura(2), 6000);
-}
-
+function initSakura() { spawnSakura(20); setInterval(() => spawnSakura(2), 6000); }
 function spawnSakura(n = 1) {
   const layer = document.getElementById('sakuraLayer');
   if (!layer) return;
@@ -701,12 +852,10 @@ function spawnConfetti() {
   }
 }
 
-/* ====== 背景音乐（程序生成、纯 WebAudio） ====== */
 function initMusicToggle() {
   const btn = document.getElementById('musicToggle');
   if (!btn) return;
   let ctx = null, osc = null, gain = null, playing = false;
-
   btn.addEventListener('click', () => {
     if (playing) {
       gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
@@ -719,9 +868,9 @@ function initMusicToggle() {
       const lfo = ctx.createOscillator(); const lfoGain = ctx.createGain();
       gain = ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.value = 261.63;  // C4
-      lfo.frequency.value = 0.18;     // 超慢呼吸
-      lfoGain.gain.value = 200;       // 频率摆动 ±200Hz
+      osc.frequency.value = 261.63;
+      lfo.frequency.value = 0.18;
+      lfoGain.gain.value = 200;
       lfo.connect(lfoGain).connect(osc.frequency);
       osc.connect(gain).connect(ctx.destination);
       gain.gain.setValueAtTime(0.0001, ctx.currentTime);
@@ -735,35 +884,27 @@ function initMusicToggle() {
   });
 }
 
-/* ====== Konami Code / 浮动彩蛋按钮 ====== */
 function initKonamiEaster() {
   let seq = [];
   const target = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-
   document.addEventListener('keydown', (e) => {
     seq.push(e.key);
     if (seq.length > target.length) seq.shift();
-    if (seq.join(',') === target.join(',')) {
-      showEaster('konami');
-      seq = [];
-    }
+    if (seq.join(',') === target.join(',')) { showEaster('konami'); seq = []; }
   });
-
-  document.getElementById('konamiEaster').addEventListener('click', () => showEaster('konami'));
+  document.getElementById('konamiEaster')?.addEventListener('click', () => showEaster('konami'));
 }
 
 function showEaster(kind) {
   const modal = document.getElementById('easterModal');
   const content = document.getElementById('easterContent');
-  const messages = {
-    konami: `
-      <div class="easter-emoji">🐼✨</div>
-      <h2>你居然解锁了 Konami Code</h2>
-      <p>致敬 1986 年的魂斗罗。<br>解锁成就：<code>真·玩家</code></p>
-      <p>作为奖励 —— 你可以向 <code>jiayangrui05160031@gmail.com</code><br>提一个和经济学 / Python / 数据 / 熊猫有关的问题，<br>我会在 48 小时内回。</p>
-    `,
-  };
-  content.innerHTML = messages[kind] || messages.konami;
+  if (!modal || !content) return;
+  content.innerHTML = `
+    <div class="easter-emoji">🐼✨</div>
+    <h2>你居然解锁了 Konami Code</h2>
+    <p>致敬 1986 年的魂斗罗。<br>解锁成就：<code>真·玩家</code></p>
+    <p>作为奖励 —— 你可以向 <code>jiayangrui05160031@gmail.com</code><br>提一个和经济学 / Python / 数据 / 熊猫有关的问题，<br>我会在 48 小时内回。</p>
+  `;
   modal.classList.add('show');
   spawnConfetti();
 }
@@ -777,7 +918,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ====== 日期戳 ====== */
 function initDateStamp() {
   const el = document.getElementById('nowDate');
   if (!el) return;
@@ -785,11 +925,8 @@ function initDateStamp() {
   el.textContent = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 }
 
-/* ==========================================================================
-   v3 新增互动模块
-   ========================================================================== */
+/* ====== v3 新增互动 ====== */
 
-/* ====== 投票系统（NOW 区, localStorage） ====== */
 function initVoting() {
   const KEY = 'jy-votes-';
   document.querySelectorAll('.vote-actions button').forEach(btn => {
@@ -799,18 +936,10 @@ function initVoting() {
       const bar = document.getElementById('vote-' + q);
       const countEl = document.getElementById('vote' + q + '-count');
       const totalEl = document.getElementById('vote' + q + '-total');
-      // 已经投过就别再投
-      if (localStorage.getItem(KEY + q)) {
-        playTone(220, 0.1);  // 提示音
-        showToast('你今天已经投过这个题了，明天再来');
-        return;
-      }
+      if (localStorage.getItem(KEY + q)) { playTone(220, 0.1); showToast('你今天已经投过这个题了，明天再来'); return; }
       localStorage.setItem(KEY + q, choice);
-      // 标记按钮
       btn.closest('.vote-actions').querySelectorAll('button').forEach(b => b.classList.remove('voted'));
       btn.classList.add('voted');
-
-      // 更新 UI
       const curPct = parseInt(countEl.textContent, 10);
       const curTot = parseInt(totalEl.textContent, 10);
       const newTot = curTot + 1;
@@ -819,7 +948,6 @@ function initVoting() {
       countEl.textContent = final;
       totalEl.textContent = newTot;
       bar.style.width = final + '%';
-
       playTone(880, 0.08);
       spawnSparkles(window.innerWidth / 2, window.innerHeight / 2, '✨');
       showToast(choice === 'yes' ? '👍 看好！记下来了' : '👎 看空！尊重你的判断');
@@ -827,7 +955,6 @@ function initVoting() {
   });
 }
 
-/* ====== NPS 评分 ====== */
 function initNPS() {
   const wrap = document.getElementById('npsButtons');
   if (!wrap) return;
@@ -854,40 +981,16 @@ function initNPS() {
     const score = parseInt(b.dataset.score, 10);
     localStorage.setItem(KEY, score);
     updateNpsResult(score);
-    const messages = {
-      0: '0 分……这是投诉级别 😭 我改',
-      1: '1 分比 0 分好一点但也好不了多少',
-      3: '3 分意思意思收到，我会做更好',
-      5: '5 分不功不过，加油加油',
-      7: '7 分！谢谢！有被鼓励到',
-      9: '9 分！给得这么高，是真的吗',
-      10: '10 分？！那我也给你 10 分熊猫抱抱 🐼'
-    };
-    const msg = messages[score] || `${score} 分，记下了，谢谢！`;
+    const messages = { 0:'0 分……这是投诉级别 😭 我改', 1:'1 分比 0 分好一点但也好不了多少', 3:'3 分意思意思收到，我会做更好', 5:'5 分不功不过，加油加油', 7:'7 分！谢谢！有被鼓励到', 9:'9 分！给得这么高，是真的吗', 10:'10 分？！那我也给你 10 分熊猫抱抱 🐼' };
     playTone(440 + score * 50, 0.1);
-    showToast(msg);
+    showToast(messages[score] || `${score} 分，记下了，谢谢！`);
   });
 }
 
 function updateNpsResult(myScore) {
   const el = document.getElementById('npsResult');
-  if (!el) return;
-  if (myScore >= 0) {
-    el.innerHTML = `你给了 <strong>${myScore}</strong> 分 · 您的反馈只保存在您浏览器本地 ❤️`;
-  }
+  if (el && myScore >= 0) el.innerHTML = `你给了 <strong>${myScore}</strong> 分 · 您的反馈只保存在您浏览器本地 ❤️`;
 }
-
-/* ====== 今日幸运骰子 ====== */
-const dicePool = [
-  { e: '📚', t: '今天适合读一份学术报告 —— 比如 World Bank 的 Macro Poverty Outlook' },
-  { e: '🤖', t: '今天适合和 LLM 较劲 —— 让 Agent 帮你拉一份 2 万字的政策综述' },
-  { e: '🛌', t: '今天适合补觉 —— 研究助理也需要休息，研究会等你' },
-  { e: '💪', t: '今天适合跑数 —— 把那份拖了 3 天的 PPT 跑出来' },
-  { e: '🌧', t: '今天适合摸鱼 —— 所有人都会原谅你，包括你自己' },
-  { e: '🐼', t: '今天适合吃竹子 —— 哦不对，吃火锅' },
-  { e: '✨', t: '今天适合见朋友 —— 自然科学规律：聊 30 分钟胜过刷 2 小时小红书' },
-  { e: '🧘', t: '今天适合发呆 —— 把脑子清空，也许答案自己会来' },
-];
 
 function initDice() {
   const btn = document.getElementById('rollDice');
@@ -896,7 +999,7 @@ function initDice() {
   if (!btn) return;
   btn.addEventListener('click', () => {
     display.classList.remove('rolling');
-    void display.offsetWidth;  // reflow trick
+    void display.offsetWidth;
     display.classList.add('rolling');
     const pick = dicePool[Math.floor(Math.random() * dicePool.length)];
     setTimeout(() => {
@@ -908,7 +1011,6 @@ function initDice() {
   });
 }
 
-/* ====== 实时时钟 + 访问计数 ====== */
 function initLiveTime() {
   const h = document.getElementById('liveHour');
   const w = document.getElementById('liveWeekday');
@@ -929,7 +1031,6 @@ function initLiveTime() {
   tick(); setInterval(tick, 1000);
 }
 
-/* ====== 鼠标轨迹粒子 (慢速, 稀疏, 不打扰) ====== */
 function initSparkTrail() {
   let last = 0;
   const emojis = ['✨', '🐼', '⭐', '✦'];
@@ -937,7 +1038,7 @@ function initSparkTrail() {
     const now = Date.now();
     if (now - last < 280) return;
     last = now;
-    if (Math.random() > 0.4) return;  // 概率触发
+    if (Math.random() > 0.4) return;
     const el = document.createElement('span');
     el.className = 'spark-trail';
     el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -969,7 +1070,6 @@ function spawnSparkles(x, y, emoji = '✨') {
   }
 }
 
-/* ====== WebAudio 通用音效 ====== */
 let audioCtx = null;
 function getCtx() {
   if (audioCtx) return audioCtx;
@@ -990,9 +1090,7 @@ function playTone(freq = 440, dur = 0.08, type = 'sine', volume = 0.12) {
   osc.start(); osc.stop(ctx.currentTime + dur);
 }
 
-/* ====== 全局自动音效 (鼠标 + 触控轻提示) ====== */
 function initImpactSounds() {
-  // 几乎所有可点击的元素都给个 "tap"
   document.body.addEventListener('click', (e) => {
     const t = e.target.closest('button, a.project-card, .mem-card, .mood-btn, .mood-buttons button, .filter-chip, .nps-buttons button, .vote-actions button, .mode-switcher, .play-card');
     if (!t) return;

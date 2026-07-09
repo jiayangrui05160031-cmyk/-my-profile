@@ -939,6 +939,13 @@ body.reveal-on .reveal { opacity: 0; transform: translateY(26px); transition: op
 body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+/* Loading hint */
+.loading-hint {
+  padding: 40px 20px; text-align: center;
+  color: var(--muted); font-style: italic;
+  animation: pulseOpacity 1.2s ease-in-out infinite;
+}
+
 /* ====== 投票按钮 ====== */
 .vote-actions { grid-column: 2; display: flex; gap: 8px; margin-top: 8px; }
 .vote-actions button {

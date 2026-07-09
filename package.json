@@ -1,0 +1,24 @@
+{
+  "name": "my-profile-repo",
+  "version": "1.0.0",
+  "description": "> 一个关于宏观经济、产业观察、数据分析与 AI 工作流的有趣博客。\r > 较真 · 开脑洞 · 不端着。",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiayangrui05160031-cmyk/-my-profile.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiayangrui05160031-cmyk/-my-profile/issues"
+  },
+  "homepage": "https://github.com/jiayangrui05160031-cmyk/-my-profile#readme",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.5"
+  }
+}

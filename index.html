@@ -129,53 +129,22 @@
     </section>
 
     <!-- ===== WRITING ===== -->
-    <section class="writing section-shell" id="writing">
-      <div class="section-heading reveal">
-        <div>
-          <p class="eyebrow">01 / WRITING</p>
-          <h2>最近在写</h2>
-        </div>
-        <p>从研究里抠出来的小观察。不追热点的热闹，只追问题的来龙去脉。</p>
-      </div>
-
-      <article class="featured-post reveal" data-article="ppi" tabindex="0">
-        <div class="post-image">
-          <img src="assets/cover-ppi.webp" alt="工业价格与库存周期的 3D 数据意象" width="1792" height="1024" loading="lazy">
-          <span class="post-number">01</span>
-          <span class="reading-badge" data-reading="8">8 分钟</span>
-        </div>
-        <div class="post-copy">
-          <div class="post-meta"><span>宏观周期</span><time datetime="2026-06">2026.06</time></div>
-          <h3>PPI 转正之后：这轮工业价格回升，到底有多扎实？</h3>
-          <p>41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。</p>
-          <button class="text-link" type="button">阅读全文 <span>↗</span></button>
-        </div>
-      </article>
-
-      <div class="post-grid">
-        <article class="post-card reveal" data-article="supply" tabindex="0">
-          <div class="post-card-image">
-            <img src="assets/cover-supply-chain.webp" alt="全球供应链网络的 3D 意象" width="1792" height="1024" loading="lazy">
+        <section class="writing section-shell" id="writing">
+          <div class="section-heading reveal">
+            <div>
+              <p class="eyebrow">01 / WRITING</p>
+              <h2>最近在写</h2>
+            </div>
+            <p>来自真实研究项目的经济观察。<br>不追热点的热闹，只追问题的来龙去脉。</p>
           </div>
-          <div class="post-meta"><span>国际经贸</span><time datetime="2026-05">2026.05</time></div>
-          <h3>"中国 + 1"不是离开中国，而是供应链角色的重新分配</h3>
-          <p>越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比"产业外迁"复杂得多。</p>
-          <button class="text-link" type="button">阅读全文 <span>↗</span></button>
-        </article>
 
-        <article class="post-card reveal" data-article="travel" tabindex="0">
-          <div class="post-card-image">
-            <img src="assets/cover-service-trade.webp" alt="跨境旅行与服务贸易的 3D 意象" width="1792" height="1024" loading="lazy">
+          <!-- 文章区: 由 JS 注入 (从 dist/content.json) -->
+          <div id="writingContainer">
+            <div class="loading-hint">正在加载 Markdown 内容…</div>
           </div>
-          <div class="post-meta"><span>服务贸易</span><time datetime="2026-04">2026.04</time></div>
-          <h3>入境旅行不只是旅游生意，也是一次制度体验</h3>
-          <p>签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。</p>
-          <button class="text-link" type="button">阅读全文 <span>↗</span></button>
-        </article>
-      </div>
-    </section>
+        </section>
 
-    <!-- ===== NOW ===== -->
+        <!-- ===== NOW ===== -->
     <section class="now section-shell">
       <div class="now-card reveal">
         <div>
@@ -243,80 +212,10 @@
         <button class="filter-chip" data-filter="macro" type="button">🌐 宏观/经贸</button>
       </div>
 
-      <div class="project-grid">
-
-        <a class="project-card project-coral reveal" data-cat="ai" href="https://github.com/jiayangrui05160031-cmyk/chinatrade-decision" target="_blank" rel="noreferrer">
-          <div class="project-top"><span>01</span><span class="project-gh">⭐ 1</span></div>
-          <div class="project-cover"><img src="assets/cover-wto_001.jpg" alt="WTO 跨境政策决策支持" loading="lazy"></div>
-          <div>
-            <p class="project-type">AI AGENT · USITC · GOV.CN</p>
-            <h3>WTO 跨境政策决策支持</h3>
-            <p>查 HS 编码 → 算关税 → 拉最新政策 → 出决策卡。114 测试通过，准确度 93.3%。给中国制造业老板的"该不该接这单"小助手。</p>
-            <div class="project-tags">
-              <span>Python 3.11</span><span>MiniMax</span><span>FastAPI</span><span>USITC</span>
+      <div id="projectsContainer" class="project-grid">
+              <div class="loading-hint" style="grid-column: 1/-1;">正在加载项目卡…</div>
             </div>
-          </div>
-          <span class="project-arrow">→</span>
-        </a>
-
-        <a class="project-card project-blue reveal" data-cat="ai" href="https://github.com/jiayangrui05160031-cmyk/video-analysis-agent" target="_blank" rel="noreferrer">
-          <div class="project-top"><span>02</span><span class="project-gh">⭐ 0</span></div>
-          <div class="project-cover"><img src="assets/cover-video-agent_001.jpg" alt="多平台视频内容分析 Agent" loading="lazy"></div>
-          <div>
-            <p class="project-type">LLM AGENT · 多平台聚合</p>
-            <h3>多平台视频内容分析 Agent</h3>
-            <p>给一个 URL，自动告诉你这条视频到底讲了啥 —— 支持 YouTube / B站 / 抖音 / 本地文件。跨视频聚合、弹幕分析、字幕翻译一条龙。</p>
-            <div class="project-tags">
-              <span>Python</span><span>yt-dlp</span><span>OpenAI</span><span>FastAPI</span>
-            </div>
-          </div>
-          <span class="project-arrow">→</span>
-        </a>
-
-        <article class="project-card project-ink reveal" data-cat="macro">
-          <div class="project-top"><span>03</span><span class="project-gh">⭐ 1</span></div>
-          <div class="project-cover"><img src="assets/cover-macro_001.jpg" alt="宏观经济智能分析平台" loading="lazy"></div>
-          <div>
-            <p class="project-type">PYTHON · 24 模块 · REACT AGENT</p>
-            <h3>宏观经济智能分析平台</h3>
-            <p>每日抓取人民网 / 中国经济网 → 跑通 24 个分析模块 → 输出 31 节结构化报告 + 现代化驾驶舱 + FastAPI + ReAct Agent。</p>
-            <div class="project-tags">
-              <span>Python 3.11</span><span>Hamilton</span><span>GraphRAG</span><span>Docker</span>
-            </div>
-          </div>
-          <a class="project-arrow" href="https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily" target="_blank" rel="noreferrer">→</a>
-        </article>
-
-        <article class="project-card project-yellow reveal" data-cat="data">
-          <div class="project-top"><span>04</span><span class="project-gh">⭐ 1</span></div>
-          <div class="project-cover"><img src="assets/cover-rfm_001.jpg" alt="电商 RFM 用户分群" loading="lazy"></div>
-          <div>
-            <p class="project-type">PYTHON · SCIKIT-LEARN · GRADIO</p>
-            <h3>电商 RFM 用户分群</h3>
-            <p>RFM + 三种聚类 + CLV + 流失预测 + 3 个 AI Agent。端到端流水线，HTML 业务报告 + Gradio Chat-with-Data，零售/捐赠/SaaS 都能跑。</p>
-            <div class="project-tags">
-              <span>K-Means</span><span>HDBSCAN</span><span>LightGBM</span><span>FP-Growth</span>
-            </div>
-          </div>
-          <a class="project-arrow" href="https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation" target="_blank" rel="noreferrer">→</a>
-        </article>
-
-        <article class="project-card project-violet reveal" data-cat="data">
-          <div class="project-top"><span>05</span><span class="project-gh">⭐ 1</span></div>
-          <div class="project-cover"><img src="assets/cover-rfm_001.jpg" alt="案例研究" loading="lazy"></div>
-          <div>
-            <p class="project-type">博客 · 评论 · 案例研究</p>
-            <h3>这个博客的源代码</h3>
-            <p>本站无框架、不打包，所有花里胡哨的动画都是原生 CSS + JS。三主题切换、Konami Code 彩蛋、樱花飘落、GitHub 实时数据 —— 全部开源。</p>
-            <div class="project-tags">
-              <span>HTML</span><span>CSS</span><span>Vanilla JS</span><span>520 lines</span>
-            </div>
-          </div>
-          <a class="project-arrow" href="https://github.com/jiayangrui05160031-cmyk/-my-profile" target="_blank" rel="noreferrer">→</a>
-        </article>
-
-      </div>
-    </section>
+          </section>
 
     <!-- ===== PLAYGROUND · 互动玩耍区 ===== -->
     <section class="playground section-shell" id="playground">
