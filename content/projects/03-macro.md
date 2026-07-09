@@ -10,6 +10,8 @@ coverAlt: "宏观经济智能分析平台"
 color: "project-ink"
 tags: ["Python 3.11", "Hamilton", "GraphRAG", "Docker"]
 stars: 1
+visualLabel: "宏观日报 / 驾驶舱"
+coverPosition: "center 52%"
 ---
 
 每日抓取人民网 / 中国经济网 → 跑通 24 个分析模块 → 输出 31 节结构化报告 + 现代化驾驶舱 + FastAPI + ReAct Agent。

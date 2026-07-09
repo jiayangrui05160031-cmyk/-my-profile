@@ -124,6 +124,9 @@ const dicePool = [
 
 
 
+
+
+
 const ARTICLES_DATA = {
   "ppi": {
     "id": "ppi",
@@ -138,6 +141,8 @@ const ARTICLES_DATA = {
     "excerpt": "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。",
     "cover": "assets/cover-ppi.webp",
     "coverAlt": "工业价格与库存周期的 3D 数据意象",
+    "coverPosition": "center 48%",
+    "visualLabel": "工业价格 / 库存周期",
     "category": "宏观周期",
     "date": "2026-06",
     "dateISO": "2026-06",
@@ -156,6 +161,8 @@ const ARTICLES_DATA = {
     "excerpt": "越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比\"产业外迁\"复杂得多。",
     "cover": "assets/cover-supply-chain.webp",
     "coverAlt": "全球供应链网络的 3D 意象",
+    "coverPosition": "center 52%",
+    "visualLabel": "供应链网络 / 中国 + 1",
     "category": "国际经贸",
     "date": "2026-05",
     "dateISO": "2026-05",
@@ -174,6 +181,8 @@ const ARTICLES_DATA = {
     "excerpt": "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。",
     "cover": "assets/cover-service-trade.webp",
     "coverAlt": "跨境旅行与服务贸易的 3D 意象",
+    "coverPosition": "center 45%",
+    "visualLabel": "旅行服务 / 制度体验",
     "category": "服务贸易",
     "date": "2026-04",
     "dateISO": "2026-04",
@@ -190,6 +199,8 @@ const PROJECTS_DATA = [
     "url": "https://github.com/jiayangrui05160031-cmyk/chinatrade-decision",
     "cover": "assets/cover-wto_001.jpg",
     "coverAlt": "WTO 跨境政策决策支持",
+    "coverPosition": "center 50%",
+    "visualLabel": "关税决策 Agent",
     "color": "project-coral",
     "tags": [
       "Python 3.11",
@@ -209,6 +220,8 @@ const PROJECTS_DATA = [
     "url": "https://github.com/jiayangrui05160031-cmyk/video-analysis-agent",
     "cover": "assets/cover-video-agent_001.jpg",
     "coverAlt": "多平台视频内容分析 Agent",
+    "coverPosition": "center 45%",
+    "visualLabel": "视频理解 / 多平台",
     "color": "project-blue",
     "tags": [
       "Python",
@@ -228,6 +241,8 @@ const PROJECTS_DATA = [
     "url": "https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily",
     "cover": "assets/cover-macro_001.jpg",
     "coverAlt": "宏观经济智能分析平台",
+    "coverPosition": "center 52%",
+    "visualLabel": "宏观日报 / 驾驶舱",
     "color": "project-ink",
     "tags": [
       "Python 3.11",
@@ -247,6 +262,8 @@ const PROJECTS_DATA = [
     "url": "https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation",
     "cover": "assets/cover-rfm_001.jpg",
     "coverAlt": "电商 RFM 用户分群",
+    "coverPosition": "center 48%",
+    "visualLabel": "用户分群 / CLV",
     "color": "project-yellow",
     "tags": [
       "K-Means",
@@ -261,11 +278,13 @@ const PROJECTS_DATA = [
     "id": "blog",
     "number": "05",
     "title": "这个博客的源代码",
-    "category": "博客 · 评论 · 案例研究",
+    "category": "个人站点 · Markdown · 交互实验室",
     "cat": "data",
     "url": "https://github.com/jiayangrui05160031-cmyk/-my-profile",
-    "cover": "assets/cover-rfm_001.jpg",
-    "coverAlt": "博客源代码",
+    "cover": "assets/panda-dashboard_001.jpg",
+    "coverAlt": "熊猫主题个人博客与数据仪表盘",
+    "coverPosition": "center 46%",
+    "visualLabel": "博客源代码 / 交互设计",
     "color": "project-violet",
     "tags": [
       "HTML",
@@ -298,6 +317,25 @@ async function loadMarkdownContent() {
   content.writings.forEach(w => { if (w.id) articles[w.id] = w; });
 }
 
+function escapeAttr(value) {
+  return String(value || '').replace(/"/g, '&quot;');
+}
+
+function coverStyle(item) {
+  const pos = item && item.coverPosition ? escapeAttr(item.coverPosition) : '';
+  return pos ? ` style="object-position:${pos}"` : '';
+}
+
+function visualLabel(item, fallback) {
+  const label = item && (item.visualLabel || item.category || fallback);
+  return label ? `<span class="image-subject">${label}</span>` : '';
+}
+
+function projectVisualLabel(item, fallback) {
+  const label = item && (item.visualLabel || item.category || fallback);
+  return label ? `<span class="project-visual-label">${label}</span>` : '';
+}
+
 function renderWritings(writings) {
   const container = document.getElementById('writingContainer');
   if (!container || !writings.length) return;
@@ -306,7 +344,8 @@ function renderWritings(writings) {
   let html = `
     <article class="featured-post reveal" data-article="${featured.id}" tabindex="0">
       <div class="post-image">
-        <img src="${featured.cover}" alt="${featured.coverAlt || featured.title}" loading="lazy">
+        <img src="${featured.cover}" alt="${featured.coverAlt || featured.title}" loading="lazy"${coverStyle(featured)}>
+        ${visualLabel(featured, '文章封面')}
         <span class="post-number">${String(featured.number || '').padStart(2, '0')}</span>
         <span class="reading-badge" data-reading="${featured.readingMinutes}">${featured.readingMinutes} 分钟</span>
       </div>
@@ -326,7 +365,8 @@ function renderWritings(writings) {
     html += `
       <article class="post-card reveal" data-article="${w.id}" tabindex="0">
         <div class="post-card-image">
-          <img src="${w.cover}" alt="${w.coverAlt || w.title}" loading="lazy">
+          <img src="${w.cover}" alt="${w.coverAlt || w.title}" loading="lazy"${coverStyle(w)}>
+          ${visualLabel(w, '文章封面')}
         </div>
         <div class="post-meta">
           <span>${w.category}</span>
@@ -365,7 +405,8 @@ function renderProjects(projects) {
         <span class="project-gh">⭐ ${p.stars || 0}</span>
       </div>
       <div class="project-cover">
-        <img src="${p.cover}" alt="${p.coverAlt || p.title}" loading="lazy">
+        <img src="${p.cover}" alt="${p.coverAlt || p.title}" loading="lazy"${coverStyle(p)}>
+        ${projectVisualLabel(p, cat)}
       </div>
       <div>
         <p class="project-type">${p.category}</p>

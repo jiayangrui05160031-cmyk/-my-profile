@@ -10,6 +10,8 @@ cover: "assets/cover-ppi.webp"
 coverAlt: "工业价格与库存周期的 3D 数据意象"
 featured: true
 excerpt: "41 个月负增长终于结束，但转正并不等于新一轮全面上行。把大宗商品、库存、产能与地产四条线放在一起，才能看清这次修复的成色。"
+visualLabel: "工业价格 / 库存周期"
+coverPosition: "center 48%"
 ---
 
 ## 一场很长的负增长

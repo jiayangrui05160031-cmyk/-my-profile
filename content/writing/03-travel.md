@@ -10,6 +10,8 @@ cover: "assets/cover-service-trade.webp"
 coverAlt: "跨境旅行与服务贸易的 3D 意象"
 featured: false
 excerpt: "签证、支付、交通与语言服务共同决定一段旅程。旅行服务出口，恰好是观察制度型开放是否真正落地的一扇窗。"
+visualLabel: "旅行服务 / 制度体验"
+coverPosition: "center 45%"
 ---
 
 ## 为什么要从"出口"看旅行

@@ -10,6 +10,8 @@ cover: "assets/cover-supply-chain.webp"
 coverAlt: "全球供应链网络的 3D 意象"
 featured: false
 excerpt: '越南、墨西哥与非洲承接了什么？中国又保留了什么？从终端出口到供应链价值输出，故事比"产业外迁"复杂得多。'
+visualLabel: "供应链网络 / 中国 + 1"
+coverPosition: "center 52%"
 ---
 
 ## 从关税规避开始

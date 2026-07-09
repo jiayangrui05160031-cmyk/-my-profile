@@ -10,6 +10,8 @@ coverAlt: "多平台视频内容分析 Agent"
 color: "project-blue"
 tags: ["Python", "yt-dlp", "OpenAI", "FastAPI"]
 stars: 0
+visualLabel: "视频理解 / 多平台"
+coverPosition: "center 45%"
 ---
 
 给一个 URL，自动告诉你这条视频到底讲了啥 —— 支持 YouTube / B站 / 抖音 / 本地文件。跨视频聚合、弹幕分析、字幕翻译一条龙。

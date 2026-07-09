@@ -600,7 +600,7 @@ a.project-card:hover, .project-card:has(.project-arrow):hover { transform: trans
   position: relative;
 }
 .play-card-quote blockquote::before {
-  content: """; position: absolute; top: -20px; left: -8px;
+  content: "“"; position: absolute; top: -20px; left: -8px;
   font-size: 60px; color: var(--coral); opacity: .25;
   font-family: Georgia, serif;
 }
@@ -1248,4 +1248,149 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
   .ftool { width: 44px; height: 44px; font-size: 16px; }
   .memory-board { grid-template-columns: repeat(3, 1fr); }
   .writing, .projects, .about, .playground { padding-top: 80px; }
+}
+
+
+/* ====== v5 image-system polish: 图片大小 / 题材 / 焦点统一 ====== */
+.visual-brief { padding: 88px 0 10px; }
+.visual-brief-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+  gap: 28px;
+  align-items: stretch;
+  padding: clamp(28px, 4vw, 50px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,111,76,.18), transparent 34%),
+    linear-gradient(135deg, rgba(255,255,255,.36), rgba(255,255,255,.08)),
+    var(--paper-2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.visual-brief-card .eyebrow { grid-column: 1 / -1; margin-bottom: 4px; }
+.visual-brief-copy { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding-right: 6px; }
+.visual-brief-copy h2 {
+  margin: 0 0 14px;
+  font-family: "Songti SC", SimSun, serif;
+  font-size: clamp(30px, 3.3vw, 46px);
+  line-height: 1.18;
+  letter-spacing: -.04em;
+}
+.visual-brief-copy p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.visual-brief-copy strong { color: var(--ink); }
+.visual-brief-tags {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.visual-brief-tags span {
+  min-height: 54px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+[data-theme="cyber"] .visual-brief-card { border-color: var(--coral); box-shadow: 0 24px 80px rgba(255,94,156,.20); }
+
+.hero { grid-template-columns: minmax(0, 1.04fr) minmax(390px, .96fr); gap: 72px; }
+.hero-visual { min-height: 560px; align-self: center; }
+.portrait-card { width: min(100%, 420px); padding: 12px 12px 10px; transform: rotate(1.1deg); }
+.portrait-img { height: clamp(300px, 30vw, 400px); object-position: center 38%; }
+.speech-bubble { top: 12px; right: -22px; font-size: 11px; padding: 8px 12px; }
+.orbit-one { width: min(520px, 88vw); height: min(520px, 88vw); }
+.orbit-two { width: min(610px, 96vw); height: min(282px, 44vw); }
+.floating-chip { padding: 9px 12px; font-size: 10px; }
+
+.post-image, .post-card-image, .project-cover { background: var(--paper); }
+.post-image img, .post-card-image img, .project-cover img, .hobby-card img, .sanguo-card img, .workspace-illustration img { object-position: center center; }
+.image-subject, .project-visual-label {
+  position: absolute;
+  z-index: 3;
+  left: 18px;
+  bottom: 18px;
+  max-width: calc(100% - 36px);
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(17, 23, 35, .72);
+  color: #fff;
+  backdrop-filter: blur(12px);
+  font: 800 11px/1.2 Arial, sans-serif;
+  letter-spacing: .08em;
+}
+.post-image .image-subject { left: auto; right: 24px; bottom: 24px; }
+.reading-badge { bottom: 24px; left: 24px; }
+.post-card-image { position: relative; aspect-ratio: 16 / 10; }
+.post-card-image .image-subject { bottom: 14px; left: 14px; }
+.featured-post { grid-template-columns: minmax(0, 1.18fr) minmax(360px, .82fr); }
+.featured-post .post-image { min-height: 500px; }
+.featured-post .post-image img { object-position: center 48%; }
+
+.project-grid { gap: 26px; }
+.project-card { min-height: 590px; padding: 24px; }
+.project-cover {
+  position: relative;
+  width: calc(100% + 48px);
+  margin: 8px -24px 4px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+  overflow: hidden;
+}
+.project-cover img { object-position: center 48%; }
+.project-visual-label { z-index: 4; }
+.project-visual-label { left: 16px; bottom: 16px; background: rgba(0,0,0,.52); }
+.project-coral .project-visual-label, .project-yellow .project-visual-label { background: rgba(17, 23, 35, .70); color: #fff; }
+
+.hobby-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+.hobby-grid > .hobby-card { grid-column: span 4; min-height: 460px; }
+.hobby-card.hobby-arena { grid-column: span 8; min-height: 520px; }
+.hobby-grid-secondary { margin-top: 20px; }
+.hobby-grid-secondary > .hobby-card { grid-column: span 4; min-height: 460px; }
+.hobby-card { background: var(--paper-2); }
+.hobby-card img { height: 230px; aspect-ratio: auto; object-fit: cover; }
+.hobby-card.hobby-arena img { height: 320px; object-position: center 52%; }
+.hobby-card.hobby-lol img { object-position: center 42%; }
+.hobby-card.hobby-cs2 img { object-position: center 46%; }
+.hobby-card.hobby-civ6 img { object-position: center 48%; }
+.hobby-card.hobby-city img { object-position: center 54%; }
+.hobby-card.hobby-cartoon img { object-position: center 42%; }
+
+.sanguo-card { grid-template-columns: minmax(420px, .95fr) minmax(360px, 1.05fr); }
+.sanguo-card img { object-position: center 36%; filter: saturate(1.02) contrast(1.03); }
+.workspace-illustration { grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); }
+.workspace-illustration img { object-fit: cover; object-position: center 48%; min-height: 360px; }
+
+@media (max-width: 1080px) {
+  .visual-brief-card { grid-template-columns: 1fr; }
+  .visual-brief-tags { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .hero { grid-template-columns: 1fr; gap: 42px; }
+  .featured-post { grid-template-columns: 1fr; }
+  .featured-post .post-image { min-height: 340px; }
+  .project-card { min-height: 540px; }
+  .hobby-grid > .hobby-card, .hobby-card.hobby-arena, .hobby-grid-secondary > .hobby-card { grid-column: span 6; min-height: 440px; }
+  .sanguo-card { grid-template-columns: 1fr; }
+  .workspace-illustration { grid-template-columns: 1fr; }
+  .workspace-caption { grid-column: 1; }
+}
+@media (max-width: 720px) {
+  .visual-brief { padding-top: 52px; }
+  .visual-brief-card { padding: 26px; }
+  .visual-brief-tags { grid-template-columns: 1fr 1fr; }
+  .portrait-card { width: min(100%, 360px); }
+  .portrait-img { height: 330px; }
+  .image-subject, .project-visual-label { font-size: 10px; padding: 7px 10px; }
+  .project-cover { aspect-ratio: 16 / 10; }
+  .hobby-grid > .hobby-card, .hobby-card.hobby-arena, .hobby-grid-secondary > .hobby-card { grid-column: span 12; }
+  .hobby-card img, .hobby-card.hobby-arena img { height: 230px; }
 }
