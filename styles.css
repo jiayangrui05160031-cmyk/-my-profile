@@ -1114,6 +1114,9 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 .hobby-card.hobby-arena .hobby-tag { background: linear-gradient(90deg, #9d4edd, #ff6f4c); }
 .hobby-card.hobby-cs2 .hobby-tag { background: #f89939; }
 .hobby-card.hobby-civ6 .hobby-tag { background: #6ab04c; }
+.hobby-card.hobby-hoi .hobby-tag { background: #4a6a3a; }
+.hobby-card.hobby-haibao .hobby-tag { background: #ffa64d; }
+.hobby-card.hobby-cartoon .hobby-tag { background: #2b6cb0; }
 .hobby-meta h3 { margin: 6px 0; font-family: "Songti SC", SimSun, serif; font-size: 20px; line-height: 1.3; }
 .hobby-meta p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
 .hobby-meta strong { color: var(--ink); }
@@ -1364,7 +1367,7 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 .hobby-grid > .hobby-card { grid-column: span 4; min-height: 460px; }
 .hobby-card.hobby-arena { grid-column: span 8; min-height: 520px; }
 .hobby-grid-secondary { margin-top: 20px; }
-.hobby-grid-secondary > .hobby-card { grid-column: span 4; min-height: 460px; }
+.hobby-grid-secondary > .hobby-card { grid-column: span 3; min-height: 420px; }
 .hobby-card { background: var(--paper-2); }
 .hobby-card img { height: 230px; aspect-ratio: auto; object-fit: cover; }
 .hobby-card.hobby-arena img { height: 320px; object-position: center 52%; }
@@ -1373,6 +1376,9 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
 .hobby-card.hobby-civ6 img { object-position: center 48%; }
 .hobby-card.hobby-city img { object-position: center 54%; }
 .hobby-card.hobby-cartoon img { object-position: center 42%; }
+.hobby-card.hobby-haibao img { object-position: center 40%; }
+.hobby-card.hobby-hoi img { object-position: center 50%; }
+.hobby-card.hobby-lpl img { object-position: center 45%; }
 
 .sanguo-card { grid-template-columns: minmax(420px, .95fr) minmax(360px, 1.05fr); }
 .sanguo-card img { object-position: center 36%; filter: saturate(1.02) contrast(1.03); }
