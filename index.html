@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4efe5">
-  <meta name="description" content="贾洋瑞的个人博客：游戏的深度体验者，经济分析的爱好者—— 严谨、较真、偶尔好玩的那个。">
-  <meta property="og:title" content="贾洋瑞｜经济、数据与一些好奇心">
-  <meta property="og:description" content="把复杂的经济世界，讲得清楚一点。一只熊猫 + 一个研究者的玩耍笔记。">
+  <meta name="description" content="贾洋瑞的研究笔记：关于宏观、产业、贸易、数据与那些还没想明白的问题。">
+  <meta property="og:title" content="贾洋瑞｜研究、数据与一点好奇心">
+  <meta property="og:description" content="从原始资料出发，把复杂问题讲成可以继续讨论的话。">
   <meta property="og:image" content="assets/portrait-panda_001.jpg">
-  <title>贾洋瑞的个人博客</title>
+  <title>贾洋瑞｜研究笔记</title>
   <link rel="icon" type="image/jpeg" href="assets/portrait-panda_001.jpg">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -29,9 +29,10 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="返回首页">
       <span class="brand-mark">🐼</span>
-      <span class="brand-name">JYR 实验室</span>
+      <span class="brand-name">JYR / 研究笔记</span>
     </a>
     <nav class="nav" aria-label="主导航">
+      <a href="#method">方法</a>
       <a href="#writing">文章</a>
       <a href="#projects">项目</a>
       <a href="#playground">玩耍</a>
@@ -47,8 +48,8 @@
     <!-- ===== HERO ===== -->
     <section class="hero section-shell">
       <div class="hero-copy reveal">
-        <p class="eyebrow"><span class="status-dot"></span> 北京 · 国民经济学 · 最强玩家</p>
-        <h1>把复杂的经济世界，<br><em>讲得清楚一点。</em></h1>
+        <p class="eyebrow"><span class="status-dot"></span> 北京 · 国民经济学 · 持续记录</p>
+        <h1>先把问题想明白，<br><em>再把它说清楚。</em></h1>
 
         <!-- 打字机副标题 -->
         <p class="hero-intro">
@@ -56,10 +57,10 @@
         </p>
 
         <div class="hero-actions">
-          <a class="button button-primary" href="#writing">开始阅读 <span>↓</span></a>
-          <button class="button button-panda" id="hiPanda" type="button">戳一下熊猫 <span>👋</span></button>
-          <button class="button button-arena" id="arenaRoll" type="button" aria-label="摇一个海克斯符文">
-            <span class="arena-rune">◆</span> 摇一个海克斯符文 <span class="arena-rune">◆</span>
+          <a class="button button-primary" href="#writing">读最近一篇 <span>↓</span></a>
+          <button class="button button-panda" id="hiPanda" type="button">和我打个招呼 <span>👋</span></button>
+          <button class="button button-arena" id="arenaRoll" type="button" aria-label="抽一张今日研究提示">
+            <span class="arena-rune">◆</span> 抽一张今日提示 <span class="arena-rune">◆</span>
           </button>
         </div>
 
@@ -67,9 +68,14 @@
         <div class="mini-stats" id="miniStats" aria-label="GitHub 实时数据">
           <div><strong id="statRepos">—</strong><span>开源仓库</span></div>
           <div><strong id="statStars">—</strong><span>累计 Star</span></div>
-          <div><strong>5<sup>+</sup></strong><span>独立专题报告</span></div>
-          <div><strong>3</strong><span>数据 / AI 项目</span></div>
+          <div><strong>先看</strong><span>原始资料</span></div>
+          <div><strong>再问</strong><span>它说明了什么</span></div>
         </div>
+        <a class="hero-footnote" href="#method">
+          <span class="hero-footnote-dot"></span>
+          <span>研究笔记、可运行项目，以及一点不太严肃的休息时间</span>
+          <b>↘</b>
+        </a>
       </div>
 
       <div class="hero-visual reveal">
@@ -180,12 +186,42 @@
     <section class="ticker" aria-label="关注领域">
       <div class="ticker-track">
         <span>宏观周期</span><i>✦</i><span>产业研究</span><i>✦</i><span>跨境贸易</span><i>✦</i>
-        <span>RFM 用户分群</span><i>✦</i><span>LLM Agent</span><i>✦</i><span>数据可视化</span><i>✦</i>
-        <span>AI 工作流</span><i>✦</i><span>Python 全栈</span><i>✦</i><span>聊着聊着就较真</span><i>✦</i>
+        <span>原始资料</span><i>✦</i><span>数据可视化</span><i>✦</i><span>研究工作流</span><i>✦</i>
+        <span>把问题讲清楚</span><i>✦</i><span>Python 工具</span><i>✦</i><span>保持好奇</span><i>✦</i>
         <!-- 重复一遍用于无缝滚动 -->
         <span>宏观周期</span><i>✦</i><span>产业研究</span><i>✦</i><span>跨境贸易</span><i>✦</i>
-        <span>RFM 用户分群</span><i>✦</i><span>LLM Agent</span><i>✦</i><span>数据可视化</span><i>✦</i>
-        <span>AI 工作流</span><i>✦</i><span>Python 全栈</span><i>✦</i><span>聊着聊着就较真</span><i>✦</i>
+        <span>原始资料</span><i>✦</i><span>数据可视化</span><i>✦</i><span>研究工作流</span><i>✦</i>
+        <span>把问题讲清楚</span><i>✦</i><span>Python 工具</span><i>✦</i><span>保持好奇</span><i>✦</i>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH METHOD ===== -->
+    <section class="signal-board section-shell reveal" id="method">
+      <div class="signal-intro">
+        <p class="eyebrow">00 / RESEARCH NOTES</p>
+        <h2>有结论之前，<br>先把问题问对。</h2>
+        <p>我不太相信“一个图就能说明一切”。更常见的情况是：数据给出线索，资料补足背景，反例再把判断拉回地面。</p>
+        <a class="text-link" href="#thinking">看看我最近卡在哪些问题上 <span>↘</span></a>
+      </div>
+      <div class="signal-grid">
+        <article class="signal-card signal-card-featured">
+          <span class="signal-index">01</span>
+          <p>先找源头</p>
+          <h3>能回到原始出处的，尽量不只看转述。</h3>
+          <span class="signal-meta">DATA / POLICY / FIELD NOTES</span>
+        </article>
+        <article class="signal-card">
+          <span class="signal-index">02</span>
+          <p>再看结构</p>
+          <h3>把一个数字放进周期、行业和制度里看。</h3>
+          <span class="signal-mark">↗</span>
+        </article>
+        <article class="signal-card signal-card-coral">
+          <span class="signal-index">03</span>
+          <p>最后说人话</p>
+          <h3>写完之后，问一句：这对谁有用？</h3>
+          <span class="signal-mark">✦</span>
+        </article>
       </div>
     </section>
 
@@ -196,7 +232,7 @@
               <p class="eyebrow">01 / WRITING</p>
               <h2>最近在写</h2>
             </div>
-            <p>比较喜欢研究财经的东西。<br>既喜欢热点快报的刺激，也想去追问题的来龙去脉。</p>
+            <p>写宏观、产业和贸易，也写那些数据背后不那么容易被看见的条件。<br>不急着下结论，先把证据和反例摆在桌面上。</p>
           </div>
 
           <!-- 文章区: 由 JS 注入 (从 dist/content.json) -->
@@ -211,11 +247,11 @@
         <header class="now-head">
           <div>
             <p class="eyebrow">NOW · 此刻</p>
-            <h2>三个最近在 follow 的问题</h2>
+          <h2>最近反复琢磨的三个问题</h2>
           </div>
           <div class="now-side">
             <div class="now-date">更新 · <time id="nowDate">—</time></div>
-            <div class="now-hint">点 👍 / 👎 站个队 · 结果只存你浏览器</div>
+          <div class="now-hint">点一下，说说你更倾向哪一边 · 结果只存在你的浏览器</div>
           </div>
         </header>
 
@@ -271,9 +307,9 @@
       <div class="section-heading reveal">
         <div>
           <p class="eyebrow">02 / LAB</p>
-          <h2>做过的玩意儿</h2>
+          <h2>把问题做成<br>可以运行的东西</h2>
         </div>
-        <p>从研究里长出来的可运行小项目，能跑、能看、能点，欢迎试玩。</p>
+        <p>有些问题靠一篇报告说不完，就把它们做成工具、看板或可以反复使用的小流程。</p>
       </div>
 
       <!-- 筛选标签 -->
@@ -294,9 +330,9 @@
       <div class="section-heading reveal">
         <div>
           <p class="eyebrow">03 / PLAYGROUND</p>
-          <h2>来玩一下</h2>
+          <h2>认真之外，<br>也留一点空档。</h2>
         </div>
-        <p>严肃研究的间隙，给生活加点糖。</p>
+        <p>不把每一页都做成工作台。这里有一点游戏、一个小终端，和一些不影响正事的乐趣。</p>
       </div>
 
       <div class="play-grid">
@@ -422,11 +458,11 @@
       <div class="about-panel reveal">
         <div class="about-title">
           <p class="eyebrow">04 / ABOUT</p>
-          <h2>研究助理 + 业余开发者，<br>做自贸区、跨境、宏观三件事。</h2>
+          <h2>研究、数据和工具，<br>是我目前最常待的三个地方。</h2>
         </div>
         <div class="about-body">
-          <p class="about-lead">本科市场营销，硕士国民经济学。在商务部国际贸易经济合作研究院和国研网，做自贸区、产业链、宏观热点的研究助理；业余时间写 Python + LLM 工具，把研究里能自动化的部分尽量自动化。</p>
-          <p>不搞"改变世界"那种大词。做好手头的事情才重要，要关注手头的事情哦</p>
+          <p class="about-lead">本科读市场营销，现在在对外经济贸易大学读国民经济学硕士。做过自贸区、产业链和宏观热点的研究助理工作；下班后会写一点 Python 工具，把重复的检索、整理和核对工作交给程序。</p>
+          <p>我不擅长说大话。能把一份资料查明白、把一个判断讲准确、把一件小事做完整，就已经很有成就感。</p>
           <div class="skill-row">
             <span>Python</span><span>Pandas</span><span>scikit-learn</span><span>Stata</span>
             <span>SQL</span><span>Wind</span><span>CEIC</span><span>RAG</span><span>LLM Agent</span>
@@ -447,14 +483,12 @@
                     <div class="self-body">
                       <p class="self-name">关于我这个人</p>
                       <ul class="self-traits">
-                        <li>✓ 较真到底 —— 数字不交叉验证不放过</li>
-                        <li>✓ 较真的同时还想好好玩 —— 这是矛盾的</li>
-                        <li>✓ 心情好就直接打招呼，心情差就躲起来</li>
-                        <li>✗ 鸡汤文读不下去 ——都是骗人的</li>
-                        <li>✗ "差不多先生" —— 做事喜欢摆烂</li>
-                        <li>✓ 偶尔会画小熊猫 —— 这是隐藏技能</li>
-                        <li>✓ 经典大胃代 —— 这是被动技能</li>
-                        <li>✓ 辣条消灭者 —— 芜湖就喜欢辣条</li>
+                        <li>✓ 看见数字会想追问：它从哪来、还能怎么验证？</li>
+                        <li>✓ 做事喜欢先搭好流程，再慢慢把细节补齐。</li>
+                        <li>✓ 研究卡住时，会去散步、打游戏，回来再看一眼。</li>
+                        <li>✗ 不太能接受“差不多就行”作为解释。</li>
+                        <li>✗ 读不下只有形容词、没有证据的报告。</li>
+                        <li>✓ 偶尔画熊猫，也认真研究怎么把页面做得更好看。</li>
                       </ul>
                     </div>
                   </div>
@@ -462,8 +496,8 @@
                   <!-- 爱好区 -->
                   <div class="hobbies-block reveal">
                     <p class="eyebrow">HOBBIES · 下班以后</p>
-                    <h2>工作之外，全靠这些续命。</h2>
-                    <p class="hobbies-lead">MOBA、FPS、4X、城市建造、策略、动画、漫画、三国、当代文学 —— 经典多面手</p>
+                    <h2>离开工作台之后，<br>把脑子交给别的世界。</h2>
+                    <p class="hobbies-lead">MOBA、FPS、4X、城市建造、策略、动画、小说和三国。喜欢的东西很多，放在一起也不冲突。</p>
 
                     <div class="hobby-grid">
                               <div class="hobby-card hobby-lol hobby-multi">
@@ -474,7 +508,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">MOBA · 双截图</span>
                                   <h3>英雄联盟 · LOL</h3>
-                                  <p>骨灰级玩家--混子大王，经典不粘锅<strong>佛系AD</strong>。<em>骂我就是你对</em></p>
+                                  <p>常年佛系 AD。团战能打好就很开心，没打好也会认真复盘一句：刚才是不是不该往前走。</p>
                                 </div>
                               </div>
 
@@ -483,7 +517,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">FPS</span>
                                   <h3>CS2</h3>
-                                  <p>偶尔天梯，日常打箱子。一周没打手就痒<strong>把把起野牛，三天大地球</strong> </p>
+                                  <p>偶尔上天梯，更多时候只是和朋友开几把。手感最好的那一局，通常出现在准备下线之前。</p>
                                 </div>
                               </div>
 
@@ -492,7 +526,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">4X</span>
                                   <h3>文明6 · Civilization</h3>
-                                  <p>再玩一回合就睡 → 凌晨 3 点。<strong>喜欢战狂起手，一言不合就是干，首发宗教必须-哺育世界+合唱圣歌</strong>，最爱科技胜利，飞天</p>
+                                  <p>“再玩一回合”是个危险承诺。喜欢先把盘面铺开，最后冲科技胜利；偶尔也会因为一时上头把局势打乱。</p>
                                 </div>
                               </div>
 
@@ -501,7 +535,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">STRATEGY · HOI4</span>
                                   <h3>钢铁雄心</h3>
-                                  <p>即时战略神作<strong>喜欢历史线苏联，喝着小酒一玩儿一下午，大林子清洗真好玩哈哈</strong>。喜欢我的高达T34吗</p>
+                                  <p>很容易在编制、补给和生产线之间消磨一个下午。玩它的乐趣，不只是赢，而是看复杂系统怎样慢慢运转起来。</p>
                                 </div>
                               </div>
 
@@ -510,7 +544,7 @@
                                 <div class="hobby-meta hobby-arena-meta">
                                   <span class="hobby-tag">HEXTECH ARENA · 最近酷爱</span>
                                   <h3>海克斯大乱斗</h3>
-                                  <p> 看我海克斯，别看我战绩。<strong>菜的不是我，是海克斯</strong>最近一周最沉迷模式，喜欢坦克引擎-飞身踢-钢化你心，越大越好 —— <strong>打不过光速滑跪下一吧</strong>。</p>
+                                  <p>看我的海克斯，先别看战绩。每局都像一次小实验：有时配置很完美，结果还是要靠队友和一点运气。</p>
                                 </div>
                               </div>
                             </div>
@@ -521,7 +555,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">LPL · 关注战队</span>
                                   <h3>LPL</h3>
-                                  <p>看比赛必须有仪式感，打开贴吧，准时嘴臭，简单嘴臭，极致享受<strong>BLG /T1/ IG</strong>TES纯区，真成乐队了，越南电竞的唯一希望</p>
+                                  <p>看比赛会认真到打开赛后数据。关注 BLG、T1 和 IG，也享受比赛里那些计划之外的瞬间。</p>
                                 </div>
                               </div>
 
@@ -530,7 +564,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">CITY BUILDER</span>
                                   <h3>城市天际线</h3>
-                                  <p>修路修到凌晨四点，一言不合大洪水。华尔街之狼金融套现，终极操盘手<strong>"刁民有什么用啊，钱才是万能的"</strong> —— 都给我交税，我是万税王。</p>
+                                  <p>从一条路开始，最后往往会变成一座城的预算、交通和用地难题。修到凌晨四点也不是第一次。</p>
                                 </div>
                               </div>
 
@@ -539,7 +573,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">好看的动画片</span>
                                   <h3>哆来 A 梦</h3>
-                                  <p>四维袋 + 任意门 + 时光机。<strong>大雄纯曲</strong> 哈哈</p>
+                                  <p>四维口袋、任意门和时光机，到现在仍是最可靠的放松方式。小时候喜欢，现在也一样。</p>
                                 </div>
                               </div>
 
@@ -548,7 +582,7 @@
                                 <div class="hobby-meta">
                                   <span class="hobby-tag">动画片很好看</span>
                                   <h3>海绵宝宝</h3>
-                                  <p>海绵宝宝的   <strong>方形库</strong>   抽象派画风代言人</p>
+                                  <p>有些笑点隔很久再看还是会笑。它的认真和荒诞，刚好能让人从工作模式里退出来。</p>
                                 </div>
                               </div>
                             
@@ -558,35 +592,35 @@
                   <!-- 阅读 + 视频 + 思想 -->
                   <div class="mind-block reveal">
                     <p class="eyebrow">MIND · 较真的另一面</p>
-                    <h2>我看的东西、读的东西、想的东西</h2>
+                    <h2>最近读什么、看什么，<br>也顺手记下来。</h2>
 
                     <div class="mind-cols">
                       <div class="mind-col">
                         <h4>📚 在读 / 在看</h4>
                         <ul class="mind-list">
-                          <li><strong>《平凡的世界》</strong> — 我的晓霞www</li>
-                          <li><strong>《三国演义》</strong> — 老不死的乌龟还是叼</li>
-                          <li><strong>《1984》《娱乐至死》</strong> — 保证脑子是自己的</li>
-                          <li><strong>《三体》</strong> — 我是面壁者-罗辑</li>
+                          <li><strong>《平凡的世界》</strong> — 重读时还是会被那些朴素的劲头打动</li>
+                          <li><strong>《三国演义》</strong> — 反复看人物怎么做选择，也看局势怎么把人推着走</li>
+                          <li><strong>《1984》《娱乐至死》</strong> — 提醒自己，信息很多不等于判断更自由</li>
+                          <li><strong>《三体》</strong> — 好故事会让人愿意停下来想很久</li>
                         </ul>
                       </div>
 
                       <div class="mind-col">
                         <h4>🎬 视频 / 创作者</h4>
                         <ul class="mind-list">
-                          <li><strong>HBK08</strong> — 脖子右拧</li>
-                          <li><strong>小约翰可汗</strong> — 搁宗怎么还不更新</li>
-                          <li><strong>乔尔儿</strong> —高校联赛真的好看，鱼神还是太权威了</li>
+                          <li><strong>HBK08</strong> — 轻松但不敷衍，适合在脑子过载时看一会儿</li>
+                          <li><strong>小约翰可汗</strong> — 叙事节奏和资料密度都很有意思</li>
+                          <li><strong>乔尔儿</strong> — 高校联赛有一种很真诚的热闹</li>
                         </ul>
                       </div>
 
                       <div class="mind-col">
                         <h4>🤖 工作流</h4>
                         <ul class="mind-list">
-                          <li><strong>Hermes</strong> + <strong>Codex</strong> + <strong>vibecoding</strong> — 我的日常</li>
-                          <li>专攻 AI 工作流 / Agent 编排 / 自动化研究</li>
-                          <li>最近在折腾：本地小模型 + ReAct + 多模态</li>
-                          <li><strong>多来 A 梦 / 海绵宝宝</strong> — 笑口常开</li>
+                          <li><strong>Hermes</strong> + <strong>Codex</strong> + <strong>vibecoding</strong> — 现在常用的一组工具</li>
+                          <li>想把 AI 用在检索、整理和重复劳动上，把判断留给人</li>
+                          <li>最近在折腾：本地小模型、ReAct 和多模态任务</li>
+                          <li><strong>哆啦 A 梦 / 海绵宝宝</strong> — 用来提醒自己别一直绷着</li>
                         </ul>
                       </div>
                     </div>
@@ -600,8 +634,8 @@
                           </div>
                           <div class="sanguo-copy">
                             <p class="eyebrow">三国 · 情怀</p>
-                            <h3>曹操 × 司马懿 ——<br>俩奸雄<br>老阴逼的自我修养。</h3>
-                            <p>曹司两人才是真的大神<em>"宁教我负天下人"</em><strong>狡兔死，走狗烹。</strong></p>
+                            <h3>曹操 × 司马懿 ——<br>看人，也看局。</h3>
+                            <p>喜欢他们并不因为谁更“正面”，而是因为在复杂局面里，人怎么判断、忍耐和选择，永远值得琢磨。</p>
                             <p class="sanguo-quote">「夫英雄者，胸怀大志，腹有良谋，有包藏宇宙之机，吞吐天地之志者也。」</p>
                           </div>
                         </div>
@@ -614,7 +648,7 @@
           <p class="eyebrow">05 / THINKING</p>
           <h2>最近在想的事</h2>
         </div>
-        <p>不是文章，是笔记。想到哪儿写到哪儿。<br>新条目只要在 <code>content/thinking/</code> 下面加一个 <code>.md</code> 文件，跑一次 <code>node build.js</code> 就生效。</p>
+        <p>这里不是定稿文章，更像写到一半的备忘。<br>有些问题还没有答案，先把当下的想法和证据记下来，等下一次再回来校正。</p>
       </div>
 
       <div id="thinkingContainer" class="thinking-feed">
@@ -627,8 +661,8 @@
       <div class="contact-card reveal">
         <div class="contact-orb" aria-hidden="true"><span></span></div>
         <p class="eyebrow">LET'S TALK</p>
-        <h2>如果你也对这些问题好奇，<br>我们应该聊聊。</h2>
-        <p class="contact-sub">研究合作 / 数据项目 / 单纯聊天，都欢迎 —— 别上来就叫我"博主"。</p>
+        <h2>如果你也在关心这些问题，<br>欢迎来聊。</h2>
+        <p class="contact-sub">研究合作、数据项目，或者只是想交换一个还没想明白的观点，都可以。</p>
 
         <!-- 音乐彩蛋按钮 -->
         <div class="contact-music">
@@ -648,7 +682,7 @@
       <div class="workspace-illustration reveal">
         <img src="assets/workspace_001.jpg" alt="研究助理的工作台：咖啡 + 笔记本 + 数据图表 + 灯泡" loading="lazy">
         <p class="workspace-caption">
-          ☕ 芜湖，你永远不知道，我的电脑里有什么好东西，<strong>诶黑<strong><br>
+          ☕ 一张桌子、一杯咖啡、几份没读完的资料。<br>
           <em>research desk / data / late-night workflow</em>
         </p>
       </div>
@@ -662,8 +696,8 @@
   </div>
 
   <footer class="site-footer section-shell">
-    <span>© 2026 贾洋瑞 · Powered by 🐼</span>
-    <span>Economics · Data · Curiosity · And some fun</span>
+    <span>© 2026 贾洋瑞 · 认真研究，也认真生活</span>
+    <span>Economics · Data · Curiosity · Notes in progress</span>
     <a href="#top">回到顶部 ↑</a>
   </footer>
 

@@ -1398,6 +1398,241 @@ body.reveal-on .reveal.visible { opacity: 1; transform: translateY(0); }
   .writing, .projects, .about, .playground { padding-top: 80px; }
 }
 
+/* ========================================================================
+   v5 · Editorial research desk refresh
+   A calmer reading surface, stronger hierarchy, and a small method board.
+   ======================================================================== */
+
+:root,
+[data-theme="paper"] {
+  --soft-blue: #e8eefc;
+  --soft-coral: #ffe2d8;
+  --card-wash: rgba(255, 250, 241, .72);
+}
+
+[data-theme="dark"] { --card-wash: rgba(25, 33, 49, .76); --soft-blue: #182953; --soft-coral: #4c2931; }
+[data-theme="cyber"] { --card-wash: rgba(26, 15, 61, .76); --soft-blue: #132e50; --soft-coral: #4b163d; }
+
+body {
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255, 111, 76, .09), transparent 24rem),
+    radial-gradient(circle at 86% 22%, rgba(36, 81, 219, .085), transparent 30rem);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(23, 36, 61, .022) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 36, 61, .022) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .35), transparent 62%);
+}
+
+.site-header {
+  position: sticky;
+  top: 12px;
+  height: 70px;
+  margin-top: 12px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--card-wash);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 26px rgba(27, 31, 43, .055);
+}
+
+.brand-mark { width: 34px; height: 34px; font-size: 19px; box-shadow: none; border: 1px solid var(--line); }
+.brand-name { letter-spacing: .06em; font-size: 13px; }
+.nav { gap: 20px; font-size: 13px; }
+.nav > a:not(.resume-link)::after { bottom: -5px; }
+.theme-toggle { width: 36px; height: 36px; background: var(--paper-2); }
+.theme-toggle .theme-icon { line-height: 34px; font-size: 17px; }
+
+.sakura-layer { z-index: 6; }
+.sakura { opacity: .4; filter: saturate(.75); }
+
+.hero {
+  min-height: 704px;
+  padding: 78px 0 60px;
+  gap: clamp(36px, 5vw, 76px);
+}
+
+.hero-copy { position: relative; z-index: 2; }
+.hero-copy .eyebrow { color: var(--muted); }
+.hero h1 { font-size: clamp(54px, 6.2vw, 96px); letter-spacing: -.075em; }
+.hero-intro { max-width: 580px; margin: 30px 0 28px; font-size: 17px; min-height: 66px; }
+.hero-actions { gap: 10px; }
+.button { min-height: 48px; padding: 0 19px; }
+.button-primary { box-shadow: 0 14px 28px rgba(36, 81, 219, .22); }
+.button-arena { border: 1px solid var(--line); color: var(--ink); background: var(--paper-2); box-shadow: none; }
+.button-arena:hover { background: var(--soft-blue); }
+
+.mini-stats {
+  width: fit-content;
+  margin-top: 38px;
+  padding: 15px 19px;
+  gap: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card-wash);
+  box-shadow: 0 10px 30px rgba(27, 31, 43, .045);
+}
+.mini-stats > div { min-width: 78px; }
+.mini-stats strong { font-size: 21px; letter-spacing: -.04em; }
+.mini-stats > div:nth-child(n+3) strong { color: var(--blue); font-family: "Songti SC", SimSun, serif; }
+
+.hero-footnote {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  transition: color .2s ease, transform .2s ease;
+}
+.hero-footnote:hover { color: var(--ink); transform: translateX(4px); }
+.hero-footnote-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 5px rgba(255, 111, 76, .13); }
+.hero-footnote b { color: var(--coral); font-size: 15px; }
+
+.hero-visual { min-height: 560px; }
+.portrait-card { width: min(100%, 438px); padding: 14px 14px 13px; border-radius: 31px; transform: rotate(1.4deg); }
+.portrait-card::before {
+  content: "RESEARCH / DATA / NOTES";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(23, 36, 61, .78);
+  font: 800 9px/1 Arial, sans-serif;
+  letter-spacing: .12em;
+  backdrop-filter: blur(8px);
+}
+.portrait-card:hover { transform: rotate(0) translateY(-7px); }
+.portrait-img, .panda-stage { border-radius: 21px; }
+.speech-bubble { right: -22px; top: 15px; font-size: 11px; }
+.orbit-one { width: 535px; height: 535px; border-style: dashed; opacity: .8; }
+.orbit-two { width: 610px; height: 278px; opacity: .65; }
+.floating-chip { font-size: 9px; letter-spacing: .13em; }
+
+.ticker { margin-top: 12px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .12); }
+.ticker-track { font-size: 12px; letter-spacing: .055em; }
+
+.signal-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, .88fr) minmax(520px, 1.12fr);
+  align-items: end;
+  gap: clamp(34px, 6vw, 86px);
+  margin-top: 146px;
+  padding: 38px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  background: var(--card-wash);
+  box-shadow: var(--shadow);
+}
+.signal-board::before {
+  content: "";
+  position: absolute;
+  width: 430px;
+  height: 430px;
+  right: -190px;
+  top: -240px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  box-shadow: 0 0 0 54px rgba(36, 81, 219, .035), 0 0 0 108px rgba(255, 111, 76, .025);
+  pointer-events: none;
+}
+.signal-intro, .signal-grid { position: relative; z-index: 1; }
+.signal-intro .eyebrow { margin-bottom: 16px; color: var(--blue); }
+.signal-intro h2 { margin: 0; font: 800 clamp(34px, 4vw, 54px)/1.12 "Songti SC", SimSun, serif; letter-spacing: -.055em; }
+.signal-intro > p:not(.eyebrow) { max-width: 400px; margin: 20px 0; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.signal-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; }
+.signal-card {
+  position: relative;
+  min-height: 194px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  background: var(--paper-2);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.signal-card:hover { transform: translateY(-5px); box-shadow: 0 16px 28px rgba(27, 31, 43, .1); }
+.signal-card-featured { grid-row: span 2; min-height: 402px; color: #fff; border-color: transparent; background: linear-gradient(150deg, #1b335e 0%, #2451db 60%, #6b8cf2 100%); }
+.signal-card-featured::after { content: "↗"; position: absolute; right: 18px; bottom: -28px; color: rgba(255, 255, 255, .15); font: 300 170px/1 Georgia, serif; }
+.signal-card-coral { background: var(--soft-coral); }
+.signal-index { display: block; margin-bottom: 38px; opacity: .7; font: 800 11px/1 Arial, sans-serif; letter-spacing: .12em; }
+.signal-card p { margin: 0 0 11px; color: var(--muted); font-size: 12px; font-weight: 800; }
+.signal-card-featured p, .signal-card-featured .signal-meta { color: rgba(255, 255, 255, .68); }
+.signal-card h3 { position: relative; z-index: 1; max-width: 280px; margin: 0; font: 800 clamp(22px, 2vw, 31px)/1.28 "Songti SC", SimSun, serif; letter-spacing: -.04em; }
+.signal-card:not(.signal-card-featured) h3 { font-size: 21px; }
+.signal-meta { position: absolute; bottom: 22px; left: 22px; font-size: 9px; font-weight: 800; letter-spacing: .13em; }
+.signal-mark { position: absolute; right: 18px; bottom: 13px; color: var(--coral); font-size: 23px; }
+
+.writing, .projects, .about, .playground { padding-top: 148px; }
+.section-heading { align-items: end; }
+.section-heading > p { max-width: 420px; font-size: 15px; line-height: 1.75; }
+.section-heading h2, .about h2, .now h2, .contact h2 { letter-spacing: -.055em; }
+.featured-post, .post-card, .project-card, .play-card, .about-panel, .timeline > div, .self-card, .mind-block, .sanguo-card, .workspace-illustration { box-shadow: 0 12px 32px rgba(27, 31, 43, .055); }
+.project-filter { gap: 9px; }
+.filter-chip { border-radius: 999px; }
+.filter-chip.active { box-shadow: 0 10px 20px rgba(36, 81, 219, .18); }
+
+.now-card { position: relative; overflow: hidden; border-radius: 30px; }
+.now-card::after { content: "NOW"; position: absolute; right: 34px; bottom: -18px; color: rgba(255,255,255,.055); font: 800 150px/1 Arial, sans-serif; letter-spacing: -.08em; pointer-events: none; }
+.play-card { border-radius: 25px; }
+.about-panel, .self-card, .mind-block, .sanguo-card { border-radius: 28px; }
+.contact-card { border-radius: 32px; }
+
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+@media (max-width: 980px) {
+  .signal-board { grid-template-columns: 1fr; gap: 34px; }
+  .signal-intro > p { max-width: 600px; }
+}
+
+@media (max-width: 720px) {
+  .section-shell { width: min(100% - 32px, 1240px); }
+  .site-header { top: 8px; width: calc(100% - 24px); height: 62px; margin-top: 8px; padding: 0 12px; border-radius: 17px; }
+  .brand-name { font-size: 11px; }
+  .nav { gap: 11px; font-size: 11px; }
+  .nav a:nth-child(3), .nav a:nth-child(4) { display: none; }
+  .theme-toggle { width: 32px; height: 32px; }
+  .theme-toggle .theme-icon { line-height: 30px; }
+  .hero { min-height: auto; padding: 64px 0 46px; }
+  .hero h1 { font-size: clamp(47px, 15vw, 66px); }
+  .hero-intro { font-size: 15px; min-height: 60px; }
+  .hero-actions .button { flex: 1 1 auto; font-size: 12px; padding: 0 13px; }
+  .mini-stats { width: 100%; justify-content: space-between; gap: 10px; padding: 13px; }
+  .mini-stats > div { min-width: 0; }
+  .mini-stats strong { font-size: 17px; }
+  .hero-footnote { font-size: 11px; }
+  .hero-visual { min-height: 420px; }
+  .portrait-card { width: min(88vw, 385px); }
+  .portrait-card::before { font-size: 8px; }
+  .speech-bubble { right: -6px; top: 12px; max-width: 175px; white-space: normal; }
+  .orbit-one { width: 420px; height: 420px; }
+  .orbit-two { width: 480px; height: 220px; }
+  .signal-board { margin-top: 86px; padding: 23px; border-radius: 26px; }
+  .signal-intro h2 { font-size: 38px; }
+  .signal-grid { grid-template-columns: 1fr; }
+  .signal-card-featured { grid-row: auto; min-height: 260px; }
+  .signal-card { min-height: 174px; }
+  .writing, .projects, .about, .playground { padding-top: 90px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .sakura-layer, .panda-cursor { display: none; }
+}
+
 
 /* ====== v5 image-system polish: 图片大小 / 题材 / 焦点统一 ====== */
 /* (visual-brief 段落已删除，对应样式一并清理) */

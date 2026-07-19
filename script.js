@@ -10,16 +10,13 @@ let projectsData = [];
 /* ====== 自定义数据（不依赖 Markdown） ====== */
 
 const selfQuotes = [
-  '"比起聪明，我更想做一个较真的人。资料查到底，模型跑到底，话说到位。"',
-  '"数据不讲故事的时候，就让数据多等等。"',
-  '"一句话能说清楚的事，绝对不用两句话。"',
-  '"我可以承认错误，但绝不接受"差不多先生"的解释。"',
-  '"我是那种 —— 开完会把每一条 action item 抄到手账本上的人。"',
-  '"玩就痛快玩，做就认真做。最讨厌那种写着玩的代码注释。"',
-  '"如果你想做研究，先让自己一周读完 50 万字再说。"',
-  '"态度比智商重要 100 倍 —— 这话没有数据支撑，但我觉得对。"',
-  '"我其实挺挑剔的，所以选 music 也是 ≤ 3 首歌循环一整天。"',
-  '"别叫我博主 —— 我就是个研究做累了写写东西的研究助理。"',
+  '“比起显得聪明，我更在意有没有把问题看清楚。”',
+  '“数据不能替人做判断，但它会提醒你：别急着下结论。”',
+  '“一份报告写到最后，通常是在删掉那些看起来很厉害、其实没什么用的话。”',
+  '“愿意改结论不丢人。证据变了，判断也应该跟着变。”',
+  '“研究不是把答案找出来，而是把问题问得更具体一点。”',
+  '“工作做得太久时，去打一局游戏，回来常常能看见刚才漏掉的东西。”',
+  '“这里不是人设展览。我只是把正在做、正在想的东西留下来。”',
 ];
 
 const hitokotoList = [
@@ -118,6 +115,8 @@ const dicePool = [
 /* ==========================================================================
    内容加载 (从 ARTICLES_DATA / PROJECTS_DATA / dist/content.json)
    ========================================================================== */
+
+
 
 
 
@@ -586,10 +585,10 @@ function initTheme() {
 /* ====== 打字机 ====== */
 function initTypewriter() {
   const lines = [
-    '我关心宏观周期、产业链与国际经贸。',
-    '我也喜欢用数据和 AI 把模糊的问题拆成可以理解的故事。',
-    '较真的研究助理 · 偶尔写写小文章 · 在北京。',
-    '欢迎你来我的博客。这里有 1 只熊猫 + 5 个项目 + N 段较真。',
+    '我关心宏观周期、产业链和国际经贸，也关心它们落到真实处境时会变成什么样。',
+    '有些问题适合用数据拆开，有些问题得回到原始资料和具体的人。',
+    '研究助理、国民经济学硕士生，偶尔写工具，也给熊猫换表情。',
+    '这里不急着给答案，先把值得继续讨论的问题留住。',
   ];
   const target = document.getElementById('typewriter');
   if (!target) return;
@@ -792,7 +791,7 @@ function initPortraits() {
 function initHiButton() {
   document.getElementById('hiPanda')?.addEventListener('click', () => {
     spawnConfetti();
-    const phrases = ['👋 你好！欢迎来逛', '🐼 熊猫给你比个心', '✨ 抱歉今天有点忙，先自我介绍'];
+    const phrases = ['👋 你好，欢迎来逛一会儿', '🐼 熊猫说：资料可以慢慢看', '✨ 谢谢你把时间留给这里'];
     showToast(phrases[Math.floor(Math.random() * phrases.length)]);
   });
 }
@@ -1006,7 +1005,7 @@ function animateNum(el, target, duration) {
   requestAnimationFrame(step);
 }
 
-function initSakura() { spawnSakura(20); setInterval(() => spawnSakura(2), 6000); }
+function initSakura() { spawnSakura(5); }
 function spawnSakura(n = 1) {
   const layer = document.getElementById('sakuraLayer');
   if (!layer) return;
@@ -1314,20 +1313,14 @@ function initImpactSounds() {
   }, true);
 }
 
-/* ====== 海克斯大乱斗 · 摇符文 ====== */
+/* ====== 今日研究提示 ====== */
 const arenaRunes = [
-  { name: '致命节奏', icon: '⚡', desc: '攻速 +18% / 持续 6 秒', color: '#ff6f4c' },
-  { name: '幽灵步伐', icon: '👻', desc: '移动无视单位碰撞 + 移速加成', color: '#4dd0e1' },
-  { name: '征服者', icon: '👑', desc: '对英雄伤害转化为自适应之力', color: '#ffd966' },
-  { name: '电刑', icon: '⚡', desc: '3 秒内 3 次独立攻击 → 爆发伤害', color: '#9d4edd' },
-  { name: '不灭之握', icon: '🛡️', desc: '每 4 秒 +5 永久生命', color: '#6ab04c' },
-  { name: '彗星', icon: '☄️', desc: '技能命中 → 法术伤害', color: '#3b82f6' },
-  { name: '余震', icon: '💥', desc: '定身后 → 爆发双抗', color: '#ff4444' },
-  { name: '奥术彗星', icon: '✨', desc: 'Poke 流必带 —— 远距离骚扰', color: '#a78bfa' },
-  { name: '黑暗收割', icon: '🌑', desc: '低血量目标 +伤害', color: '#171717' },
-  { name: '冰川增幅', icon: '🧊', desc: '主动道具减速 + 减速带', color: '#06b6d4' },
-  { name: '守护者', icon: '🌟', desc: '辅助/坦克: 给自己和队友护盾', color: '#fbbf24' },
-  { name: '启封的秘籍', icon: '📖', desc: '召唤师技能冷却 -20%', color: '#ec4899' },
+  { name: '回到原文', icon: '↗', desc: '今天少看一层转述，多找一份原始资料。', color: '#ff6f4c' },
+  { name: '留一个反例', icon: '◒', desc: '任何顺手的结论，都值得找个不那么顺手的案例试试。', color: '#4dd0e1' },
+  { name: '换个时间尺度', icon: '◷', desc: '把日度波动放回一段更长的周期里，也许会看到别的东西。', color: '#ffd966' },
+  { name: '先写一句话', icon: '✎', desc: '不用急着写完整段落，先写下你真正想回答的问题。', color: '#9d4edd' },
+  { name: '停十分钟', icon: '☕', desc: '卡住不一定要硬顶。离开屏幕一会儿，再回来看看。', color: '#6ab04c' },
+  { name: '找具体的人', icon: '◎', desc: '抽象概念太大时，问问它最终会影响谁、改变什么。', color: '#3b82f6' },
 ];
 
 function initArenaRune() {
@@ -1337,11 +1330,11 @@ function initArenaRune() {
     btn.style.transform = 'scale(0.95) rotate(-3deg)';
     setTimeout(() => { btn.style.transform = ''; }, 150);
     const rune = arenaRunes[Math.floor(Math.random() * arenaRunes.length)];
-    // 三段递增音 (海克斯风的电子感)
+    // 三段递增音，给一张轻量的小提示
     playTone(523, 0.08);
     setTimeout(() => playTone(659, 0.08), 80);
     setTimeout(() => playTone(880, 0.16), 160);
     spawnSparkles(window.innerWidth / 2, 200, rune.icon);
-    showToast(`${rune.icon} 海克斯符文：${rune.name} — ${rune.desc}`);
+    showToast(`${rune.icon} 今日提示：${rune.name} — ${rune.desc}`);
   });
 }
