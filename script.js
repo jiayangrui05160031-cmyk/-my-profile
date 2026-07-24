@@ -11,8 +11,6 @@
   const launchHero = document.getElementById('launchHero');
   const launchReticle = document.getElementById('launchReticle');
   const launchRippleLayer = document.getElementById('launchRippleLayer');
-  const pandaOrbit = document.getElementById('pandaOrbit');
-  const pandaSignal = document.getElementById('pandaSignal');
   const notesGrid = document.getElementById('notesGrid');
   const pandaCursor = document.getElementById('pandaCursor');
   const petalLayer = document.getElementById('petalLayer');
@@ -29,6 +27,7 @@
   let toastTimer;
   let noteIndex = new Map();
   let arcadeTimer;
+  let pandaMoveTimer;
 
   const heroLines = [
     '这里是 <strong>views</strong>。放一点研究、一点代码、一点正在绕弯路的想法；不负责把世界解释完，只负责把看见的东西做得更清楚、更好玩。',
@@ -246,33 +245,6 @@
     ripple.style.top = `${clientY - bounds.top}px`;
     ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
     launchRippleLayer.append(ripple);
-  }
-
-  function initPandaActor() {
-    if (!pandaOrbit) return;
-    const signals = ['跟着光点走', '今天也想多看一点', '发现一颗新星', '正在悄悄蓄力', '再跳一下就好'];
-    let resetTimer;
-    pandaOrbit.addEventListener('click', event => {
-      event.stopPropagation();
-      pandaOrbit.classList.remove('is-dancing');
-      void pandaOrbit.offsetWidth;
-      pandaOrbit.classList.add('is-dancing');
-      const bounds = pandaOrbit.getBoundingClientRect();
-      const nextSignal = choose(signals);
-      if (pandaSignal) pandaSignal.textContent = nextSignal;
-      spawnSparks(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2, 22, 185);
-      spawnLaunchRipple(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
-      bloomPetals(10);
-      showToast(`熊猫观察员：${nextSignal}`);
-      clearTimeout(resetTimer);
-      resetTimer = window.setTimeout(() => pandaOrbit.classList.remove('is-dancing'), 1800);
-    });
-    pandaOrbit.addEventListener('pointerenter', () => {
-      if (pandaSignal) pandaSignal.textContent = '点我，跳个舞';
-    });
-    pandaOrbit.addEventListener('pointerleave', () => {
-      if (pandaSignal && !pandaOrbit.classList.contains('is-dancing')) pandaSignal.textContent = '跟着光点走';
-    });
   }
 
   function initCardTilt(scope = document) {
@@ -509,7 +481,6 @@
     initPetalRain();
     initPointerCompanion();
     initLaunchHero();
-    initPandaActor();
     initCardTilt();
     initSecretSequence();
     initSidequestRecords();
@@ -530,15 +501,24 @@
       const next = choose(options.length ? options : moods);
       portraitMood.textContent = next;
       const portraitFrame = document.getElementById('portraitFrame');
+      if (!portraitFrame) return;
       const isLaunchPulse = portraitFrame.classList.contains('launch-panda-pulse');
       portraitFrame.animate(isLaunchPulse
         ? [{ transform: 'translate(-50%, -50%) scale(1)' }, { transform: 'translate(-50%, -50%) scale(1.24) rotate(-12deg)' }, { transform: 'translate(-50%, -50%) scale(1)' }]
         : [{ transform: 'rotate(2.5deg) scale(1)' }, { transform: 'rotate(-2.5deg) scale(1.035)' }, { transform: 'rotate(2.5deg) scale(1)' }],
       { duration: 420, easing: 'ease-out' });
       const bounds = portraitFrame.getBoundingClientRect();
+      if (launchHero) {
+        clearTimeout(pandaMoveTimer);
+        launchHero.classList.remove('is-panda-moving');
+        void launchHero.offsetWidth;
+        launchHero.classList.add('is-panda-moving');
+        pandaMoveTimer = window.setTimeout(() => launchHero.classList.remove('is-panda-moving'), 1600);
+      }
       bloomPetals(13);
       spawnSparks(bounds.left + bounds.width * .5, bounds.top + bounds.height * .5, 16, 120);
-      showToast(`熊猫观察员：${next}`);
+      spawnLaunchRipple(bounds.left + bounds.width * .5, bounds.top + bounds.height * .5);
+      showToast(`大熊猫：${next}`);
     });
     document.getElementById('rollOracle').addEventListener('click', rollOracle);
     commandButton.addEventListener('click', openCommand);
