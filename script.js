@@ -10,6 +10,9 @@
   const portraitMood = document.getElementById('portraitMood');
   const launchHero = document.getElementById('launchHero');
   const launchReticle = document.getElementById('launchReticle');
+  const launchRippleLayer = document.getElementById('launchRippleLayer');
+  const pandaOrbit = document.getElementById('pandaOrbit');
+  const pandaSignal = document.getElementById('pandaSignal');
   const notesGrid = document.getElementById('notesGrid');
   const pandaCursor = document.getElementById('pandaCursor');
   const petalLayer = document.getElementById('petalLayer');
@@ -211,21 +214,64 @@
         const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
         launchHero.style.setProperty('--launch-x', `${x * 100}%`);
         launchHero.style.setProperty('--launch-y', `${y * 100}%`);
-        launchHero.style.setProperty('--art-x', `${(x - .5) * -9}px`);
-        launchHero.style.setProperty('--art-y', `${(y - .5) * -7}px`);
+        launchHero.style.setProperty('--art-x', `${(x - .5) * -32}px`);
+        launchHero.style.setProperty('--art-y', `${(y - .5) * -21}px`);
+        launchHero.style.setProperty('--art-rx', `${(y - .5) * -3.2}deg`);
+        launchHero.style.setProperty('--art-ry', `${(x - .5) * 3.4}deg`);
         launchReticle.style.transform = `translate3d(${event.clientX - bounds.left}px, ${event.clientY - bounds.top}px, 0) translate(-50%, -50%)`;
       });
       launchHero.addEventListener('pointerleave', () => {
         launchHero.classList.remove('is-tracking');
         launchHero.style.setProperty('--art-x', '0px');
         launchHero.style.setProperty('--art-y', '0px');
+        launchHero.style.setProperty('--art-rx', '0deg');
+        launchHero.style.setProperty('--art-ry', '0deg');
       });
     }
     launchHero.addEventListener('click', event => {
       if (event.target.closest('a, button')) return;
       spawnSparks(event.clientX, event.clientY, 10, 110);
-      launchHero.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(1.08)' }, { filter: 'brightness(1)' }], { duration: 420, easing: 'ease-out' });
+      spawnLaunchRipple(event.clientX, event.clientY);
+      launchHero.animate([{ filter: 'brightness(1) saturate(1)' }, { filter: 'brightness(1.13) saturate(1.22)' }, { filter: 'brightness(1) saturate(1)' }], { duration: 520, easing: 'ease-out' });
       showToast('这颗星已经留在观察台上。');
+    });
+  }
+
+  function spawnLaunchRipple(clientX, clientY) {
+    if (!allowsMotion() || !launchHero || !launchRippleLayer) return;
+    const bounds = launchHero.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'launch-ripple';
+    ripple.style.left = `${clientX - bounds.left}px`;
+    ripple.style.top = `${clientY - bounds.top}px`;
+    ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+    launchRippleLayer.append(ripple);
+  }
+
+  function initPandaActor() {
+    if (!pandaOrbit) return;
+    const signals = ['跟着光点走', '今天也想多看一点', '发现一颗新星', '正在悄悄蓄力', '再跳一下就好'];
+    let resetTimer;
+    pandaOrbit.addEventListener('click', event => {
+      event.stopPropagation();
+      pandaOrbit.classList.remove('is-dancing');
+      void pandaOrbit.offsetWidth;
+      pandaOrbit.classList.add('is-dancing');
+      const bounds = pandaOrbit.getBoundingClientRect();
+      const nextSignal = choose(signals);
+      if (pandaSignal) pandaSignal.textContent = nextSignal;
+      spawnSparks(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2, 22, 185);
+      spawnLaunchRipple(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+      bloomPetals(10);
+      showToast(`熊猫观察员：${nextSignal}`);
+      clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => pandaOrbit.classList.remove('is-dancing'), 1800);
+    });
+    pandaOrbit.addEventListener('pointerenter', () => {
+      if (pandaSignal) pandaSignal.textContent = '点我，跳个舞';
+    });
+    pandaOrbit.addEventListener('pointerleave', () => {
+      if (pandaSignal && !pandaOrbit.classList.contains('is-dancing')) pandaSignal.textContent = '跟着光点走';
     });
   }
 
@@ -463,6 +509,7 @@
     initPetalRain();
     initPointerCompanion();
     initLaunchHero();
+    initPandaActor();
     initCardTilt();
     initSecretSequence();
     initSidequestRecords();
