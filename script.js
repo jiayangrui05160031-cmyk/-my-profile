@@ -86,6 +86,9 @@
   const makeImageNote = (asset, title, caption, first, second, quote) => ({
     category: 'FIELD IMAGE',
     date: 'LOOK AGAIN',
+    asset,
+    caption,
+    summary: first,
     title,
     html: `<figure><img src="${asset}" alt=""><figcaption>${caption}</figcaption></figure><p>${first}</p><p>${second}</p><blockquote>${quote}</blockquote>`,
   });
@@ -523,45 +526,77 @@
     });
   }
 
-  function initAssetShelf() {
-    const shuffleShelf = document.getElementById('shuffleShelf');
-    const tiles = [...document.querySelectorAll('.asset-tile')];
-    const noteTargets = [...document.querySelectorAll('[data-asset-note]')];
-    if (!tiles.length) return;
-    let featureTimer;
-    const openAssetNote = target => {
-      const note = assetNotes[target.dataset.assetNote];
-      if (!note) return;
-      openNote(note);
-      const bounds = target.getBoundingClientRect();
-      spawnSparks(bounds.left + bounds.width * .5, bounds.top + bounds.height * .44, 9, 92);
-      showToast(`打开：${note.title}`);
-    };
-    noteTargets.forEach(target => {
-      target.addEventListener('click', () => openAssetNote(target));
+  function initImageNotes() {
+    document.querySelectorAll('[data-asset-note]').forEach(target => {
+      target.addEventListener('click', () => {
+        const note = assetNotes[target.dataset.assetNote];
+        if (!note) return;
+        openNote(note);
+        const bounds = target.getBoundingClientRect();
+        spawnSparks(bounds.left + bounds.width * .5, bounds.top + bounds.height * .44, 9, 92);
+        showToast(`打开：${note.title}`);
+      });
       target.addEventListener('keydown', event => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
-        openAssetNote(target);
+        target.click();
       });
     });
-    if (!shuffleShelf) return;
-    shuffleShelf.addEventListener('click', () => {
-      const current = tiles.find(tile => tile.classList.contains('is-featured'));
-      const next = choose(tiles.filter(tile => tile !== current));
-      tiles.forEach(tile => tile.classList.remove('is-featured'));
-      next.classList.add('is-featured');
-      const title = next.querySelector('figcaption b')?.textContent || '一张收藏画面';
-      next.scrollIntoView({ behavior: allowsMotion() ? 'smooth' : 'auto', block: 'nearest', inline: 'nearest' });
-      window.setTimeout(() => {
-        const bounds = next.getBoundingClientRect();
-        spawnSparks(bounds.left + bounds.width * .52, bounds.top + bounds.height * .48, 13, 115);
-        bloomPetals(7);
-      }, allowsMotion() ? 260 : 0);
-      clearTimeout(featureTimer);
-      featureTimer = window.setTimeout(() => next.classList.remove('is-featured'), 2300);
-      showToast(`翻到：${title}`);
+  }
+
+  function initFieldLog() {
+    const stage = document.getElementById('fieldLogStage');
+    const image = document.getElementById('fieldLogImage');
+    const meta = document.getElementById('fieldLogMeta');
+    const title = document.getElementById('fieldLogTitle');
+    const caption = document.getElementById('fieldLogCaption');
+    const openButton = document.getElementById('fieldLogOpen');
+    const shuffleButton = document.getElementById('fieldLogShuffle');
+    const signals = [...document.querySelectorAll('[data-field-log]')];
+    const recordKeys = Object.keys(assetNotes).filter(key => assetNotes[key]?.asset);
+    if (!stage || !image || !meta || !title || !caption || !signals.length || !recordKeys.length) return;
+
+    let currentKey = stage.dataset.fieldLogActive || signals[0].dataset.fieldLog;
+    const setSignal = (key, shouldAnnounce = false) => {
+      const note = assetNotes[key];
+      if (!note) return;
+      currentKey = key;
+      stage.dataset.fieldLogActive = key;
+      stage.style.setProperty('--field-log-art', `url("${note.asset}")`);
+      stage.classList.remove('is-switching');
+      void stage.offsetWidth;
+      stage.classList.add('is-switching');
+      image.src = note.asset;
+      image.alt = note.caption || note.title;
+      title.textContent = note.title;
+      caption.textContent = note.caption || note.summary || '';
+      const selectedSignal = signals.find(signal => signal.dataset.fieldLog === key);
+      meta.textContent = selectedSignal?.dataset.fieldMeta || 'UNSORTED SIGNAL';
+      stage.setAttribute('aria-label', `展开当前观测记录：${note.title}`);
+      signals.forEach(signal => {
+        const active = signal === selectedSignal;
+        signal.classList.toggle('is-active', active);
+        signal.setAttribute('aria-pressed', String(active));
+      });
+      if (shouldAnnounce) showToast(`调到：${note.title}`);
+    };
+    const openCurrent = () => {
+      const note = assetNotes[currentKey];
+      if (!note) return;
+      openNote(note);
+      const bounds = stage.getBoundingClientRect();
+      spawnSparks(bounds.left + bounds.width * .55, bounds.top + bounds.height * .45, 12, 106);
+    };
+
+    signals.forEach(signal => signal.addEventListener('click', () => setSignal(signal.dataset.fieldLog, true)));
+    stage.addEventListener('click', openCurrent);
+    openButton?.addEventListener('click', openCurrent);
+    shuffleButton?.addEventListener('click', () => {
+      const next = choose(recordKeys.filter(key => key !== currentKey));
+      setSignal(next, true);
+      bloomPetals(7);
     });
+    setSignal(currentKey);
   }
 
   function initAmbientTrack() {
@@ -618,7 +653,8 @@
     initCardTilt();
     initSecretSequence();
     initSidequestRecords();
-    initAssetShelf();
+    initImageNotes();
+    initFieldLog();
     initAmbientTrack();
     window.addEventListener('scroll', () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;

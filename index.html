@@ -86,6 +86,8 @@
       <article class="intro-card intro-note"><span>NOTE_27</span><p>好项目不是简历上的一行字。它应该能被点开、被追问，最好还能自己跑起来。</p></article>
     </section>
 
+    <div class="station-flow shell" aria-hidden="true"><span>ROUTE / 01</span><i></i><b>↘</b></div>
+
     <section class="projects shell" id="projects">
       <div class="section-head">
         <div>
@@ -141,6 +143,8 @@
       </div>
     </section>
 
+    <div class="station-flow shell is-cyan" aria-hidden="true"><span>LOOK AGAIN</span><i></i><b>↘</b></div>
+
     <section class="sidequests shell" id="sidequests">
       <div class="section-head">
         <div><p class="section-index">03 / SIDE QUESTS</p><h2>离开工作台之后，<br>脑子去别的世界转一圈。</h2></div>
@@ -157,6 +161,7 @@
       </div>
     </section>
 
+    <template id="retiredPhotoWall">
     <section class="asset-atlas shell" id="assetAtlas" aria-label="views 的收藏画面">
       <div class="section-head">
         <div><p class="section-index">03.5 / IMAGE CABINET</p><h2>有些东西没做成项目，<br>但还是值得留在桌面上。</h2></div>
@@ -184,6 +189,37 @@
         <figure class="asset-tile" data-asset-note="ig-worlds" tabindex="0" role="button" aria-label="阅读图片随笔：IG 2018，LPL 的第一座世界冠军"><img src="assets/英雄联盟3.png" alt="IG 选手在 2018 世界赛举起召唤师杯" loading="lazy"><figcaption><span>19 / IG · WORLDS 2018</span><b>LPL 的第一座世界冠军</b></figcaption></figure>
       </div>
     </section>
+    </template>
+
+    <section class="field-log shell" id="fieldLog" aria-label="views 的观测台">
+      <div class="section-head">
+        <div><p class="section-index">03.5 / FIELD LOG</p><h2>不是照片墙，<br>是一台正在换页的观测台。</h2></div>
+        <p class="section-lead">这里不把画面一次摊满。选一条线索，看一张图，读它为什么被留下；想走远一点，就让工作台随机调一次频。</p>
+      </div>
+      <div class="field-log-shell">
+        <div class="field-log-rail" role="group" aria-label="选择观察线索">
+          <p>SELECT A SIGNAL</p>
+          <button class="field-log-signal is-active" type="button" data-field-log="strategy-map" data-field-meta="01 / SYSTEM MAP" aria-pressed="true"><b>系统地图</b><span>把变量摊开</span></button>
+          <button class="field-log-signal" type="button" data-field-log="trophy-team" data-field-meta="02 / LPL FILE" aria-pressed="false"><b>冠军不是泛用素材</b><span>把队名叫出来</span></button>
+          <button class="field-log-signal" type="button" data-field-log="city-overview" data-field-meta="03 / CITY FROM ABOVE" aria-pressed="false"><b>从上面看城市</b><span>规则会自己出现</span></button>
+          <button class="field-log-signal" type="button" data-field-log="ig-worlds" data-field-meta="04 / WORLDS 2018" aria-pressed="false"><b>冠军被写成历史</b><span>IG 的那一夜</span></button>
+          <button class="field-log-signal" type="button" data-field-log="doraemon" data-field-meta="05 / RESET" aria-pressed="false"><b>不必有任务的画面</b><span>给脑子留空位</span></button>
+        </div>
+        <button class="field-log-stage" id="fieldLogStage" type="button" data-field-log-active="strategy-map" aria-label="展开当前观测记录：把欧洲塞进一张操作台">
+          <span class="field-log-screen"><img id="fieldLogImage" src="assets/real-lol.png" alt="地图、兵种和数值面板组成的战略游戏界面" loading="lazy"></span>
+          <span class="field-log-corner top-left" aria-hidden="true"></span><span class="field-log-corner bottom-right" aria-hidden="true"></span>
+          <span class="field-log-tap" aria-hidden="true">点击展开记录 ↗</span>
+        </button>
+        <div class="field-log-copy" aria-live="polite">
+          <p class="field-log-meta" id="fieldLogMeta">01 / SYSTEM MAP</p>
+          <h3 id="fieldLogTitle">把欧洲塞进一张操作台</h3>
+          <p id="fieldLogCaption">地图、国家颜色、部队图标和一整排面板同时亮着。</p>
+          <div class="field-log-actions"><button class="button button-primary" id="fieldLogOpen" type="button">读完整记录 <span>↗</span></button><button class="text-button" id="fieldLogShuffle" type="button">随机调频 <span>↻</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="station-flow shell is-warm" aria-hidden="true"><span>KEEP WANDERING</span><i></i><b>↘</b></div>
 
     <section class="playbox shell" id="playbox">
       <div class="playbox-copy"><p class="section-index">04 / MINI CONSOLE</p><h2>没有 KPI 的三十秒。</h2><p>点一下，让今天的工作台随机给你一张不太严肃的提示卡。结果只在这一页停留，不记任何东西。</p></div>
