@@ -39,37 +39,19 @@
   </header>
 
   <main id="top">
-    <section class="hero shell">
-      <div class="hero-copy">
-        <p class="kicker"><span class="live-dot"></span> ONLINE · UTC+8 · NO RUSH</p>
-        <h1>把好奇心<br>做成一些<span>能点开的东西。</span></h1>
-        <p class="hero-text">这里是 <strong>views</strong>。放一点研究、一点代码、一点正在绕弯路的想法；不负责把世界解释完，只负责把看见的东西做得更清楚、更好玩。</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#projects">沿项目路线走 <span>↓</span></a>
-          <button class="button button-ghost" id="shuffleIntro" type="button">换一句开场 <span>↻</span></button>
-        </div>
-        <div class="hero-readout" aria-label="站点索引">
-          <div><b>05</b><span>已点亮的项目</span></div>
-          <div><b>∞</b><span>还没写完的想法</span></div>
-          <div><b>01</b><span>熊猫观察员</span></div>
-        </div>
+    <section class="launch-hero shell" id="launchHero" aria-label="views 的开场工作台">
+      <img class="launch-art" src="assets/views-field-station-hero.png" alt="熊猫观察员坐在星图、笔记本和研究工具之间的 views 工作台" width="1680" height="945">
+      <div class="launch-vignette" aria-hidden="true"></div>
+      <div class="launch-reticle" id="launchReticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="launch-status"><p class="kicker"><span class="live-dot"></span> ONLINE · UTC+8 · FIELD STATION</p><p id="portraitMood">curious by default</p></div>
+      <div class="launch-copy"><p class="launch-eyebrow">field station / 001</p><p class="hero-text">这里是 <strong>views</strong>。放一点研究、一点代码、一点正在绕弯路的想法；不负责把世界解释完，只负责把看见的东西做得更清楚、更好玩。</p></div>
+      <div class="launch-actions">
+        <a class="button button-primary" href="#projects">沿项目路线走 <span>↓</span></a>
+        <button class="button button-ghost" id="shuffleIntro" type="button">换一句开场 <span>↻</span></button>
       </div>
-
-      <div class="hero-visual" aria-label="views 的工作台插画">
-        <div class="orbit orbit-a"></div>
-        <div class="orbit orbit-b"></div>
-        <div class="signal signal-one"><span>01</span>research</div>
-        <div class="signal signal-two"><span>02</span>build</div>
-        <div class="signal signal-three"><span>03</span>side quest</div>
-        <div class="portrait-frame" id="portraitFrame">
-          <div class="portrait-topline"><span>views.exe</span><span>● ready</span></div>
-          <img src="assets/portrait-panda_001.jpg" alt="戴耳机的熊猫观察员" width="1024" height="1024">
-          <div class="portrait-caption"><span>field observer</span><strong id="portraitMood">curious by default</strong></div>
-          <button class="portrait-tap" id="portraitTap" type="button">戳一下，换个状态</button>
-        </div>
-        <div class="hero-sticker sticker-one">data first</div>
-        <div class="hero-sticker sticker-two">make it playable</div>
-      </div>
+      <div class="launch-readout" aria-label="站点索引"><div><b>05</b><span>已点亮的项目</span></div><div><b>∞</b><span>还没写完的想法</span></div><div><b>01</b><span>熊猫观察员</span></div></div>
+      <div class="launch-panda-pulse" id="portraitFrame" aria-hidden="true"></div>
+      <button class="launch-panda" id="portraitTap" type="button"><span aria-hidden="true">✦</span> 唤醒观察员</button>
     </section>
 
     <section class="marquee" aria-label="关注关键词">

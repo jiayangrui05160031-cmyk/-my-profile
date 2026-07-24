@@ -8,6 +8,8 @@
   const toast = document.getElementById('toast');
   const heroText = document.querySelector('.hero-text');
   const portraitMood = document.getElementById('portraitMood');
+  const launchHero = document.getElementById('launchHero');
+  const launchReticle = document.getElementById('launchReticle');
   const notesGrid = document.getElementById('notesGrid');
   const pandaCursor = document.getElementById('pandaCursor');
   const petalLayer = document.getElementById('petalLayer');
@@ -171,6 +173,37 @@
     }, { passive: true });
     document.documentElement.addEventListener('mouseleave', () => pandaCursor.classList.remove('is-visible'));
     window.addEventListener('blur', () => pandaCursor.classList.remove('is-visible'));
+  }
+
+  function initLaunchHero() {
+    if (!launchHero) return;
+    if (allowsMotion() && usesFinePointer() && launchReticle) {
+      launchHero.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch') launchHero.classList.add('is-tracking');
+      });
+      launchHero.addEventListener('pointermove', event => {
+        if (event.pointerType === 'touch') return;
+        const bounds = launchHero.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+        launchHero.style.setProperty('--launch-x', `${x * 100}%`);
+        launchHero.style.setProperty('--launch-y', `${y * 100}%`);
+        launchHero.style.setProperty('--art-x', `${(x - .5) * -9}px`);
+        launchHero.style.setProperty('--art-y', `${(y - .5) * -7}px`);
+        launchReticle.style.transform = `translate3d(${event.clientX - bounds.left}px, ${event.clientY - bounds.top}px, 0) translate(-50%, -50%)`;
+      });
+      launchHero.addEventListener('pointerleave', () => {
+        launchHero.classList.remove('is-tracking');
+        launchHero.style.setProperty('--art-x', '0px');
+        launchHero.style.setProperty('--art-y', '0px');
+      });
+    }
+    launchHero.addEventListener('click', event => {
+      if (event.target.closest('a, button')) return;
+      spawnSparks(event.clientX, event.clientY, 10, 110);
+      launchHero.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(1.08)' }, { filter: 'brightness(1)' }], { duration: 420, easing: 'ease-out' });
+      showToast('这颗星已经留在观察台上。');
+    });
   }
 
   function initCardTilt(scope = document) {
@@ -370,6 +403,7 @@
   function initInteractions() {
     initPetalRain();
     initPointerCompanion();
+    initLaunchHero();
     initCardTilt();
     initSecretSequence();
     window.addEventListener('scroll', () => {
@@ -389,10 +423,14 @@
       const next = choose(options.length ? options : moods);
       portraitMood.textContent = next;
       const portraitFrame = document.getElementById('portraitFrame');
-      portraitFrame.animate([{ transform: 'rotate(2.5deg) scale(1)' }, { transform: 'rotate(-2.5deg) scale(1.035)' }, { transform: 'rotate(2.5deg) scale(1)' }], { duration: 420, easing: 'ease-out' });
+      const isLaunchPulse = portraitFrame.classList.contains('launch-panda-pulse');
+      portraitFrame.animate(isLaunchPulse
+        ? [{ transform: 'translate(-50%, -50%) scale(1)' }, { transform: 'translate(-50%, -50%) scale(1.24) rotate(-12deg)' }, { transform: 'translate(-50%, -50%) scale(1)' }]
+        : [{ transform: 'rotate(2.5deg) scale(1)' }, { transform: 'rotate(-2.5deg) scale(1.035)' }, { transform: 'rotate(2.5deg) scale(1)' }],
+      { duration: 420, easing: 'ease-out' });
       const bounds = portraitFrame.getBoundingClientRect();
       bloomPetals(13);
-      spawnSparks(bounds.left + bounds.width * .64, bounds.top + bounds.height * .46, 16, 120);
+      spawnSparks(bounds.left + bounds.width * .5, bounds.top + bounds.height * .5, 16, 120);
       showToast(`熊猫观察员：${next}`);
     });
     document.getElementById('rollOracle').addEventListener('click', rollOracle);
