@@ -18,6 +18,7 @@
   <div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
   <div class="spark-layer" id="sparkLayer" aria-hidden="true"></div>
   <div class="panda-cursor" id="pandaCursor" aria-hidden="true"><span></span><span></span></div>
+  <div class="field-backdrop" aria-hidden="true"><span class="field-backdrop-orbit orbit-one"></span><span class="field-backdrop-orbit orbit-two"></span><span class="field-backdrop-orbit orbit-three"></span></div>
   <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
   <audio id="ambientAudio" preload="metadata" loop><source src="assets/summer-piano.mp3" type="audio/mpeg"></audio>
   <div class="theme-dock" aria-label="页面色调切换">
@@ -101,25 +102,25 @@
         <button class="filter" type="button" data-filter="play">Play</button>
       </div>
 
-      <div class="project-grid" id="projectGrid">
-        <a class="project-card featured" data-kind="agent" href="https://github.com/jiayangrui05160031-cmyk/chinatrade-decision" target="_blank" rel="noreferrer">
-          <div class="project-image"><img src="assets/cover-wto_001.jpg" alt="跨境政策决策支持项目封面" loading="lazy"><span class="project-number">01</span><span class="project-arrow">↗</span></div>
+      <div class="project-grid project-route" id="projectGrid">
+        <a class="project-card featured" data-kind="agent" style="--project-art: url('assets/cover-wto_001.jpg')" href="https://github.com/jiayangrui05160031-cmyk/chinatrade-decision" target="_blank" rel="noreferrer">
+          <div class="project-image"><img src="assets/cover-wto_001.jpg" alt="完整展示的跨境政策决策支持项目封面" loading="lazy"><span class="project-number">01 / ENTRY</span><span class="project-frame-note">FULL FRAME · 进入仓库</span><span class="project-arrow">↗</span></div>
           <div class="project-copy"><p>TRADE INTELLIGENCE · AGENT</p><h3>把一笔跨境订单<br>放到政策、税则与风险里看。</h3><span>HS 编码、关税计算、政策追踪，最后落成一张能讨论的决策卡。</span><ul><li>USITC</li><li>FastAPI</li><li>LLM</li></ul></div>
         </a>
-        <a class="project-card blue" data-kind="agent" href="https://github.com/jiayangrui05160031-cmyk/video-analysis-agent" target="_blank" rel="noreferrer">
-          <div class="project-image"><img src="assets/cover-video-agent_001.jpg" alt="多平台视频内容分析项目封面" loading="lazy"><span class="project-number">02</span><span class="project-arrow">↗</span></div>
+        <a class="project-card blue" data-kind="agent" style="--project-art: url('assets/cover-video-agent_001.jpg')" href="https://github.com/jiayangrui05160031-cmyk/video-analysis-agent" target="_blank" rel="noreferrer">
+          <div class="project-image"><img src="assets/cover-video-agent_001.jpg" alt="完整展示的多平台视频内容分析项目封面" loading="lazy"><span class="project-number">02 / TRACE</span><span class="project-frame-note">FULL FRAME · 进入仓库</span><span class="project-arrow">↗</span></div>
           <div class="project-copy"><p>VIDEO ATLAS · AGENT</p><h3>给一条链接，<br>把信息流拆成可回看的东西。</h3><span>字幕、翻译、弹幕、聚合——不只要一句总结，也保留继续追问的入口。</span><ul><li>ASR</li><li>FastAPI</li><li>Multi-platform</li></ul></div>
         </a>
-        <a class="project-card amber" data-kind="data" href="https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily" target="_blank" rel="noreferrer">
-          <div class="project-image"><img src="assets/cover-macro_001.jpg" alt="宏观经济智能分析平台项目封面" loading="lazy"><span class="project-number">03</span><span class="project-arrow">↗</span></div>
+        <a class="project-card amber" data-kind="data" style="--project-art: url('assets/cover-macro_001.jpg')" href="https://github.com/jiayangrui05160031-cmyk/people-daily-economy-daily" target="_blank" rel="noreferrer">
+          <div class="project-image"><img src="assets/cover-macro_001.jpg" alt="完整展示的宏观经济智能分析平台项目封面" loading="lazy"><span class="project-number">03 / SIGNAL</span><span class="project-frame-note">FULL FRAME · 进入仓库</span><span class="project-arrow">↗</span></div>
           <div class="project-copy"><p>MACRO COCKPIT · DATA</p><h3>把每天的宏观新闻，<br>留成一条可追溯的线索。</h3><span>从抓取、分析、报告到驾驶舱，试着把“今天发生了什么”拆开看一遍。</span><ul><li>RAG</li><li>Forecasting</li><li>ReAct</li></ul></div>
         </a>
-        <a class="project-card coral" data-kind="data" href="https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation" target="_blank" rel="noreferrer">
-          <div class="project-image"><img src="assets/cover-rfm_001.jpg" alt="电商 RFM 用户分群项目封面" loading="lazy"><span class="project-number">04</span><span class="project-arrow">↗</span></div>
+        <a class="project-card coral" data-kind="data" style="--project-art: url('assets/cover-rfm_001.jpg')" href="https://github.com/jiayangrui05160031-cmyk/ecommerce-rfm-customer-segmentation" target="_blank" rel="noreferrer">
+          <div class="project-image"><img src="assets/cover-rfm_001.jpg" alt="完整展示的电商 RFM 用户分群项目封面" loading="lazy"><span class="project-number">04 / ORBIT</span><span class="project-frame-note">FULL FRAME · 进入仓库</span><span class="project-arrow">↗</span></div>
           <div class="project-copy"><p>CUSTOMER ORBIT · DATA</p><h3>分群之后，<br>更关心下一步该怎么做。</h3><span>RFM 只是起点；CLV、流失信号和预算约束，才把人群变成策略。</span><ul><li>CLV</li><li>LightGBM</li><li>Next-best action</li></ul></div>
         </a>
-        <a class="project-card play-card" data-kind="play" href="https://github.com/jiayangrui05160031-cmyk/RGame" target="_blank" rel="noreferrer">
-          <div class="project-image"><img src="assets/钢铁雄心.png" alt="策略游戏画面" loading="lazy"><span class="project-number">05</span><span class="project-arrow">↗</span></div>
+        <a class="project-card play-card" data-kind="play" style="--project-art: url('assets/钢铁雄心.png')" href="https://github.com/jiayangrui05160031-cmyk/RGame" target="_blank" rel="noreferrer">
+          <div class="project-image"><img src="assets/钢铁雄心.png" alt="完整展示的策略游戏项目画面" loading="lazy"><span class="project-number">05 / PLAY</span><span class="project-frame-note">FULL FRAME · 进入仓库</span><span class="project-arrow">↗</span></div>
           <div class="project-copy"><p>RGAME · SIDE PROJECT</p><h3>把一堆规格，<br>做成一场可以不断重开的战斗。</h3><span>自动攻击、武器循环、关卡与存档——一边写规则，一边看它们在屏幕上活过来。</span><ul><li>Python</li><li>Pygame</li><li>Kivy</li></ul></div>
         </a>
       </div>
@@ -172,15 +173,15 @@
         <figure class="asset-tile asset-tile-wide" data-asset-note="arena-cover" tabindex="0" role="button" aria-label="阅读图片随笔：留白里的开局"><img src="assets/real-arena.png" alt="水墨风格的竞技游戏人物海报" loading="lazy"><figcaption><span>08 / OPENING FRAME</span><b>留白里的开局</b></figcaption></figure>
         <figure class="asset-tile" data-asset-note="caocao-portrait" tabindex="0" role="button" aria-label="阅读图片随笔：不把人物拍成答案"><img src="assets/real-caocao.png" alt="深色背景下的古代人物肖像" loading="lazy"><figcaption><span>09 / PORTRAIT</span><b>不把人物拍成答案</b></figcaption></figure>
         <figure class="asset-tile" data-asset-note="strategy-map" tabindex="0" role="button" aria-label="阅读图片随笔：把欧洲塞进一张操作台"><img src="assets/real-lol.png" alt="地图、兵种和数值面板组成的战略游戏界面" loading="lazy"><figcaption><span>10 / STRATEGY MAP</span><b>把欧洲塞进一张操作台</b></figcaption></figure>
-        <figure class="asset-tile" data-asset-note="trophy-team" tabindex="0" role="button" aria-label="阅读图片随笔：奖杯不是一个人举起来的"><img src="assets/real-lpl.png" alt="几名电竞选手共同举起奖杯" loading="lazy"><figcaption><span>11 / TROPHY</span><b>奖杯不是一个人举起来的</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="trophy-team" tabindex="0" role="button" aria-label="阅读图片随笔：BLG，把 LPL 奖杯举起来"><img src="assets/real-lpl.png" alt="BLG 选手在 LPL 冠军现场举起奖杯" loading="lazy"><figcaption><span>11 / BLG · LPL</span><b>BLG：把 LPL 奖杯举起来</b></figcaption></figure>
         <figure class="asset-tile asset-tile-tall" data-asset-note="city-overview" tabindex="0" role="button" aria-label="阅读图片随笔：从上面看，城市会暴露逻辑"><img src="assets/城市天极限.png" alt="从高空俯瞰道路、水面和高楼组成的城市" loading="lazy"><figcaption><span>12 / CITY OVERVIEW</span><b>从上面看，城市会暴露逻辑</b></figcaption></figure>
         <figure class="asset-tile" data-asset-note="doraemon" tabindex="0" role="button" aria-label="阅读图片随笔：一张不需要解释的合照"><img src="assets/多来a梦.png" alt="哆啦A梦和伙伴们的动画合照" loading="lazy"><figcaption><span>13 / RESET</span><b>一张不需要解释的合照</b></figcaption></figure>
         <figure class="asset-tile" data-asset-note="hex-aram" tabindex="0" role="button" aria-label="阅读图片随笔：随机性也有节奏"><img src="assets/海克斯大乱斗.png" alt="冰桥上进行的多人团队战斗画面" loading="lazy"><figcaption><span>14 / HEX</span><b>随机性也有节奏</b></figcaption></figure>
         <figure class="asset-tile" data-asset-note="sima-portrait" tabindex="0" role="button" aria-label="阅读图片随笔：同一张脸，另一种等待"><img src="assets/司马懿.png" alt="古代人物近景肖像" loading="lazy"><figcaption><span>15 / SECOND LOOK</span><b>同一张脸，另一种等待</b></figcaption></figure>
         <figure class="asset-tile asset-tile-wide" data-asset-note="civ-map" tabindex="0" role="button" aria-label="阅读图片随笔：一座城市密到开始有性格"><img src="assets/文明6-1.png" alt="被建筑、道路和图标填满的文明策略游戏城市" loading="lazy"><figcaption><span>16 / CIVILIZATION</span><b>一座城市密到开始有性格</b></figcaption></figure>
-        <figure class="asset-tile" data-asset-note="arena-reframe" tabindex="0" role="button" aria-label="阅读图片随笔：同一场景，换一个观察点"><img src="assets/英雄联盟.png" alt="水墨风格的竞技游戏人物海报" loading="lazy"><figcaption><span>17 / REFRAME</span><b>同一场景，换一个观察点</b></figcaption></figure>
-        <figure class="asset-tile" data-asset-note="team-reframe" tabindex="0" role="button" aria-label="阅读图片随笔：庆祝的镜头会放大团队"><img src="assets/英雄联盟1.png" alt="电竞选手共同捧起奖杯" loading="lazy"><figcaption><span>18 / REFRAME</span><b>庆祝的镜头会放大团队</b></figcaption></figure>
-        <figure class="asset-tile" data-asset-note="champion-night" tabindex="0" role="button" aria-label="阅读图片随笔：冠军时刻之后的静默"><img src="assets/英雄联盟3.png" alt="选手们举起世界冠军奖杯的夜间画面" loading="lazy"><figcaption><span>19 / NIGHT AFTER</span><b>冠军时刻之后的静默</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="ig-skins" tabindex="0" role="button" aria-label="阅读图片随笔：IG 2018 的冠军皮肤"><img src="assets/英雄联盟.png" alt="IG 2018 世界冠军限定皮肤与选手签名" loading="lazy"><figcaption><span>17 / IG · 2018</span><b>第一座世界冠军，变成一组皮肤</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="edg-worlds" tabindex="0" role="button" aria-label="阅读图片随笔：EDG 2021 的世界冠军现场"><img src="assets/英雄联盟2.png" alt="EDG 选手在 2021 世界赛举起召唤师杯" loading="lazy"><figcaption><span>18 / EDG · 2021</span><b>五局之后，召唤师杯归来</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="ig-worlds" tabindex="0" role="button" aria-label="阅读图片随笔：IG 2018，LPL 的第一座世界冠军"><img src="assets/英雄联盟3.png" alt="IG 选手在 2018 世界赛举起召唤师杯" loading="lazy"><figcaption><span>19 / IG · WORLDS 2018</span><b>LPL 的第一座世界冠军</b></figcaption></figure>
       </div>
     </section>
 
