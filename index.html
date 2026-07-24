@@ -19,6 +19,7 @@
   <div class="spark-layer" id="sparkLayer" aria-hidden="true"></div>
   <div class="panda-cursor" id="pandaCursor" aria-hidden="true"><span></span><span></span></div>
   <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  <audio id="ambientAudio" preload="metadata" loop><source src="assets/summer-piano.mp3" type="audio/mpeg"></audio>
 
   <header class="topbar shell">
     <a class="brand" href="#top" aria-label="回到页面顶部">
@@ -46,17 +47,21 @@
       <div class="launch-reticle" id="launchReticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="launch-ripple-layer" id="launchRippleLayer" aria-hidden="true"></div>
       <div class="launch-status"><p class="kicker"><span class="live-dot"></span> ONLINE · UTC+8 · FIELD STATION</p><p id="portraitMood">curious by default</p></div>
+      <button class="launch-music" id="musicToggle" type="button" aria-pressed="false" aria-label="播放夏日钢琴">
+        <span class="music-disc" aria-hidden="true">♩</span><span class="music-copy"><b>FIELD TAPE 01</b><i id="musicStatus">点一下，听一段夏日钢琴</i></span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
       <div class="launch-copy"><p class="launch-eyebrow">field station / 001</p><p class="hero-text">这里是 <strong>views</strong>。放一点研究、一点代码、一点正在绕弯路的想法；不负责把世界解释完，只负责把看见的东西做得更清楚、更好玩。</p></div>
       <div class="launch-actions">
         <a class="button button-primary" href="#projects">沿项目路线走 <span>↓</span></a>
         <button class="button button-ghost" id="shuffleIntro" type="button">换一句开场 <span>↻</span></button>
       </div>
+      <a class="launch-scroll-cue" href="#afterLaunch" aria-label="向下浏览 views 的博客内容"><span>SCROLL TO CONTINUE</span><i aria-hidden="true">↓</i></a>
       <div class="launch-readout" aria-label="站点索引"><div><b>05</b><span>已点亮的项目</span></div><div><b>∞</b><span>还没写完的想法</span></div><div><b>01</b><span>熊猫观察员</span></div></div>
       <div class="launch-panda-pulse" id="portraitFrame" aria-hidden="true"></div>
       <button class="launch-panda" id="portraitTap" type="button"><span aria-hidden="true">✦</span> 戳一下大熊猫</button>
     </section>
 
-    <section class="marquee" aria-label="关注关键词">
+    <section class="marquee" id="afterLaunch" aria-label="关注关键词">
       <div class="marquee-track">
         <span>TRADE INTELLIGENCE</span><i>✦</i><span>VIDEO AGENTS</span><i>✦</i><span>MACRO NOTES</span><i>✦</i><span>RFM &amp; CLV</span><i>✦</i><span>ROGUELIKE LOOPS</span><i>✦</i><span>TRADE INTELLIGENCE</span><i>✦</i><span>VIDEO AGENTS</span><i>✦</i><span>MACRO NOTES</span><i>✦</i><span>RFM &amp; CLV</span><i>✦</i><span>ROGUELIKE LOOPS</span><i>✦</i>
       </div>
@@ -143,6 +148,34 @@
       </div>
     </section>
 
+    <section class="asset-atlas shell" id="assetAtlas" aria-label="views 的收藏画面">
+      <div class="section-head">
+        <div><p class="section-index">03.5 / IMAGE CABINET</p><h2>有些东西没做成项目，<br>但还是值得留在桌面上。</h2></div>
+        <div class="asset-atlas-lead"><p>这是一个不讲效率的小抽屉：游戏里的临场判断、城市的边角、角色和几张随手留下的画面。它们不是作品说明，却一直在给做事的方式添一点直觉。</p><button class="text-button" id="shuffleShelf" type="button">随手翻一张 <span>↻</span></button></div>
+      </div>
+      <div class="asset-atlas-grid" id="assetAtlasGrid">
+        <figure class="asset-tile asset-tile-wide" data-asset-note="cs2" tabindex="0" role="button" aria-label="阅读图片随笔：门口的两秒钟"><img src="assets/cs2.png" alt="两名武装角色正准备穿过狭窄门洞" loading="lazy"><figcaption><span>01 / FPS / 门洞</span><b>门口的两秒钟</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="arena-panda" tabindex="0" role="button" aria-label="阅读图片随笔：把胜负做成玩具"><img src="assets/hobby-arena_001.jpg" alt="小熊猫站在紫色霓虹竞技场中举起双手" loading="lazy"><figcaption><span>02 / NEON ARENA</span><b>把胜负做成玩具</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="golden-walk" tabindex="0" role="button" aria-label="阅读图片随笔：朝着亮处走的三个人"><img src="assets/hobby-book_001.jpg" alt="三个人沿着金色原野向远山走去" loading="lazy"><figcaption><span>03 / GOLDEN FIELD</span><b>朝着亮处走的三个人</b></figcaption></figure>
+        <figure class="asset-tile asset-tile-tall" data-asset-note="civ-panda" tabindex="0" role="button" aria-label="阅读图片随笔：系统也可以穿一件红袍"><img src="assets/hobby-civ6_001.jpg" alt="穿着红色古装的小熊猫站在宫殿和山水之间" loading="lazy"><figcaption><span>04 / 4X / RED ROBE</span><b>系统也可以穿一件红袍</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="sniper-panda" tabindex="0" role="button" aria-label="阅读图片随笔：开镜等于删掉噪音"><img src="assets/hobby-cs2_001.jpg" alt="小熊猫端着狙击枪瞄准前方" loading="lazy"><figcaption><span>05 / AIM</span><b>开镜等于删掉噪音</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="controller-panda" tabindex="0" role="button" aria-label="阅读图片随笔：按下开始，不必有产出"><img src="assets/hobby-lol_001.jpg" alt="小熊猫拿着游戏手柄，周围漂着彩色宝石" loading="lazy"><figcaption><span>06 / PLAY</span><b>按下开始，不必有产出</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="sunset-cavalry" tabindex="0" role="button" aria-label="阅读图片随笔：太阳落下以后，队伍还在走"><img src="assets/hobby-sanguo_001.jpg" alt="落日下的骑兵队伍和旌旗" loading="lazy"><figcaption><span>07 / SUNSET</span><b>太阳落下以后，队伍还在走</b></figcaption></figure>
+        <figure class="asset-tile asset-tile-wide" data-asset-note="arena-cover" tabindex="0" role="button" aria-label="阅读图片随笔：留白里的开局"><img src="assets/real-arena.png" alt="水墨风格的竞技游戏人物海报" loading="lazy"><figcaption><span>08 / OPENING FRAME</span><b>留白里的开局</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="caocao-portrait" tabindex="0" role="button" aria-label="阅读图片随笔：不把人物拍成答案"><img src="assets/real-caocao.png" alt="深色背景下的古代人物肖像" loading="lazy"><figcaption><span>09 / PORTRAIT</span><b>不把人物拍成答案</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="strategy-map" tabindex="0" role="button" aria-label="阅读图片随笔：把欧洲塞进一张操作台"><img src="assets/real-lol.png" alt="地图、兵种和数值面板组成的战略游戏界面" loading="lazy"><figcaption><span>10 / STRATEGY MAP</span><b>把欧洲塞进一张操作台</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="trophy-team" tabindex="0" role="button" aria-label="阅读图片随笔：奖杯不是一个人举起来的"><img src="assets/real-lpl.png" alt="几名电竞选手共同举起奖杯" loading="lazy"><figcaption><span>11 / TROPHY</span><b>奖杯不是一个人举起来的</b></figcaption></figure>
+        <figure class="asset-tile asset-tile-tall" data-asset-note="city-overview" tabindex="0" role="button" aria-label="阅读图片随笔：从上面看，城市会暴露逻辑"><img src="assets/城市天极限.png" alt="从高空俯瞰道路、水面和高楼组成的城市" loading="lazy"><figcaption><span>12 / CITY OVERVIEW</span><b>从上面看，城市会暴露逻辑</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="doraemon" tabindex="0" role="button" aria-label="阅读图片随笔：一张不需要解释的合照"><img src="assets/多来a梦.png" alt="哆啦A梦和伙伴们的动画合照" loading="lazy"><figcaption><span>13 / RESET</span><b>一张不需要解释的合照</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="hex-aram" tabindex="0" role="button" aria-label="阅读图片随笔：随机性也有节奏"><img src="assets/海克斯大乱斗.png" alt="冰桥上进行的多人团队战斗画面" loading="lazy"><figcaption><span>14 / HEX</span><b>随机性也有节奏</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="sima-portrait" tabindex="0" role="button" aria-label="阅读图片随笔：同一张脸，另一种等待"><img src="assets/司马懿.png" alt="古代人物近景肖像" loading="lazy"><figcaption><span>15 / SECOND LOOK</span><b>同一张脸，另一种等待</b></figcaption></figure>
+        <figure class="asset-tile asset-tile-wide" data-asset-note="civ-map" tabindex="0" role="button" aria-label="阅读图片随笔：一座城市密到开始有性格"><img src="assets/文明6-1.png" alt="被建筑、道路和图标填满的文明策略游戏城市" loading="lazy"><figcaption><span>16 / CIVILIZATION</span><b>一座城市密到开始有性格</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="arena-reframe" tabindex="0" role="button" aria-label="阅读图片随笔：同一场景，换一个观察点"><img src="assets/英雄联盟.png" alt="水墨风格的竞技游戏人物海报" loading="lazy"><figcaption><span>17 / REFRAME</span><b>同一场景，换一个观察点</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="team-reframe" tabindex="0" role="button" aria-label="阅读图片随笔：庆祝的镜头会放大团队"><img src="assets/英雄联盟1.png" alt="电竞选手共同捧起奖杯" loading="lazy"><figcaption><span>18 / REFRAME</span><b>庆祝的镜头会放大团队</b></figcaption></figure>
+        <figure class="asset-tile" data-asset-note="champion-night" tabindex="0" role="button" aria-label="阅读图片随笔：冠军时刻之后的静默"><img src="assets/英雄联盟3.png" alt="选手们举起世界冠军奖杯的夜间画面" loading="lazy"><figcaption><span>19 / NIGHT AFTER</span><b>冠军时刻之后的静默</b></figcaption></figure>
+      </div>
+    </section>
+
     <section class="playbox shell" id="playbox">
       <div class="playbox-copy"><p class="section-index">04 / MINI CONSOLE</p><h2>没有 KPI 的三十秒。</h2><p>点一下，让今天的工作台随机给你一张不太严肃的提示卡。结果只在这一页停留，不记任何东西。</p></div>
       <div class="oracle" id="oracleCard">
@@ -159,9 +192,11 @@
         <div class="about-copy"><p>views 是一个放东西的名字。这里记录研究和数据工具，也记录把页面打磨好看、把规则写成小游戏、以及对各种复杂系统的好奇。</p><p>如果某个项目刚好对你有用，欢迎沿着代码继续往下看；如果你也正在做一些难以归类的东西，那更好。</p><a class="button button-primary" href="https://github.com/jiayangrui05160031-cmyk" target="_blank" rel="noreferrer">去 GitHub 继续逛 <span>↗</span></a></div>
       </div>
       <div class="about-gallery">
-        <figure class="about-media"><img src="assets/workspace_001.jpg" alt="views 的工作台" loading="lazy"><figcaption>工作台：资料要有地方回找</figcaption></figure>
-        <figure class="about-media"><img src="assets/panda-team_001.jpg" alt="熊猫观察员" loading="lazy"><figcaption>熊猫观察员：看，不吃竹</figcaption></figure>
-        <figure class="about-media is-sig"><img src="assets/sig-bilingual_001.jpg" alt="bilingual signature" loading="lazy"><figcaption>views / keep looking around</figcaption></figure>
+        <figure class="about-media" data-asset-note="workspace" tabindex="0" role="button"><img src="assets/workspace_001.jpg" alt="views 的工作台" loading="lazy"><figcaption>工作台：资料要有地方回找</figcaption></figure>
+        <figure class="about-media" data-asset-note="panda-team" tabindex="0" role="button"><img src="assets/panda-team_001.jpg" alt="熊猫观察员" loading="lazy"><figcaption>熊猫观察员：看，不吃竹</figcaption></figure>
+        <figure class="about-media" data-asset-note="dashboard" tabindex="0" role="button"><img src="assets/panda-dashboard_001.jpg" alt="熊猫数据看板" loading="lazy"><figcaption>看板：把信号排成能读懂的顺序</figcaption></figure>
+        <figure class="about-media is-sig" data-asset-note="signature-bilingual" tabindex="0" role="button"><img src="assets/sig-bilingual_001.jpg" alt="bilingual signature" loading="lazy"><figcaption>views / keep looking around</figcaption></figure>
+        <figure class="about-media is-sig" data-asset-note="signature-jia" tabindex="0" role="button"><img src="assets/sig-jia_001.jpg" alt="views 手写签名" loading="lazy"><figcaption>留下一个小记号</figcaption></figure>
       </div>
     </section>
   </main>
@@ -182,6 +217,7 @@
     </div>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <button class="music-dock" id="musicDock" type="button" aria-label="暂停夏日钢琴"><span aria-hidden="true">♩</span><b id="musicDockText">夏日钢琴正在播放</b><i>暂停</i></button>
   <script src="script.js"></script>
 </body>
 </html>

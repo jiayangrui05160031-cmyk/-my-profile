@@ -77,6 +77,40 @@
     },
   };
 
+  const makeImageNote = (asset, title, caption, first, second, quote) => ({
+    category: 'FIELD IMAGE',
+    date: 'LOOK AGAIN',
+    title,
+    html: `<figure><img src="${asset}" alt=""><figcaption>${caption}</figcaption></figure><p>${first}</p><p>${second}</p><blockquote>${quote}</blockquote>`,
+  });
+
+  const assetNotes = {
+    cs2: makeImageNote('assets/cs2.png', '门口的两秒钟', '狭窄门洞、前压的人和还没跟上的队友。', '图里的人已经侧身进到门边，枪口朝前，后面的人还留在阴影里。它抓住了对局里最有张力的一小段：信息不完整，但时间不等人。', '我喜欢它把“先手”拍得这么具体。不是热血地冲出去，而是拿一点风险换一小段空间，再看这一小段空间到底值不值得继续押。', '先拿到位置，再决定要不要把整个人交出去。'),
+    'arena-panda': makeImageNote('assets/hobby-arena_001.jpg', '把胜负做成玩具', '紫色格斗场里，小熊猫把两只手举起来。', '霓虹、格子、漂浮的图标都在提醒你：这里有规则、有对抗、有输赢；可中间那只熊猫的姿势又把气氛拽回了“先玩一下”。', '这张图让我觉得，系统可以设计得很认真，表达却不必一直板着脸。好玩的界面不是降低复杂度，而是给复杂度留一个亲近的入口。', '规则越多，越需要一个让人愿意靠近它的表情。'),
+    'golden-walk': makeImageNote('assets/hobby-book_001.jpg', '朝着亮处走的三个人', '金色原野、远山，以及三个没有回头的背影。', '它几乎没有剧情：人很小，草地很大，远处的光比人物更先占据画面。也正因为这样，画面里没有“马上要抵达”的压力。', '我想把这种节奏留在页面里。不是每一次阅读、每一个项目都要立刻产出一句结论；有时先沿着地形走一段，才会知道问题原来在哪里。', '不急着翻到最后一页，也是一种前进。'),
+    'civ-panda': makeImageNote('assets/hobby-civ6_001.jpg', '系统也可以穿一件红袍', '小熊猫穿着红色礼服，身后是宫殿、山水和一条很长的路。', '这张画面把“文明”“制度”这种很容易变得硬邦邦的词，放回了一个有角色、有仪式感的世界里。它不是地图上的色块，而是一个人站在选择之前。', '我做数据或规则类东西时常提醒自己：再抽象的系统，最后也会落到具体的人怎样行动、怎样等待、怎样彼此理解。', '系统不是冷的；它只是需要被讲成有人愿意走进去的故事。'),
+    'sniper-panda': makeImageNote('assets/hobby-cs2_001.jpg', '开镜等于删掉噪音', '蓝绿光里，一只熊猫端着狙击枪，只留下一个方向。', '这个画面最有意思的地方不是“瞄准”，而是背景被压成了模糊的色块。开镜之后，世界没有变简单，只是眼前暂时只剩一个需要确认的变量。', '这很像做研究时真正有用的收束：不是把所有信息都抓住，而是知道这一轮先把哪个问题看清。', '注意力不是加法，它更像一次有意识的删减。'),
+    'controller-panda': makeImageNote('assets/hobby-lol_001.jpg', '按下开始，不必有产出', '手柄、彩色宝石和一张很高兴的熊猫脸。', '这张图没有给“玩”找理由。它只是把手柄放在画面正中，周围是像奖励一样的彩色碎片，表情也没有任何要证明自己的意思。', '我很想保留这种不带任务条的时刻。不是所有活动都要被包装成“恢复效率”；有些快乐只要自己成立，就已经够了。', '玩不是为了回来更能工作，玩本身就可以是目的。'),
+    'sunset-cavalry': makeImageNote('assets/hobby-sanguo_001.jpg', '太阳落下以后，队伍还在走', '橙红色的天、很小的骑兵和被风拉长的旗。', '人被压到很小，旌旗和地平线反而占了更多位置。这个构图会让人立刻感到：每个人都在一个比自己大得多的局面里移动。', '历史和策略游戏迷人的地方都在这里——不是谁更像主角，而是谁在看不全地图的时候，仍然愿意对下一步负责。', '局势比人更大，但下一步永远还是要有人来走。'),
+    'arena-cover': makeImageNote('assets/real-arena.png', '留白里的开局', '水墨、人物、武器和一大片没有被填满的白。', '很多游戏海报会把元素堆满，这张却把人物放在大片留白里。看起来像在等一个动作，也像在给观众留出自己补全故事的空间。', '我喜欢这种克制。做页面也一样，不需要把每一处都解释到尽头；适当的空白会让真正重要的关系更清楚。', '留白不是没做完，它是在把视线交回来。'),
+    'caocao-portrait': makeImageNote('assets/real-caocao.png', '不把人物拍成答案', '深色壁画前，一张没有急着表态的古代人物肖像。', '人物没有摆出胜利姿势，也没有把目光直接交给镜头。脸上的皱纹和暗色背景让它更像一个正在盘算的人，而不是某个已经写好的结论。', '我喜欢这样看历史人物：先别急着替他贴标签，先看看他当时掌握了什么、误判了什么、又在害怕失去什么。', '把人当成问题来读，比把人当成答案更有意思。'),
+    'strategy-map': makeImageNote('assets/real-lol.png', '把欧洲塞进一张操作台', '地图、国家颜色、部队图标和一整排面板同时亮着。', '这类界面一开始看着很吵：地形、国界、数字、资源、部队，全在争同一块注意力。但玩久了会发现，它其实是在训练人把不同尺度的事放到一起看。', '短期的战线、长期的工业、眼前的缺口和以后会爆出来的代价，没法只靠一个“最优解”处理。这个画面就是系统思维最直接的草稿纸。', '指标好看不等于局面健康，地图会在下一回合提醒你。'),
+    'trophy-team': makeImageNote('assets/real-lpl.png', '奖杯不是一个人举起来的', '几个人在镜头前一起抬起奖杯，手势比奖杯本身更显眼。', '真正打动我的不是奖杯，而是几个人把手放到同一个重量上。庆祝当然属于聚光灯，但那个动作提醒人：最后能被看见的结果，通常由很多不在画面中央的配合托着。', '这也是团队项目里我最在意的部分。把成果说清楚很重要，但别把协作压缩成一个人的叙事。', '漂亮的结果，往往是很多人把同一件事抬稳。'),
+    'city-overview': makeImageNote('assets/城市天极限.png', '从上面看，城市会暴露逻辑', '道路、水面、住宅和高楼被拉到同一个俯视平面。', '从高处看城市，最先出现的不是建筑有多漂亮，而是路怎么接、水怎么绕、密度在哪里突然断掉。城市会把那些平时被遮住的规则全摊开。', '我喜欢城市建造类游戏，也因为它让我反复练习一件事：局部看起来合理，不代表系统整体能顺滑地呼吸。', '一座城市不是一堆楼，是很多流动关系暂时达成了平衡。'),
+    doraemon: makeImageNote('assets/多来a梦.png', '一张不需要解释的合照', '哆啦A梦和伙伴们挤在浅蓝、明黄的画面里。', '它的颜色很轻，人物又都很熟悉，所以不需要先理解设定，也不需要把情绪整理好。看到的一瞬间，脑子会自动放下一点防御。', '我把这种画面当成一块没有任务的缓冲区。它不负责启发、也不负责教会什么，只负责让人从太紧的状态里退半步。', '有些熟悉感，不需要被翻译成生产力。'),
+    'hex-aram': makeImageNote('assets/海克斯大乱斗.png', '随机性也有节奏', '冰桥、技能光效、多人混战，以及不断变形的战局。', '画面看上去全是随机：技能飞来飞去，角色挤在一条窄路上，下一秒可能什么都变了。但玩过就会知道，随机不是没有规律，它会逼人快速找新的配合方式。', '这很适合提醒自己别把“不可控”误读成“无法判断”。有时你不能决定抽到什么牌，但可以决定怎样把手里的牌排成一条路。', '变化不是噪音，它也可以提供新的节奏。'),
+    'sima-portrait': makeImageNote('assets/司马懿.png', '同一张脸，另一种等待', '近景肖像把目光、皱纹和停顿都留了下来。', '这张和前面的古代人物肖像形成了一次有意的回看：同样是深色底、同样是克制的表情，换一个名字，读法就会跟着变。', '我喜欢把同一类画面放在一起，因为它能提醒人不要被标签牵着走。很多“果断”与“隐忍”的差别，往往只是在叙事里被重新命名了。', '等待不是空白；它也是在为下一步积累条件。'),
+    'civ-map': makeImageNote('assets/文明6-1.png', '一座城市密到开始有性格', '建筑、道路、资源和图标把整片地图织得很满。', '这张图不再像一座“漂亮的城”，而像一个已经有了习惯的系统：哪里密，哪里空，哪里一直在供给别处，哪里只是表面热闹。', '复杂系统真正有趣的时刻，是元素多到不再能靠单条因果解释，但你仍然能慢慢看出它的性格和偏好。', '当结构足够丰富，地图也会长出自己的脾气。'),
+    'arena-reframe': makeImageNote('assets/英雄联盟.png', '同一场景，换一个观察点', '同一张水墨竞技画面，被当作第二次观看而不是第二次展示。', '这里故意把同一幅画再次留下。不是为了重复，而是想试试把它从“封面”变成“构图”：第一次看人物和气势，第二次看留白、视线和各个角色之间的距离。', '很多图、很多数据也是这样。换一次问题再看，原来被当作背景的东西，可能才是线索。', '第二次看，不是重复；是让第一眼没来得及出现的东西出来。'),
+    'team-reframe': makeImageNote('assets/英雄联盟1.png', '庆祝的镜头会放大团队', '同一支队伍、同一座奖杯，镜头再次把手和眼神收进来。', '奖杯画面被多看一次，反而更容易注意到每个人的姿势不同：有人抬，有人扶，有人看向队友。所谓“共同”，并不是大家做同一个动作。', '做项目也一样。协调不是把每个人变得一样，而是让不同的位置能在关键时刻把力量合到同一个方向。', '真正的配合，是差异没有被抹掉，却能一起发力。'),
+    'champion-night': makeImageNote('assets/英雄联盟3.png', '冠军时刻之后的静默', '黑夜、金色碎屑、奖杯和几张抬起来的脸。', '比起白天的领奖照，这张更像一个故事收束时的镜头。灯光把奖杯照得很亮，周围却仍然留着大片暗处，像是在提醒胜利也只是一段很长过程里的一个停顿。', '我喜欢这种不完全喧闹的庆祝：结果值得高兴，但不必把它写成“从此一切都解决了”。下一局、下一个项目，总会再把人带回具体的问题里。', '把一刻举高，然后继续回到桌前。'),
+    workspace: makeImageNote('assets/workspace_001.jpg', '资料要有地方回找', '工作台上的物件并不整齐，却各自有可以回去的位置。', '我喜欢工作台不是因为它看起来“专业”，而是因为它让信息暂时有了物理感：一张纸、一支笔、一块屏幕，都在提醒人事情还可以被重新排开。', '做复杂项目时，先把桌子收拾成能回溯的样子，往往比立刻想出一句漂亮的话更有用。', '先让东西找得到，再让判断发生。'),
+    'panda-team': makeImageNote('assets/panda-team_001.jpg', '熊猫观察员：看，不吃竹', '一群熊猫围在同一张工作台旁边。', '我把熊猫放在这里，不是为了做一个可爱吉祥物。它更像一种提醒：认真看、慢一点看，也不妨保持一点笨拙和好奇。', '很多页面把“聪明”做得太紧，反而让人不敢点。这个小角色更想把门打开——可以研究，也可以开玩笑，可以认真，也可以绕路。', '保持观察，不必一直绷着。'),
+    dashboard: makeImageNote('assets/panda-dashboard_001.jpg', '把信号排成能读懂的顺序', '熊猫、面板和一组还没有被解释完的信号。', '看板的价值不在于把数字变多，而在于给人一个能来回确认的顺序：先看什么，再看什么，看到异常之后回到哪里找原因。', '这张图放在关于页，是因为它很像这个站点的底色——不是替人把世界判断完，而是把值得继续看的东西排到一张桌上。', '好看板不是答案墙，它是一条回去找问题的路。'),
+    'signature-bilingual': makeImageNote('assets/sig-bilingual_001.jpg', 'keep looking around', '一句双语签名，像给页面留下的轻声注脚。', '签名很小，信息也不多，但它把这里的语气定下来了：不急着宣告什么，只是继续往四周看。', '我喜欢这种不把自己写得太满的结尾。网站可以有项目、有结果，也可以只留一句让人愿意多逛一会儿的话。', '看得更远一点，也看得更松一点。'),
+    'signature-jia': makeImageNote('assets/sig-jia_001.jpg', '留下一个小记号', '很轻的一笔手写签名，几乎像画面里的一次停顿。', '这个小签名的力量恰好来自它没有抢画面。它只是告诉你：这里被谁看过、也被谁留意过。', '我不想把 views 做成一张过度完成的名片。留一点不规整的小记号，反而更像一张会继续修改的工作台。', '别把一切收得太死，给下一次改动留个入口。'),
+  };
+
   function showToast(message) {
     clearTimeout(toastTimer);
     toast.textContent = message;
@@ -477,6 +511,94 @@
     });
   }
 
+  function initAssetShelf() {
+    const shuffleShelf = document.getElementById('shuffleShelf');
+    const tiles = [...document.querySelectorAll('.asset-tile')];
+    const noteTargets = [...document.querySelectorAll('[data-asset-note]')];
+    if (!tiles.length) return;
+    let featureTimer;
+    const openAssetNote = target => {
+      const note = assetNotes[target.dataset.assetNote];
+      if (!note) return;
+      openNote(note);
+      const bounds = target.getBoundingClientRect();
+      spawnSparks(bounds.left + bounds.width * .5, bounds.top + bounds.height * .44, 9, 92);
+      showToast(`打开：${note.title}`);
+    };
+    noteTargets.forEach(target => {
+      target.addEventListener('click', () => openAssetNote(target));
+      target.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openAssetNote(target);
+      });
+    });
+    if (!shuffleShelf) return;
+    shuffleShelf.addEventListener('click', () => {
+      const current = tiles.find(tile => tile.classList.contains('is-featured'));
+      const next = choose(tiles.filter(tile => tile !== current));
+      tiles.forEach(tile => tile.classList.remove('is-featured'));
+      next.classList.add('is-featured');
+      const title = next.querySelector('figcaption b')?.textContent || '一张收藏画面';
+      next.scrollIntoView({ behavior: allowsMotion() ? 'smooth' : 'auto', block: 'nearest', inline: 'nearest' });
+      window.setTimeout(() => {
+        const bounds = next.getBoundingClientRect();
+        spawnSparks(bounds.left + bounds.width * .52, bounds.top + bounds.height * .48, 13, 115);
+        bloomPetals(7);
+      }, allowsMotion() ? 260 : 0);
+      clearTimeout(featureTimer);
+      featureTimer = window.setTimeout(() => next.classList.remove('is-featured'), 2300);
+      showToast(`翻到：${title}`);
+    });
+  }
+
+  function initAmbientTrack() {
+    const audio = document.getElementById('ambientAudio');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicStatus = document.getElementById('musicStatus');
+    const musicDock = document.getElementById('musicDock');
+    const musicDockText = document.getElementById('musicDockText');
+    if (!audio || !musicToggle || !musicStatus || !musicDock) return;
+    audio.volume = .36;
+    const setMusicState = playing => {
+      musicToggle.classList.toggle('is-playing', playing);
+      musicToggle.setAttribute('aria-pressed', String(playing));
+      musicToggle.setAttribute('aria-label', playing ? '暂停夏日钢琴' : '播放夏日钢琴');
+      musicStatus.textContent = playing ? '正在播放 · 点一下暂停' : '点一下，听一段夏日钢琴';
+      musicDock.classList.toggle('is-visible', playing);
+      musicDock.setAttribute('aria-label', playing ? '暂停夏日钢琴' : '播放夏日钢琴');
+      if (musicDockText) musicDockText.textContent = playing ? '夏日钢琴正在播放' : '播放夏日钢琴';
+      launchHero?.classList.toggle('is-listening', playing);
+    };
+    const toggleTrack = async () => {
+      if (!audio.paused) {
+        audio.pause();
+        return;
+      }
+      try {
+        await audio.play();
+      } catch (_) {
+        setMusicState(false);
+        showToast('这段音乐还没能开始，点一下再试试。');
+      }
+    };
+    musicToggle.addEventListener('click', toggleTrack);
+    musicDock.addEventListener('click', toggleTrack);
+    audio.addEventListener('play', () => {
+      setMusicState(true);
+      bloomPetals(6);
+      showToast('夏日钢琴开始了。');
+    });
+    audio.addEventListener('pause', () => {
+      setMusicState(false);
+      showToast('音乐暂停，工作台安静下来。');
+    });
+    audio.addEventListener('error', () => {
+      setMusicState(false);
+      showToast('这段音乐暂时没有加载出来。');
+    });
+  }
+
   function initInteractions() {
     initPetalRain();
     initPointerCompanion();
@@ -484,6 +606,8 @@
     initCardTilt();
     initSecretSequence();
     initSidequestRecords();
+    initAssetShelf();
+    initAmbientTrack();
     window.addEventListener('scroll', () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress.style.width = `${max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0}%`;
