@@ -9,6 +9,11 @@
   const heroText = document.querySelector('.hero-text');
   const portraitMood = document.getElementById('portraitMood');
   const notesGrid = document.getElementById('notesGrid');
+  const pandaCursor = document.getElementById('pandaCursor');
+  const petalLayer = document.getElementById('petalLayer');
+  const sparkLayer = document.getElementById('sparkLayer');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const oracle = {
     index: document.getElementById('oracleIndex'),
     emoji: document.getElementById('oracleEmoji'),
@@ -18,6 +23,7 @@
   };
   let toastTimer;
   let noteIndex = new Map();
+  let arcadeTimer;
 
   const heroLines = [
     '这里是 <strong>views</strong>。放一点研究、一点代码、一点正在绕弯路的想法；不负责把世界解释完，只负责把看见的东西做得更清楚、更好玩。',
@@ -59,6 +65,7 @@
     }
     const label = nextTheme === 'day' ? '日间纸页' : nextTheme === 'violet' ? '紫夜模式' : '深色工作台';
     try { localStorage.setItem('views-theme', nextTheme || 'dark'); } catch (_) { /* local preference is optional */ }
+    if (shouldAnnounce) bloomPetals(9);
     if (shouldAnnounce) showToast(`已切到：${label}`);
   }
 
@@ -76,6 +83,142 @@
     } catch (_) { /* nothing to restore */ }
   }
 
+  function allowsMotion() {
+    return !reducedMotion.matches;
+  }
+
+  function usesFinePointer() {
+    return finePointer.matches;
+  }
+
+  function choose(values) {
+    return values[Math.floor(Math.random() * values.length)];
+  }
+
+  function spawnSparks(x, y, count = 1, spread = 16) {
+    if (!allowsMotion() || !sparkLayer) return;
+    const symbols = ['✦', '·', '✷', '✧'];
+    const colors = ['var(--accent)', 'var(--accent-2)', 'var(--accent-warm)'];
+    for (let index = 0; index < count; index += 1) {
+      const spark = document.createElement('span');
+      spark.className = 'spark';
+      spark.textContent = choose(symbols);
+      spark.style.left = `${x}px`;
+      spark.style.top = `${y}px`;
+      spark.style.setProperty('--spark-x', `${(Math.random() - .5) * spread}px`);
+      spark.style.setProperty('--spark-y', `${-8 - Math.random() * spread}px`);
+      spark.style.setProperty('--spark-rotate', `${(Math.random() - .5) * 220}deg`);
+      spark.style.setProperty('--spark-size', `${10 + Math.random() * 10}px`);
+      spark.style.setProperty('--spark-color', choose(colors));
+      spark.style.setProperty('--spark-duration', `${.44 + Math.random() * .38}s`);
+      spark.addEventListener('animationend', () => spark.remove(), { once: true });
+      sparkLayer.append(spark);
+    }
+  }
+
+  function releasePetal(isBurst = false) {
+    if (!allowsMotion() || !petalLayer) return;
+    const petal = document.createElement('span');
+    const colors = ['var(--accent-warm)', 'var(--accent)', 'var(--accent-2)'];
+    petal.className = 'petal';
+    petal.textContent = choose(['✿', '❀', '✦', '✾']);
+    petal.style.left = `${isBurst ? 32 + Math.random() * 36 : Math.random() * 100}vw`;
+    petal.style.setProperty('--petal-size', `${13 + Math.random() * 14}px`);
+    petal.style.setProperty('--petal-color', choose(colors));
+    petal.style.setProperty('--petal-drift', `${(Math.random() - .5) * (isBurst ? 520 : 240)}px`);
+    petal.style.setProperty('--petal-duration', `${isBurst ? 2.8 + Math.random() * 1.8 : 8 + Math.random() * 6}s`);
+    petal.style.setProperty('--petal-delay', `${isBurst ? Math.random() * .4 : Math.random() * 1.5}s`);
+    petal.addEventListener('animationend', () => {
+      petal.remove();
+      if (!isBurst) window.setTimeout(() => releasePetal(), 650 + Math.random() * 1500);
+    }, { once: true });
+    petalLayer.append(petal);
+  }
+
+  function bloomPetals(count = 12) {
+    for (let index = 0; index < count; index += 1) releasePetal(true);
+  }
+
+  function initPetalRain() {
+    if (!allowsMotion()) return;
+    const count = window.innerWidth < 720 ? 7 : 15;
+    for (let index = 0; index < count; index += 1) {
+      window.setTimeout(() => releasePetal(), index * 230 + Math.random() * 700);
+    }
+  }
+
+  function initPointerCompanion() {
+    if (!allowsMotion() || !usesFinePointer() || !pandaCursor) return;
+    let previousX = window.innerWidth / 2;
+    let previousY = window.innerHeight / 2;
+    let lastTrailAt = 0;
+    document.addEventListener('pointermove', event => {
+      if (event.pointerType === 'touch') return;
+      const deltaX = Math.max(-4, Math.min(4, (event.clientX - previousX) / 14));
+      const deltaY = Math.max(-4, Math.min(4, (event.clientY - previousY) / 14));
+      previousX = event.clientX;
+      previousY = event.clientY;
+      pandaCursor.style.setProperty('--cursor-x', `${event.clientX}px`);
+      pandaCursor.style.setProperty('--cursor-y', `${event.clientY}px`);
+      pandaCursor.style.setProperty('--look-x', `${deltaX}px`);
+      pandaCursor.style.setProperty('--look-y', `${deltaY}px`);
+      pandaCursor.classList.add('is-visible');
+      const now = performance.now();
+      if (now - lastTrailAt > 90) {
+        lastTrailAt = now;
+        spawnSparks(event.clientX, event.clientY, Math.random() > .56 ? 2 : 1, 18);
+      }
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', () => pandaCursor.classList.remove('is-visible'));
+    window.addEventListener('blur', () => pandaCursor.classList.remove('is-visible'));
+  }
+
+  function initCardTilt(scope = document) {
+    if (!allowsMotion() || !usesFinePointer()) return;
+    const selector = '.project-card, .mosaic-card, .note-card';
+    const cards = scope.matches?.(selector) ? [scope, ...scope.querySelectorAll(selector)] : [...scope.querySelectorAll(selector)];
+    cards.forEach(card => {
+      if (card.dataset.tiltReady === 'true') return;
+      card.dataset.tiltReady = 'true';
+      card.addEventListener('pointermove', event => {
+        if (event.pointerType === 'touch') return;
+        const bounds = card.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+        const rotateX = (0.5 - y) * 5.5;
+        const rotateY = (x - 0.5) * 6.5;
+        card.classList.add('is-tilting');
+        card.style.setProperty('--tilt-x', `${x * 100}%`);
+        card.style.setProperty('--tilt-y', `${y * 100}%`);
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-7px)`;
+      });
+      card.addEventListener('pointerleave', () => {
+        card.classList.remove('is-tilting');
+        card.style.removeProperty('transform');
+      });
+    });
+  }
+
+  function initSecretSequence() {
+    const code = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let position = 0;
+    window.addEventListener('keydown', event => {
+      const target = event.target;
+      const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable;
+      if (typing || event.ctrlKey || event.metaKey || event.altKey || commandDialog.open || noteDialog.open) return;
+      const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+      position = key === code[position] ? position + 1 : key === code[0] ? 1 : 0;
+      if (position !== code.length) return;
+      position = 0;
+      clearTimeout(arcadeTimer);
+      root.classList.add('arcade-mode');
+      bloomPetals(24);
+      spawnSparks(window.innerWidth / 2, window.innerHeight * .38, 22, 260);
+      showToast('side quest 已开启：工作台获得一点街机能量。');
+      arcadeTimer = window.setTimeout(() => root.classList.remove('arcade-mode'), 12000);
+    });
+  }
+
   function rollOracle() {
     const currentTitle = oracle.title.textContent;
     const options = oracleCards.filter(card => card.title !== currentTitle);
@@ -90,6 +233,8 @@
     oracle.emoji.textContent = next.emoji;
     oracle.title.textContent = next.title;
     oracle.text.textContent = next.text;
+    const bounds = oracle.card.getBoundingClientRect();
+    spawnSparks(bounds.right - 52, bounds.top + 58, 8, 88);
   }
 
   function openCommand() {
@@ -166,6 +311,7 @@
     notesGrid.querySelectorAll('[data-note-id]').forEach(button => {
       button.addEventListener('click', () => openNote(noteIndex.get(button.dataset.noteId)));
     });
+    initCardTilt(notesGrid);
   }
 
   function createNoteDialog() {
@@ -222,6 +368,10 @@
   }
 
   function initInteractions() {
+    initPetalRain();
+    initPointerCompanion();
+    initCardTilt();
+    initSecretSequence();
     window.addEventListener('scroll', () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress.style.width = `${max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0}%`;
@@ -235,9 +385,14 @@
     });
     document.getElementById('portraitTap').addEventListener('click', () => {
       const current = portraitMood.textContent;
-      const next = moods.find(mood => mood !== current) || moods[0];
+      const options = moods.filter(mood => mood !== current);
+      const next = choose(options.length ? options : moods);
       portraitMood.textContent = next;
-      document.getElementById('portraitFrame').animate([{ transform: 'rotate(2.5deg) scale(1)' }, { transform: 'rotate(-2.5deg) scale(1.035)' }, { transform: 'rotate(2.5deg) scale(1)' }], { duration: 420, easing: 'ease-out' });
+      const portraitFrame = document.getElementById('portraitFrame');
+      portraitFrame.animate([{ transform: 'rotate(2.5deg) scale(1)' }, { transform: 'rotate(-2.5deg) scale(1.035)' }, { transform: 'rotate(2.5deg) scale(1)' }], { duration: 420, easing: 'ease-out' });
+      const bounds = portraitFrame.getBoundingClientRect();
+      bloomPetals(13);
+      spawnSparks(bounds.left + bounds.width * .64, bounds.top + bounds.height * .46, 16, 120);
       showToast(`熊猫观察员：${next}`);
     });
     document.getElementById('rollOracle').addEventListener('click', rollOracle);
