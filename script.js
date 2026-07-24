@@ -45,6 +45,12 @@
     'tea > urgency',
   ];
 
+  const themeNames = {
+    dark: '午夜图谱',
+    day: '青灯观测',
+    violet: '紫夜信号',
+  };
+
   const oracleCards = [
     { emoji: '✦', title: '今天适合先别卷。', text: '把浏览器的一个标签页关掉，给真正要做的事让一点位置。' },
     { emoji: '◌', title: '去找一个反例。', text: '如果一个判断看起来太顺，不妨先看看它在哪些地方不成立。' },
@@ -124,10 +130,16 @@
     } else {
       delete root.dataset.theme;
     }
-    const label = nextTheme === 'day' ? '日间纸页' : nextTheme === 'violet' ? '紫夜模式' : '深色工作台';
-    try { localStorage.setItem('views-theme', nextTheme || 'dark'); } catch (_) { /* local preference is optional */ }
+    const selectedTheme = nextTheme || 'dark';
+    document.querySelectorAll('[data-theme-choice]').forEach(button => {
+      const isActive = button.dataset.themeChoice === selectedTheme;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+    if (themeButton) themeButton.title = `当前：${themeNames[selectedTheme]} · 点击切换`;
+    try { localStorage.setItem('views-theme', selectedTheme); } catch (_) { /* local preference is optional */ }
     if (shouldAnnounce) bloomPetals(9);
-    if (shouldAnnounce) showToast(`已切到：${label}`);
+    if (shouldAnnounce) showToast(`已切到：${themeNames[selectedTheme]}`);
   }
 
   function cycleTheme() {
@@ -139,7 +151,7 @@
   function restorePreferences() {
     try {
       const savedTheme = localStorage.getItem('views-theme');
-      if (savedTheme === 'day' || savedTheme === 'violet') setTheme(savedTheme, false);
+      setTheme(savedTheme === 'day' || savedTheme === 'violet' ? savedTheme : '', false);
       if (localStorage.getItem('views-scanlines') === 'off') root.classList.add('hide-scanlines');
     } catch (_) { /* nothing to restore */ }
   }
@@ -613,7 +625,13 @@
       scrollProgress.style.width = `${max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0}%`;
     }, { passive: true });
 
-    themeButton.addEventListener('click', cycleTheme);
+    themeButton?.addEventListener('click', cycleTheme);
+    document.querySelectorAll('[data-theme-choice]').forEach(button => {
+      button.addEventListener('click', () => {
+        const choice = button.dataset.themeChoice;
+        setTheme(choice === 'dark' ? '' : choice);
+      });
+    });
     document.getElementById('shuffleIntro').addEventListener('click', () => {
       const next = heroLines.filter(line => line !== heroText.innerHTML)[Math.floor(Math.random() * (heroLines.length - 1))] || heroLines[0];
       heroText.animate([{ opacity: .25, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 280, easing: 'ease-out' });

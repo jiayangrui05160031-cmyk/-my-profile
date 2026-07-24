@@ -20,6 +20,14 @@
   <div class="panda-cursor" id="pandaCursor" aria-hidden="true"><span></span><span></span></div>
   <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
   <audio id="ambientAudio" preload="metadata" loop><source src="assets/summer-piano.mp3" type="audio/mpeg"></audio>
+  <div class="theme-dock" aria-label="页面色调切换">
+    <span class="theme-dock-label">FIELD LIGHT</span>
+    <div class="theme-swatches" role="group" aria-label="选择页面色调">
+      <button class="theme-swatch is-active" type="button" data-theme-choice="dark" aria-pressed="true"><i aria-hidden="true"></i><span>夜航</span></button>
+      <button class="theme-swatch" type="button" data-theme-choice="day" aria-pressed="false"><i aria-hidden="true"></i><span>青灯</span></button>
+      <button class="theme-swatch" type="button" data-theme-choice="violet" aria-pressed="false"><i aria-hidden="true"></i><span>紫夜</span></button>
+    </div>
+  </div>
 
   <header class="topbar shell">
     <a class="brand" href="#top" aria-label="回到页面顶部">
@@ -34,7 +42,7 @@
       <a href="#about">关于</a>
     </nav>
     <div class="header-actions">
-      <button class="icon-button" id="themeButton" type="button" aria-label="切换页面配色" title="换个光线看看">◐</button>
+      <button class="icon-button" id="themeButton" type="button" aria-label="切换页面配色" title="切换星图光线">◐</button>
       <button class="command-trigger" id="commandButton" type="button"><kbd>/</kbd><span>打开小菜单</span></button>
     </div>
   </header>
