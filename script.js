@@ -526,6 +526,69 @@
     });
   }
 
+  function initPhotoReel() {
+    const reel = document.querySelector('.photo-reel');
+    if (!reel || reel.dataset.loopReady === 'true') return;
+
+    const originals = [...reel.children];
+    originals.forEach(item => {
+      const clone = item.cloneNode(true);
+      clone.classList.add('is-reel-clone');
+      clone.setAttribute('aria-hidden', 'true');
+      if (clone.hasAttribute('tabindex')) clone.setAttribute('tabindex', '-1');
+      clone.querySelectorAll('[tabindex]').forEach(node => node.setAttribute('tabindex', '-1'));
+      clone.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+      reel.appendChild(clone);
+    });
+    reel.dataset.loopReady = 'true';
+
+    let loopPoint = 0;
+    let paused = false;
+    let resumeTimer = 0;
+    let lastFrame = performance.now();
+
+    const measure = () => {
+      loopPoint = reel.scrollWidth / 2;
+      if (loopPoint && reel.scrollLeft >= loopPoint) reel.scrollLeft -= loopPoint;
+    };
+    const setPaused = value => {
+      paused = value;
+      reel.classList.toggle('is-paused', value);
+    };
+    const pauseBriefly = (delay = 1800) => {
+      clearTimeout(resumeTimer);
+      setPaused(true);
+      resumeTimer = window.setTimeout(() => setPaused(false), delay);
+    };
+    const glide = now => {
+      const elapsed = Math.min(34, now - lastFrame);
+      lastFrame = now;
+      if (!paused && !document.hidden && loopPoint > 0) {
+        reel.scrollLeft += elapsed * .035;
+        if (reel.scrollLeft >= loopPoint) reel.scrollLeft -= loopPoint;
+      }
+      requestAnimationFrame(glide);
+    };
+
+    reel.addEventListener('pointerenter', () => setPaused(true));
+    reel.addEventListener('pointerleave', () => pauseBriefly(900));
+    reel.addEventListener('pointerdown', () => setPaused(true));
+    reel.addEventListener('pointerup', () => pauseBriefly());
+    reel.addEventListener('touchend', () => pauseBriefly(), { passive: true });
+    reel.addEventListener('focusin', () => setPaused(true));
+    reel.addEventListener('focusout', () => pauseBriefly(900));
+    window.addEventListener('resize', measure, { passive: true });
+    document.addEventListener('visibilitychange', () => { lastFrame = performance.now(); });
+    reel.querySelectorAll('img').forEach(image => {
+      if (!image.complete) image.addEventListener('load', measure, { once: true });
+    });
+
+    requestAnimationFrame(() => {
+      measure();
+      requestAnimationFrame(glide);
+    });
+  }
+
   function initImageNotes() {
     document.querySelectorAll('[data-asset-note]').forEach(target => {
       target.addEventListener('click', () => {
@@ -672,6 +735,7 @@
     initCardTilt();
     initSecretSequence();
     initSidequestRecords();
+    initPhotoReel();
     initImageNotes();
     initSceneContinuity();
     initPhotoEssays();
