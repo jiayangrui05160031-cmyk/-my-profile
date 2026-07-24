@@ -52,6 +52,29 @@
     { emoji: '⚔', title: '把大任务砍成一小格。', text: '先赢下下一步，不用一次把整张地图打开。' },
   ];
 
+  const sidequestRecords = {
+    moba: {
+      category: 'SIDE QUEST', date: 'TEAM FIGHT', title: '先看局势，再决定往哪走。',
+      html: `<p>我喜欢团队游戏里那种信息总是不完整的时刻：你知道一部分位置、一部分资源、一部分冷却，但没人能替你把下一步算完。真正有意思的不是反应有多快，而是能不能在几秒里判断“这波该打、该撤，还是先把视野补上”。</p><p>这和做项目时的感受有点像。不是把所有变量都求清楚才开始，而是知道此刻最该确认哪一个变量，哪一条信息足以改变选择。</p><blockquote>很多好决定，不是更勇敢，而是更早看见了局势已经变了。</blockquote>`,
+    },
+    civ: {
+      category: 'SIDE QUEST', date: '4X / ONE MORE TURN', title: '再玩一回合，然后再想一个系统问题。',
+      html: `<p>城市、科技、外交、地形、时间——4X 游戏把很多互相牵扯的系统摆在同一张桌子上。最迷人的地方是：每一步都不是孤立的，它会在十几个回合之后以一种意料之外的方式回来找你。</p><p>我喜欢它提醒人的一件事：指标好看不等于系统健康。把某一项拉满很容易，真正难的是让资源、节奏和选择权能一起往前走。</p><blockquote>“再一回合”有时不是贪心，只是想看看一项选择到底会长成什么样。</blockquote>`,
+    },
+    fps: {
+      category: 'SIDE QUEST', date: 'FPS', title: '手感最好的那局，通常在准备下线之前。',
+      html: `<p>FPS 的反馈很诚实：你按下去、听见声音、看见偏差，然后立刻知道自己哪里慢了半拍。它没有太多时间让人用解释掩盖问题，也因此很适合当作一种短暂的注意力训练。</p><p>我并不追求每一局都赢。更喜欢的是那种突然进入节奏的几分钟——判断不再卡顿，动作也不再抢着证明什么，只是在做下一件合适的事。</p><blockquote>手感不是玄学，它是无数次微小反馈终于对齐的那一下。</blockquote>`,
+    },
+    unserious: {
+      category: 'SIDE QUEST', date: 'UNSERIOUS MODE', title: '认真工作，也认真走神。',
+      html: `<p>不务正业不是从工作里逃走，而是给脑子留一个不必立刻产出的角落。动画、小说、城市建造、三国，甚至一段看似无用的随机视频，都会把注意力从惯性里挪开一点。</p><p>很多想法不是在“我要解决问题”的时候出现，而是在没有任务条、没有倒计时的地方慢慢接上。这个栏目想给这种时刻留一个正经的位置。</p><blockquote>走神不是空白，它是思路换一条小路回来。</blockquote>`,
+    },
+    reset: {
+      category: 'SIDE QUEST', date: 'RESET', title: '把脑子调回有弹性的状态。',
+      html: `<p>有些内容的价值，不是提供新知识，而是把人从过度用力里拉出来。熟悉的画面、荒唐的笑点、一个不用解释的角色，都能让思绪暂时不必维持“专业”的表情。</p><p>我把这种时刻当成系统里的弹性件：它不直接推动进度，却避免整个装置因为过度绷紧而失去回弹。</p><blockquote>真正有效的休息，不一定安静；它只是让你重新有能力感受一点东西。</blockquote>`,
+    },
+  };
+
   function showToast(message) {
     clearTimeout(toastTimer);
     toast.textContent = message;
@@ -302,6 +325,12 @@
         title: '价格修复之后，真正该盯住的是什么？',
         excerpt: '不只看一个转正读数，而是把库存、订单、产能和传导放到同一张桌子上。',
         cover: 'assets/cover-ppi.webp',
+        html: `<p>看到一个价格指标抬头，最容易犯的错是立刻把它当成“需求回来了”的证据。更有用的做法，是把它放回一条更长的链里：是谁先涨、涨的是出厂端还是终端、库存有没有同步变化、企业是在补库还是只是在修正报价。</p>
+          <p>所以这张便签不想回答“有没有转正”，而是先把需要一起看的几件事摊开。价格只是表面，真正决定修复能不能持续的，是订单能不能接上、产能有没有被真正使用、上游变化能不能走到下游。</p>
+          <h3>先把四个观察点排在一起</h3>
+          <ul><li><strong>库存：</strong>是在主动去化，还是因为发货变慢而被动堆积？</li><li><strong>订单：</strong>新增订单和在手订单是否同时改善，还是只出现了一个短周期反弹？</li><li><strong>产能：</strong>价格上行来自真实利用率提高，还是局部供给收缩？</li><li><strong>传导：</strong>上游的变化是否已经抵达中下游，而不是停在某一个环节。</li></ul>
+          <blockquote>一个“好看的数字”值得记录；一组能彼此解释的数字，才更接近一段趋势。</blockquote>
+          <p>后续如果再看同类数据，我会优先补上行业拆分和时间错位，而不是急着写一句结论。它们会让判断慢一点，但也更不容易被单月波动带着走。</p>`,
       },
       {
         id: 'supply',
@@ -310,6 +339,12 @@
         title: '供应链不是搬走，而是重新分工。',
         excerpt: '把终端出口和价值链位置拆开看，故事会比“外迁”复杂得多。',
         cover: 'assets/cover-supply-chain.webp',
+        html: `<p>“搬走”是一个很省力的词，但它通常把几件不同的事揉成了一件：终端组装的位置变了、零部件的来源变了、订单的归属变了、还是最关键的设计和控制环节真的换了主人？这些问题的答案不一定相同。</p>
+          <p>更接近现实的画面往往是重新分工：有的环节离市场更近，有的环节为了规避波动而多放一层，有的供应商在新的节点建立了备份，但原有网络仍然提供关键部件、标准和经验。</p>
+          <h3>看一条链时，先分开这三层</h3>
+          <ul><li><strong>货从哪里出：</strong>它告诉我们终端出口的地理变化。</li><li><strong>价值在哪里形成：</strong>它比出货地更接近谁在做关键工作。</li><li><strong>谁还握着接口：</strong>标准、认证、软件、核心零件与客户关系，常常决定了真正的议价位置。</li></ul>
+          <blockquote>供应链变动不是地图上箭头的移动，而是一组关系被重新写了一遍。</blockquote>
+          <p>因此，下一次再讨论“迁移”，我更想先问它替换了什么、保留了什么，以及这条新链在压力测试下能否继续运转。</p>`,
       },
       {
         id: 'service',
@@ -318,8 +353,22 @@
         title: '服务贸易里，那些很难被价格写清楚的部分。',
         excerpt: '体验、制度和路径依赖，常常才是决定一段旅程是否顺滑的东西。',
         cover: 'assets/cover-service-trade.webp',
+        html: `<p>服务很难只用一张价目表说明白。一次旅程是否顺滑，往往取决于很多看上去很小的东西：信息能不能被找到、规则是否讲得明白、支付有没有摩擦、出问题时有没有人接住。这些感受很难直接变成一个价格，却会决定人们是否愿意再来一次。</p>
+          <p>这也是我对服务贸易感兴趣的原因。它把制度、语言、基础设施和人的判断都放进同一段体验里；货物过关也许只是一刻，服务的信任却要在很多触点里慢慢累积。</p>
+          <h3>把“体验”拆成可观察的部分</h3>
+          <ul><li><strong>可见性：</strong>用户能否在需要时找到正确的信息。</li><li><strong>可预期性：</strong>规则、价格和时间是否能被提前理解。</li><li><strong>可恢复性：</strong>出现偏差时，系统有没有给人回到正轨的路径。</li></ul>
+          <blockquote>价格是一张入口券；决定是否留下来的，通常是之后每一步的感受。</blockquote>
+          <p>把这些拆开之后，服务就不再只是“软性因素”。它们可以被记录、被比较，也可以成为下一轮设计时真正要修的地方。</p>`,
       },
     ];
+  }
+
+  function enrichNotes(notes) {
+    const fallbackById = new Map(buildFallbackNotes().map(note => [String(note.id), note]));
+    return notes.map(note => {
+      const fallback = fallbackById.get(String(note.id));
+      return fallback && !note.html ? { ...fallback, ...note, html: fallback.html } : note;
+    });
   }
 
   function renderNotes(notes) {
@@ -337,7 +386,7 @@
           <p class="note-meta">${meta}</p>
           <h3>${title}</h3>
           <p>${excerpt}</p>
-          <button class="note-open" data-note-id="${id}" type="button">展开这张便签</button>
+          <button class="note-open" data-note-id="${id}" type="button">展开全文</button>
         </div>
       </article>`;
     }).join('');
@@ -382,7 +431,7 @@
       if (!response.ok) throw new Error('content unavailable');
       const content = await response.json();
       const notes = Array.isArray(content.writings) && content.writings.length ? content.writings : buildFallbackNotes();
-      renderNotes(notes);
+      renderNotes(enrichNotes(notes));
     } catch (_) {
       renderNotes(buildFallbackNotes());
     }
@@ -400,12 +449,23 @@
     });
   }
 
+  function initSidequestRecords() {
+    document.querySelectorAll('[data-sidequest-open]').forEach(button => {
+      button.addEventListener('click', () => {
+        const card = button.closest('[data-sidequest]');
+        const record = sidequestRecords[card?.dataset.sidequest];
+        if (record) openNote(record);
+      });
+    });
+  }
+
   function initInteractions() {
     initPetalRain();
     initPointerCompanion();
     initLaunchHero();
     initCardTilt();
     initSecretSequence();
+    initSidequestRecords();
     window.addEventListener('scroll', () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress.style.width = `${max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0}%`;
