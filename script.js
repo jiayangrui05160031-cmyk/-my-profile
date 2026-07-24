@@ -580,6 +580,44 @@
     }
   }
 
+  function initSceneContinuity() {
+    const scenes = [...document.querySelectorAll('.intro-grid, .projects, .lab-strip, .notes, .sidequests, .playbox, .about')];
+    if (!scenes.length) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scenes.forEach(scene => scene.classList.add('scene-block'));
+
+    const reveal = scene => scene.classList.add('is-scene-active');
+    if (!reducedMotion && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: .1, rootMargin: '0px 0px -7% 0px' });
+      scenes.forEach(scene => {
+        if (scene.getBoundingClientRect().top < window.innerHeight * .92) reveal(scene);
+        else observer.observe(scene);
+      });
+    } else {
+      scenes.forEach(reveal);
+    }
+
+    if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
+      scenes.forEach(scene => {
+        scene.addEventListener('pointermove', event => {
+          const bounds = scene.getBoundingClientRect();
+          scene.style.setProperty('--scene-x', `${(((event.clientX - bounds.left) / bounds.width) * 100).toFixed(1)}%`);
+          scene.style.setProperty('--scene-y', `${(((event.clientY - bounds.top) / bounds.height) * 100).toFixed(1)}%`);
+        });
+        scene.addEventListener('pointerleave', () => {
+          scene.style.setProperty('--scene-x', '50%');
+          scene.style.setProperty('--scene-y', '35%');
+        });
+      });
+    }
+  }
+
   function initAmbientTrack() {
     const audio = document.getElementById('ambientAudio');
     const musicToggle = document.getElementById('musicToggle');
@@ -635,6 +673,7 @@
     initSecretSequence();
     initSidequestRecords();
     initImageNotes();
+    initSceneContinuity();
     initPhotoEssays();
     initAmbientTrack();
     window.addEventListener('scroll', () => {
