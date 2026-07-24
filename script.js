@@ -544,59 +544,40 @@
     });
   }
 
-  function initFieldLog() {
-    const stage = document.getElementById('fieldLogStage');
-    const image = document.getElementById('fieldLogImage');
-    const meta = document.getElementById('fieldLogMeta');
-    const title = document.getElementById('fieldLogTitle');
-    const caption = document.getElementById('fieldLogCaption');
-    const openButton = document.getElementById('fieldLogOpen');
-    const shuffleButton = document.getElementById('fieldLogShuffle');
-    const signals = [...document.querySelectorAll('[data-field-log]')];
-    const recordKeys = Object.keys(assetNotes).filter(key => assetNotes[key]?.asset);
-    if (!stage || !image || !meta || !title || !caption || !signals.length || !recordKeys.length) return;
+  function initPhotoEssays() {
+    const essays = [...document.querySelectorAll('.photo-essay')];
+    if (!essays.length) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reveal = essay => essay.classList.add('is-inview');
 
-    let currentKey = stage.dataset.fieldLogActive || signals[0].dataset.fieldLog;
-    const setSignal = (key, shouldAnnounce = false) => {
-      const note = assetNotes[key];
-      if (!note) return;
-      currentKey = key;
-      stage.dataset.fieldLogActive = key;
-      stage.style.setProperty('--field-log-art', `url("${note.asset}")`);
-      stage.classList.remove('is-switching');
-      void stage.offsetWidth;
-      stage.classList.add('is-switching');
-      image.src = note.asset;
-      image.alt = note.caption || note.title;
-      title.textContent = note.title;
-      caption.textContent = note.caption || note.summary || '';
-      const selectedSignal = signals.find(signal => signal.dataset.fieldLog === key);
-      meta.textContent = selectedSignal?.dataset.fieldMeta || 'UNSORTED SIGNAL';
-      stage.setAttribute('aria-label', `展开当前观测记录：${note.title}`);
-      signals.forEach(signal => {
-        const active = signal === selectedSignal;
-        signal.classList.toggle('is-active', active);
-        signal.setAttribute('aria-pressed', String(active));
+    if (!reducedMotion && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+      essays.forEach(essay => observer.observe(essay));
+    } else {
+      essays.forEach(reveal);
+    }
+
+    if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
+      essays.forEach(essay => {
+        essay.addEventListener('pointermove', event => {
+          const bounds = essay.getBoundingClientRect();
+          const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+          const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+          essay.style.setProperty('--essay-x', `${x.toFixed(1)}%`);
+          essay.style.setProperty('--essay-y', `${y.toFixed(1)}%`);
+        });
+        essay.addEventListener('pointerleave', () => {
+          essay.style.setProperty('--essay-x', '50%');
+          essay.style.setProperty('--essay-y', '50%');
+        });
       });
-      if (shouldAnnounce) showToast(`调到：${note.title}`);
-    };
-    const openCurrent = () => {
-      const note = assetNotes[currentKey];
-      if (!note) return;
-      openNote(note);
-      const bounds = stage.getBoundingClientRect();
-      spawnSparks(bounds.left + bounds.width * .55, bounds.top + bounds.height * .45, 12, 106);
-    };
-
-    signals.forEach(signal => signal.addEventListener('click', () => setSignal(signal.dataset.fieldLog, true)));
-    stage.addEventListener('click', openCurrent);
-    openButton?.addEventListener('click', openCurrent);
-    shuffleButton?.addEventListener('click', () => {
-      const next = choose(recordKeys.filter(key => key !== currentKey));
-      setSignal(next, true);
-      bloomPetals(7);
-    });
-    setSignal(currentKey);
+    }
   }
 
   function initAmbientTrack() {
@@ -654,7 +635,7 @@
     initSecretSequence();
     initSidequestRecords();
     initImageNotes();
-    initFieldLog();
+    initPhotoEssays();
     initAmbientTrack();
     window.addEventListener('scroll', () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
