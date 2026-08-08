@@ -1,5 +1,7 @@
 # views / field station
 
+<p align="right"><strong>中文</strong> | <a href="README_EN.md">English</a></p>
+
 一个不急着把自己说完的个人网站。
 
 这里放研究、数据工具、代码实验和一些不务正业的 side quests。页面上的公开名字统一为 **views**；不放简历式自我介绍，也不把兴趣和“正经项目”硬分成两页。
